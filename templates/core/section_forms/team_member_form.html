@@ -1,0 +1,37 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module">
+        <div class="change-form">
+            <form action="" method="post" id="team_member_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="module aligned">
+                    <h2>{% if form.instance.pk %}Edit Team Member{% else %}Add Team Member{% endif %}</h2>
+                    {% if form.errors %}
+                        <p class="errornote">Please correct the errors below.</p>
+                        {{ form.errors }}
+                    {% endif %}
+                    {% for field in form %}
+                        <div class="form-row{% if field.errors %} errors{% endif %}">
+                            <div{% if field.field.type == 'checkbox' %} class="checkbox-row"{% endif %}>
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" value="Save" class="default" name="_save">
+                    {% if form.instance.pk %}
+                        <a href="{% url 'core:delete_team_member' form.instance.pk %}" class="deletelink">Delete</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

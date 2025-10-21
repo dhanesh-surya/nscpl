@@ -1,0 +1,13 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+<div id="content-main">
+    <div class="module">
+        <p>Are you sure you want to delete the team member "{{ object.name }}"?</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Yes, I'm sure" />
+            <a href="{% url 'core:team_section_edit' %}">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sports - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">Our Sports</h1>
+                    <p class="lead">
+                        Discover the wide range of sports we support and manage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sports Section -->
+<section class="section-padding">
+    <div class="container">
+        {% if sports %}
+        <div class="row">
+            {% for sport in sports %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card h-100">
+                    {% if sport.image %}
+                    <img src="{{ sport.image.url }}" class="card-img-top" alt="{{ sport.name }}">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        {% if sport.icon %}
+                        <i class="{{ sport.icon }} fa-3x text-accent mb-3"></i>
+                        {% endif %}
+                        <h5 class="card-title">{{ sport.name }}</h5>
+                        <p class="card-text">{{ sport.description|truncatewords:20 }}</p>
+                        <a href="{% url 'sports:sport_detail' sport.slug %}" class="btn btn-primary">
+                            Learn More <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="no-sports" data-aos="fade-up">
+                    <i class="fas fa-futbol fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">No Sports Available</h3>
+                    <p class="text-muted">Check back soon for our sports categories!</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

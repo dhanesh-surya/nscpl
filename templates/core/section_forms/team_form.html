@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Team Section - NSCPL{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-secondary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-users me-2"></i>Edit Team Section
+                    </h3>
+                    <p class="mb-0 mt-2">Customize the team section and manage team members</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.title.id_for_label }}" class="form-label">
+                                        <i class="fas fa-heading me-1"></i>Team Section Title
+                                    </label>
+                                    {{ form.title }}
+                                    <div class="form-text">The main title for your team section</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.subtitle.id_for_label }}" class="form-label">
+                                        <i class="fas fa-tag me-1"></i>Subtitle
+                                    </label>
+                                    {{ form.subtitle }}
+                                    <div class="form-text">Optional subtitle for the team section</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label">
+                                <i class="fas fa-align-left me-1"></i>Team Description
+                            </label>
+                            {{ form.content }}
+                            <div class="form-text">Brief description of your team</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">
+                                <i class="fas fa-image me-1"></i>Team Section Image
+                            </label>
+                            {{ form.image }}
+                            <div class="form-text">Optional image for the team section header</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.background_color.id_for_label }}" class="form-label">
+                                        <i class="fas fa-palette me-1"></i>Background Color
+                                    </label>
+                                    {{ form.background_color }}
+                                    <div class="form-text">Choose the background color for the team section</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.text_color.id_for_label }}" class="form-label">
+                                        <i class="fas fa-font me-1"></i>Text Color
+                                    </label>
+                                    {{ form.text_color }}
+                                    <div class="form-text">Choose the text color for the team section</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.order.id_for_label }}" class="form-label">
+                                        <i class="fas fa-sort me-1"></i>Display Order
+                                    </label>
+                                    {{ form.order }}
+                                    <div class="form-text">Lower numbers appear first</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        {{ form.is_active }}
+                                        <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                            <i class="fas fa-eye me-1"></i>Show this section
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user-friends me-2"></i>Team Members
+                            </h5>
+                            <a href="{% url 'core:add_team_member' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus me-1"></i>Add Team Member
+                            </a>
+                        </div>
+
+                        {% if team_members %}
+                            <div class="row">
+                                {% for member in team_members %}
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            {% if member.photo %}
+                                                <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="rounded-circle mb-2" width="60" height="60" style="object-fit: cover;">
+                                            {% else %}
+                                                <div class="rounded-circle mb-2 mx-auto d-flex align-items-center justify-content-center bg-light" style="width: 60px; height: 60px;">
+                                                    <i class="fas fa-user fa-lg text-muted"></i>
+                                                </div>
+                                            {% endif %}
+                                            <h6 class="mb-1">{{ member.name }}</h6>
+                                            <p class="text-muted small mb-2">{{ member.position }}</p>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{% url 'core:edit_team_member' member.pk %}" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="{% url 'core:delete_team_member' member.pk %}" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                {% if member.is_featured %}
+                                                    <span class="badge bg-success">Featured</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>No team members found. 
+                                <a href="{% url 'core:add_team_member' %}">Add your first team member</a>
+                            </div>
+                        {% endif %}
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'core:about' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>Back to About Page
+                            </a>
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fas fa-save me-1"></i>Save Team Section
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

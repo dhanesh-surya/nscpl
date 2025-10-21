@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ sport.name }} - NSCPL{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h1 class="mb-4 text-center">{{ sport.name }}</h1>
+            {% if sport.image %}
+                <img src="{{ sport.image.url }}" class="img-fluid rounded mb-4 glass-effect p-3" alt="{{ sport.name }}">
+            {% endif %}
+            <div class="glass-effect p-4 mb-4">
+                <p class="lead">{{ sport.description|safe }}</p>
+            </div>
+            
+            {% if sport.rules_and_regulations and sport.show_rules_and_regulations %}
+            <h2 class="mt-5">Rules and Regulations
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#rulesCollapse" aria-expanded="false" aria-controls="rulesCollapse">
+                    Show/Hide
+                </button>
+            </h2>
+            <div class="collapse show" id="rulesCollapse">
+                <div class="card card-body bg-light mb-4 glass-effect">
+                    {{ sport.rules_and_regulations|safe }}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if sport.history and sport.show_history %}
+            <h2 class="mt-5">History
+                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#historyCollapse" aria-expanded="false" aria-controls="historyCollapse">
+                    Show/Hide
+                </button>
+            </h2>
+            <div class="collapse show" id="historyCollapse">
+                <div class="card card-body bg-light mb-4 glass-effect">
+                    {{ sport.history|safe }}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'sports:sport_list' %}" class="btn btn-primary">Back to Sports</a>
+                <a href="{% url 'sports:sport_update' slug=sport.slug %}" class="btn btn-secondary">Edit Sport</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

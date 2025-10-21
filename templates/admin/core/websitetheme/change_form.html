@@ -1,0 +1,43 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        /* Simple Font Preview Styling */
+        .font-preview-select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .font-preview-select:focus {
+            border-color: #00BFA6;
+            box-shadow: 0 0 0 0.2rem rgba(0, 191, 166, 0.25);
+            outline: none;
+        }
+        
+        .font-preview-select option {
+            padding: 8px 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Typography Section Styling */
+        .field-font_family,
+        .field-heading_font_family {
+            margin-bottom: 20px;
+        }
+        
+        .field-font_family label,
+        .field-heading_font_family label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+    </style>
+{% endblock %}

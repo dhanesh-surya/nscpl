@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }} - NSCPL{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3" data-aos="fade-up">
+                    {{ article.title }}
+                </h1>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Published on {{ article.published_date|date:"F d, Y" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Article Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <article class="news-article">
+                    {% if article.featured_image %}
+                    <div class="mb-4" data-aos="fade-up">
+                        <img src="{{ article.featured_image.url }}" class="img-fluid rounded" alt="{{ article.title }}">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="article-meta mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex align-items-center text-muted">
+                            <i class="fas fa-user me-2"></i>
+                            <span class="me-3">By {{ article.author }}</span>
+                            <i class="fas fa-calendar me-2"></i>
+                            <span>{{ article.published_date|date:"F d, Y" }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content" data-aos="fade-up" data-aos-delay="200">
+                        {{ article.content|linebreaks }}
+                    </div>
+                </article>
+                
+                <!-- Back to News -->
+                <div class="mt-5" data-aos="fade-up" data-aos-delay="300">
+                    <a href="{% url 'news:news_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to News
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

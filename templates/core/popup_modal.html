@@ -1,0 +1,21 @@
+{% if popup %}
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> {# Reverted to modal-lg for a more compact modal #}
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white"> {# Added background and text color #}
+                    <h5 class="modal-title" id="popupModalLabel">{{ popup.heading }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> {# Changed close button color #}
+                </div>
+                <div class="modal-body text-center"> {# Reverted to text-center #}
+                    {% if popup.image %}
+                        <img src="{{ popup.image.url }}" class="img-fluid mb-3 rounded zz_image" alt="{{ popup.title }}" style="max-height: 400px; object-fit: cover;"> {# Added zz_image class for zoom functionality #}
+                    {% endif %}
+                    <p class="lead">{{ popup.text|safe }}</p> {# Used lead class for larger text #}
+                </div>
+                <div class="modal-footer justify-content-center"> {# Centered footer buttons #}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

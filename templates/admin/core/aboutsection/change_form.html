@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    {% if show_team_edit_link %}
+        <li><a href="{{ team_edit_url }}" class="viewsitelink">{% translate "Edit Team Section" %}</a></li>
+    {% endif %}
+{% endblock %}

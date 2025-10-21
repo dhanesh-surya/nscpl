@@ -1,0 +1,625 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Player Registration{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --primary-color: {{ theme.primary_color }};
+        --accent-color: {{ theme.accent_color }};
+        --secondary-color: {{ theme.secondary_color }};
+        --highlight-color: {{ theme.highlight_color }};
+        --background-color: {{ theme.background_color }};
+        --text-primary: {{ theme.text_primary }};
+        --text-secondary: {{ theme.text_secondary }};
+        --text-light: {{ theme.text_light }};
+        --navbar-background: {{ theme.navbar_background }};
+        --navbar-text-color: {{ theme.navbar_text_color }};
+        --navbar-hover-color: {{ theme.navbar_hover_color }};
+        --button-primary-bg: {{ theme.button_primary_bg }};
+        --button-primary-text: {{ theme.button_primary_text }};
+        --button-secondary-bg: {{ theme.button_secondary_bg }};
+        --button-secondary-text: {{ theme.button_secondary_text }};
+        --link-color: {{ theme.link_color }};
+        --link-hover-color: {{ theme.link_hover_color }};
+        --card-background: {{ theme.card_background }};
+        --card-border-color: {{ theme.card_border_color }};
+        --card-border-radius: {{ theme.card_border_radius }}px;
+        --font-family: {{ theme.font_family }};
+        --heading-font-family: {{ theme.heading_font_family }};
+        --font-size-base: {{ theme.font_size_base }}px;
+    }
+
+    body {
+        font-family: var(--font-family), sans-serif;
+        font-size: var(--font-size-base);
+        color: var(--text-primary);
+        background-color: var(--background-color);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--heading-font-family), sans-serif;
+        color: var(--text-primary);
+    }
+
+    a {
+        color: var(--link-color);
+    }
+
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .btn-primary {
+        background-color: var(--button-primary-bg);
+        color: var(--button-primary-text);
+        border-color: var(--button-primary-bg);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+
+    .form-section {
+        background-color: var(--card-background);
+        border: 1px solid var(--card-border-color);
+        border-radius: var(--card-border-radius);
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .form-section h4 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent-color);
+    }
+    .form-group label {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+    }
+
+    .form-check-label {
+        font-weight: 400;
+        color: var(--text-secondary);
+    }
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    .payment-info {
+        background-color: var(--secondary-color);
+        border-left: 5px solid var(--accent-color);
+        padding: 20px;
+        border-radius: var(--card-border-radius);
+        margin-top: 30px;
+    }
+    .payment-info h5 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+    }
+    .payment-info p {
+        margin-bottom: 8px;
+        font-size: 1.05rem;
+        color: var(--text-primary);
+    }
+    .payment-info p strong {
+        color: var(--accent-color);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h2 class="text-center text-primary fw-bold mb-4" data-aos="fade-up">Player Registration Form</h2>
+            <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="100">
+                Fill out the form below to register for the upcoming season.
+            </p>
+
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Personal Information -->
+                <div class="form-section" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Personal Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.venue.id_for_label }}" class="form-label">Venue</label>
+                            {{ form.venue }}
+                            {% if form.venue.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.venue.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter the venue.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.date_of_event.id_for_label }}" class="form-label">Date of Event</label>
+                            {{ form.date_of_event }}
+                            {% if form.date_of_event.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.date_of_event.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter the date of event.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.sur_name.id_for_label }}" class="form-label">{{ form.sur_name.label }}</label>
+                            {{ form.sur_name }}
+                            {% if form.sur_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.sur_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your surname.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.first_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your first name.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.fathers_name.id_for_label }}" class="form-label">{{ form.fathers_name.label }}</label>
+                            {{ form.fathers_name }}
+                            {% if form.fathers_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.fathers_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your father\'s name.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">{{ form.date_of_birth.label }}</label>
+                            {{ form.date_of_birth }}
+                            {% if form.date_of_birth.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.date_of_birth.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your date of birth.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.gender.id_for_label }}" class="form-label">{{ form.gender.label }}</label>
+                            {{ form.gender }}
+                            {% if form.gender.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.gender.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your gender.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="{{ form.address.id_for_label }}" class="form-label">{{ form.address.label }}</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.address.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your address.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.city.id_for_label }}" class="form-label">{{ form.city.label }}</label>
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.city.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your city.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.state.id_for_label }}" class="form-label">{{ form.state.label }}</label>
+                            {{ form.state }}
+                            {% if form.state.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.state.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your state.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.zip_code.id_for_label }}" class="form-label">{{ form.zip_code.label }}</label>
+                            {{ form.zip_code }}
+                            {% if form.zip_code.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.zip_code.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your zip code.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.country.id_for_label }}" class="form-label">{{ form.country.label }}</label>
+                            {{ form.country }}
+                            {% if form.country.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.country.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your country.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your email.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.phone_number.id_for_label }}" class="form-label">{{ form.phone_number.label }}</label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.phone_number.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your phone number.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.whatsapp_number.id_for_label }}" class="form-label">{{ form.whatsapp_number.label }}</label>
+                            {{ form.whatsapp_number }}
+                            {% if form.whatsapp_number.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.whatsapp_number.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your WhatsApp number.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Playing Information -->
+                <div class="form-section" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Playing Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.faster_bowler.id_for_label }}" class="form-label">{{ form.faster_bowler.label }}</label>
+                            {{ form.faster_bowler }}
+                            {% if form.faster_bowler.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.faster_bowler.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your faster bowler type.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.spin_bowler.id_for_label }}" class="form-label">{{ form.spin_bowler.label }}</label>
+                            {{ form.spin_bowler }}
+                            {% if form.spin_bowler.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.spin_bowler.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your spin bowler type.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.batting_proficiency.id_for_label }}" class="form-label">{{ form.batting_proficiency.label }}</label>
+                            {{ form.batting_proficiency }}
+                            {% if form.batting_proficiency.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.batting_proficiency.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your batting proficiency.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.primary_playing_role.id_for_label }}" class="form-label">{{ form.primary_playing_role.label }}</label>
+                            {{ form.primary_playing_role }}
+                            {% if form.primary_playing_role.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.primary_playing_role.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your primary playing role.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.secondary_playing_role.id_for_label }}" class="form-label">{{ form.secondary_playing_role.label }}</label>
+                            {{ form.secondary_playing_role }}
+                            {% if form.secondary_playing_role.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.secondary_playing_role.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please select your secondary playing role.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3 form-check d-flex align-items-center">
+                            {{ form.physically_fit }}
+                            <label class="form-check-label ms-2" for="{{ form.physically_fit.id_for_label }}">
+                                {{ form.physically_fit.label }}
+                            </label>
+                            {% if form.physically_fit.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.physically_fit.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Declarations -->
+                <div class="form-section" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Declarations</h4>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_past_tournament }}
+                        <label class="form-check-label" for="{{ form.declaration_past_tournament.id_for_label }}">
+                            {{ form.declaration_past_tournament.label }}
+                        </label>
+                        {% if form.declaration_past_tournament.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_past_tournament.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_parents_aware }}
+                        <label class="form-check-label" for="{{ form.declaration_parents_aware.id_for_label }}">
+                            {{ form.declaration_parents_aware.label }}
+                        </label>
+                        {% if form.declaration_parents_aware.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_parents_aware.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_indemnify_organizers }}
+                        <label class="form-check-label" for="{{ form.declaration_indemnify_organizers.id_for_label }}">
+                            {{ form.declaration_indemnify_organizers.label }}
+                        </label>
+                        {% if form.declaration_indemnify_organizers.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_indemnify_organizers.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_emergency_care }}
+                        <label class="form-check-label" for="{{ form.declaration_emergency_care.id_for_label }}">
+                            {{ form.declaration_emergency_care.label }}
+                        </label>
+                        {% if form.declaration_emergency_care.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_emergency_care.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_photo_video_consent }}
+                        <label class="form-check-label" for="{{ form.declaration_photo_video_consent.id_for_label }}">
+                            {{ form.declaration_photo_video_consent.label }}
+                        </label>
+                        {% if form.declaration_photo_video_consent.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_photo_video_consent.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.declaration_true_info }}
+                        <label class="form-check-label" for="{{ form.declaration_true_info.id_for_label }}">
+                            {{ form.declaration_true_info.label }}
+                        </label>
+                        {% if form.declaration_true_info.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.declaration_true_info.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="form-section" data-aos="fade-up" data-aos-delay="500">
+                    <h4>Payment Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.transaction_id.id_for_label }}" class="form-label">{{ form.transaction_id.label }}</label>
+                            {{ form.transaction_id }}
+                            {% if form.transaction_id.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.transaction_id.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your transaction ID.
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.transaction_screenshot.id_for_label }}" class="form-label">{{ form.transaction_screenshot.label }}</label>
+                            {{ form.transaction_screenshot }}
+                            {% if form.transaction_screenshot.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.transaction_screenshot.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please upload a screenshot of your transaction.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.photo.id_for_label }}" class="form-label">Upload Photo</label>
+                        {{ form.photo }}
+                        {% if form.photo.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.photo.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="invalid-feedback">
+                                Please upload your photo.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2" data-aos="fade-up" data-aos-delay="600">
+                    <button type="submit" class="btn btn-primary">Register Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

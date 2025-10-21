@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Teams - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">Our Teams</h1>
+                    <p class="lead">
+                        Meet the talented teams that represent NSCPL in various sports.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Teams Section -->
+<section class="section-padding">
+    <div class="container">
+        {% if teams %}
+        <div class="row">
+            {% for team in teams %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card team-card h-100">
+                    <div class="card-body text-center">
+                        {% if team.logo %}
+                        <img src="{{ team.logo.url }}" alt="{{ team.name }}" class="team-logo mb-3">
+                        {% endif %}
+                        <h5 class="card-title">{{ team.name }}</h5>
+                        <p class="text-muted mb-2">{{ team.sport.name }}</p>
+                        {% if team.founded_date %}
+                        <p class="text-muted mb-3">Founded: {{ team.founded_date|date:"Y" }}</p>
+                        {% endif %}
+                        <p class="card-text">{{ team.description|truncatewords:15 }}</p>
+                        <a href="{% url 'teams:team_detail' team.slug %}" class="btn btn-primary">
+                            View Team <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Teams pagination">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="no-teams" data-aos="fade-up">
+                    <i class="fas fa-users fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">No Teams Available</h3>
+                    <p class="text-muted">Check back soon for our team information!</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">{{ event.title }}</h1>
+                    <div class="event-meta mb-4">
+                        <span class="badge-sport me-3">{{ event.sport }}</span>
+                        <span class="badge-event">{{ event.date|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Event Details Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="event-content" data-aos="fade-right">
+                    {% if event.banner %}
+                    <img src="{{ event.banner.url }}" alt="{{ event.title }}" class="img-fluid rounded mb-4">
+                    {% endif %}
+                    
+                    <div class="event-description">
+                        <h3>Event Description</h3>
+                        <p class="lead">{{ event.description|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="event-info" data-aos="fade-left">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Event Information</h5>
+                            
+                            <div class="info-item mb-3">
+                                <i class="fas fa-calendar-alt text-accent me-2"></i>
+                                <strong>Date:</strong> {{ event.date|date:"F d, Y" }}
+                            </div>
+                            
+                            <div class="info-item mb-3">
+                                <i class="fas fa-map-marker-alt text-accent me-2"></i>
+                                <strong>Location:</strong> {{ event.location }}
+                            </div>
+                            
+                            <div class="info-item mb-3">
+                                <i class="fas fa-futbol text-accent me-2"></i>
+                                <strong>Sport:</strong> {{ event.sport }}
+                            </div>
+                            
+                            <div class="info-item mb-3">
+                                <i class="fas fa-clock text-accent me-2"></i>
+                                <strong>Status:</strong> 
+                                {% if event.is_upcoming %}
+                                    <span class="text-success">Upcoming</span>
+                                {% else %}
+                                    <span class="text-muted">Past Event</span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                <a href="{% url 'contact:contact' %}" class="btn btn-accent">
+                                    <i class="fas fa-envelope me-2"></i>Contact Us
+                                </a>
+                                <a href="{% url 'events:event_list' %}" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Events
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
