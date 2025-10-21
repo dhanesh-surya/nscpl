@@ -24,6 +24,11 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/simple-lightbox.min.css' %}">
+    <!-- Glass effect utilities -->
+    <link rel="stylesheet" href="{% static 'css/glass.css' %}">
+    <!-- Gallery/lightbox overrides -->
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
     
     <!-- Theme CSS -->
     <style>
@@ -149,8 +154,19 @@
     </style>
     
     {% block extra_css %}
-        <link rel="stylesheet" href="{% static 'css/image-popup.css' %}">
     {% endblock %}
+    <style>
+        .sl-overlay {
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 99999 !important;
+        }
+        .sl-wrapper {
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 100000 !important;
+        }
+    </style>
 
 </head>
 </head>
@@ -198,7 +214,7 @@
                         <a class="nav-link" href="{% url 'contact:contact' %}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:8002/registration/register/">Apply</a>
+                        <a class="nav-link" href="{% url 'register_player' %}">Apply</a>
                     </li>
                     {% if user.is_staff %}
                     <li class="nav-item">
@@ -295,8 +311,8 @@
     
 
     {% block extra_js %}
-        <script src="{% static 'js/image-popup.js' %}"></script>
     {% endblock %}
+    <!-- Page-specific lightbox initialization handled in individual templates -->
 {% if theme and theme.custom_css %}
         {{ theme.custom_css|safe }}
 {% endif %}

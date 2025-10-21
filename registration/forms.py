@@ -1,5 +1,6 @@
 from django import forms
 from .models import PlayerRegistration
+from .models import RegistrationPageSetting
 
 class PlayerRegistrationForm(forms.ModelForm):
     venue = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'class': 'form-control custom-venue-class', 'placeholder': 'Venue'}))
@@ -102,4 +103,27 @@ class CustomPlayerRegistrationForm(PlayerRegistrationForm):
             'declaration_true_info': 'I hereby declare that all the details given above in the registration form are true and correct to the best of my knowledge and belief . In the event of any information being found false or incorrect or myself being found not eligible in terms of eligibility criteria for the participation . My name is liable to be cancelled without any notice.',
             'transaction_id': 'Transaction ID',
             'transaction_screenshot': 'Transaction Screenshot',
+        }
+
+
+class RegistrationPageSettingForm(forms.ModelForm):
+    class Meta:
+        model = RegistrationPageSetting
+        fields = [
+            'name', 'is_active', 'primary_color', 'accent_color', 'background_color', 'text_color',
+            'heading_color', 'subtitle_color',
+            'button_primary_bg', 'button_primary_text', 'card_background', 'card_border_color', 'card_border_radius',
+            'font_family', 'font_size_base', 'custom_css'
+        ]
+        widgets = {
+            'primary_color': forms.TextInput(attrs={'type': 'color'}),
+            'accent_color': forms.TextInput(attrs={'type': 'color'}),
+            'background_color': forms.TextInput(attrs={'type': 'color'}),
+            'text_color': forms.TextInput(attrs={'type': 'color'}),
+            'heading_color': forms.TextInput(attrs={'type': 'color'}),
+            'subtitle_color': forms.TextInput(attrs={'type': 'color'}),
+            'button_primary_bg': forms.TextInput(attrs={'type': 'color'}),
+            'button_primary_text': forms.TextInput(attrs={'type': 'color'}),
+            'card_background': forms.TextInput(attrs={'type': 'color'}),
+            'card_border_color': forms.TextInput(attrs={'type': 'color'}),
         }

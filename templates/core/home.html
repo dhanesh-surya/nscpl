@@ -97,7 +97,7 @@
 
 <!-- Featured Events Section -->
 {% if featured_events %}
-<section class="section-padding bg-light glass-effect">
+<section class="section-padding glass-effect">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -182,7 +182,7 @@
 
 <!-- Gallery Section -->
 {% if featured_gallery %}
-<section class="section-padding bg-light">
+<section class="section-padding glass-effect">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -193,13 +193,15 @@
             {% for item in featured_gallery %}
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
                 <div class="gallery-item">
-                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid">
-                    <div class="gallery-overlay">
-                        <div class="text-center">
-                            <h5 class="text-white">{{ item.title }}</h5>
-                            <p class="text-white-50">{{ item.category.name }}</p>
+                    <a href="{{ item.image.url }}" class="gallery-link d-block position-relative">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="text-center">
+                                <h5 class="text-white">{{ item.title }}</h5>
+                                <p class="text-white-50">{{ item.category.name }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -273,4 +275,9 @@
 </section>
 {% endif %}
 {% include 'core/popup_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/simple-lightbox.min.js' %}"></script>
+    <script src="{% static 'js/gallery-lightbox.js' %}"></script>
 {% endblock %}

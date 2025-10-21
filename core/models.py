@@ -337,6 +337,34 @@ class AboutSection(models.Model):
         
         return attrs
 
+    def get_section_glass_effect_style(self):
+        """Generate glass effect CSS for section template"""
+        if not self.section_glass_effect:
+            return ""
+
+        styles = []
+
+        # Glass effect base background using white with configured opacity
+        styles.append(f"background: rgba(255, 255, 255, {self.section_glass_opacity});")
+
+        # Backdrop blur for frosted glass effect
+        if self.section_glass_backdrop:
+            styles.append(f"backdrop-filter: blur({self.section_glass_blur}px);")
+            styles.append(f"-webkit-backdrop-filter: blur({self.section_glass_blur}px);")
+
+        # Optional border for glass panels
+        if self.section_glass_border:
+            styles.append("border: 1px solid rgba(255, 255, 255, 0.25);")
+
+        # Subtle shadow and rounded corners for depth
+        styles.append("box-shadow: 0 8px 32px rgba(31, 38, 135, 0.06);")
+        styles.append("border-radius: 0.5rem;")
+
+        # Ensure content sits above any background
+        styles.append("overflow: hidden;")
+
+        return " ".join(styles)
+
 
 from django_ckeditor_5.fields import CKEditor5Field
 

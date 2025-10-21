@@ -6,29 +6,31 @@
 {% block extra_css %}
 <style>
     :root {
-        --primary-color: {{ theme.primary_color }};
-        --accent-color: {{ theme.accent_color }};
-        --secondary-color: {{ theme.secondary_color }};
-        --highlight-color: {{ theme.highlight_color }};
-        --background-color: {{ theme.background_color }};
-        --text-primary: {{ theme.text_primary }};
+    --primary-color: {{ registration_style.primary_color|default:theme.primary_color }};
+        --accent-color: {{ registration_style.accent_color|default:theme.accent_color }};
+        --secondary-color: {{ registration_style.card_background|default:theme.secondary_color }};
+        --highlight-color: {{ registration_style.accent_color|default:theme.highlight_color }};
+        --background-color: {{ registration_style.background_color|default:theme.background_color }};
+        --text-primary: {{ registration_style.text_color|default:theme.text_primary }};
         --text-secondary: {{ theme.text_secondary }};
         --text-light: {{ theme.text_light }};
         --navbar-background: {{ theme.navbar_background }};
         --navbar-text-color: {{ theme.navbar_text_color }};
         --navbar-hover-color: {{ theme.navbar_hover_color }};
-        --button-primary-bg: {{ theme.button_primary_bg }};
-        --button-primary-text: {{ theme.button_primary_text }};
+        --button-primary-bg: {{ registration_style.button_primary_bg|default:theme.button_primary_bg }};
+        --button-primary-text: {{ registration_style.button_primary_text|default:theme.button_primary_text }};
         --button-secondary-bg: {{ theme.button_secondary_bg }};
         --button-secondary-text: {{ theme.button_secondary_text }};
         --link-color: {{ theme.link_color }};
         --link-hover-color: {{ theme.link_hover_color }};
-        --card-background: {{ theme.card_background }};
-        --card-border-color: {{ theme.card_border_color }};
-        --card-border-radius: {{ theme.card_border_radius }}px;
-        --font-family: {{ theme.font_family }};
+        --card-background: {{ registration_style.card_background|default:theme.card_background }};
+        --card-border-color: {{ registration_style.card_border_color|default:theme.card_border_color }};
+        --card-border-radius: {{ registration_style.card_border_radius|default:theme.card_border_radius }}px;
+        --font-family: {{ registration_style.font_family|default:theme.font_family }};
         --heading-font-family: {{ theme.heading_font_family }};
-        --font-size-base: {{ theme.font_size_base }}px;
+        --font-size-base: {{ registration_style.font_size_base|default:theme.font_size_base }}px;
+        --heading-color: {{ registration_style.heading_color|default:theme.text_primary }};
+        --subtitle-color: {{ registration_style.subtitle_color|default:theme.text_secondary }};
     }
 
     body {
@@ -40,7 +42,7 @@
 
     h1, h2, h3, h4, h5, h6 {
         font-family: var(--heading-font-family), sans-serif;
-        color: var(--text-primary);
+        color: var(--heading-color);
     }
 
     a {
@@ -119,8 +121,8 @@
 <div class="container py-5 mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <h2 class="text-center text-primary fw-bold mb-4" data-aos="fade-up">Player Registration Form</h2>
-            <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="text-center fw-bold mb-4" data-aos="fade-up" style="color: var(--heading-color);">Player Registration Form</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100" style="color: var(--subtitle-color);">
                 Fill out the form below to register for the upcoming season.
             </p>
 

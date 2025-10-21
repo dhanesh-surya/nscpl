@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import PlayerRegistration
 from .forms import PlayerRegistrationForm
+from .models import RegistrationPageSetting
+from .forms import RegistrationPageSettingForm
 
 class PlayerRegistrationAdmin(admin.ModelAdmin):
     form = PlayerRegistrationForm
@@ -38,3 +40,10 @@ class PlayerRegistrationAdmin(admin.ModelAdmin):
     disapprove_registrations.short_description = "Disapprove selected registrations"
 
 admin.site.register(PlayerRegistration, PlayerRegistrationAdmin)
+ 
+class RegistrationPageSettingAdmin(admin.ModelAdmin):
+    form = RegistrationPageSettingForm
+    list_display = ('name', 'is_active', 'updated_at')
+    list_editable = ('is_active',)
+
+admin.site.register(RegistrationPageSetting, RegistrationPageSettingAdmin)

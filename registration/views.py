@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import PlayerRegistrationForm, CustomPlayerRegistrationForm
 from .models import PlayerRegistration
 from core.models import WebsiteTheme
+from .models import RegistrationPageSetting
 
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
@@ -28,7 +29,8 @@ def register_player(request):
     context = {
         'form': form,
         'payment_info': payment_info,
-        'theme': WebsiteTheme.objects.filter(is_active=True).first()
+        'theme': WebsiteTheme.objects.filter(is_active=True).first(),
+        'registration_style': RegistrationPageSetting.objects.filter(is_active=True).first()
     }
     return render(request, 'registration/registration_form.html', context)
 

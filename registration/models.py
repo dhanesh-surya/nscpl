@@ -68,3 +68,44 @@ class PlayerRegistration(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.sur_name} - {self.primary_playing_role}"
+
+
+class RegistrationPageSetting(models.Model):
+    """Stores styling options for the registration page which can be edited in the admin."""
+    name = models.CharField(max_length=100, default='Default')
+    is_active = models.BooleanField(default=False, help_text='Mark this as the active registration page setting')
+
+    primary_color = models.CharField(max_length=7, default="#0A192F")
+    accent_color = models.CharField(max_length=7, default="#00BFA6")
+    background_color = models.CharField(max_length=7, default="#FFFFFF")
+    text_color = models.CharField(max_length=7, default="#2C3E50")
+    heading_color = models.CharField(max_length=7, default="#0A192F", help_text='Color for the registration page heading')
+    subtitle_color = models.CharField(max_length=7, default="#6C757D", help_text='Color for the registration page subtitle')
+
+    button_primary_bg = models.CharField(max_length=7, default="#0A192F")
+    button_primary_text = models.CharField(max_length=7, default="#FFFFFF")
+
+    card_background = models.CharField(max_length=7, default="#FFFFFF")
+    card_border_color = models.CharField(max_length=7, default="#E9ECEF")
+    card_border_radius = models.PositiveIntegerField(default=8)
+
+    font_family = models.CharField(max_length=50, default='Inter')
+    font_size_base = models.PositiveIntegerField(default=16)
+
+    custom_css = models.TextField(blank=True, help_text='Optional custom CSS to apply to the registration page')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Registration Page Setting'
+        verbose_name_plural = 'Registration Page Settings'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        # If this instance is set active, deactivate other settings
+        if self.is_active:
+            RegistrationPageSetting.objects.filter(is_active=True).exclude(pk=self.pk).update(is_active=False)
+        super().save(*args, **kwargs)
