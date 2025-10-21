@@ -1,0 +1,64 @@
+/* Glass effect utility for sections like Featured Events
+   Provides a subtle frosted-glass appearance with a safe fallback
+   for browsers that don't support backdrop-filter.
+*/
+
+.glass-effect {
+  /* Fallback solid translucent background for older browsers */
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06) !important;
+  /* Ensure the section's inner spacing remains consistent with theme */
+}
+
+/* When backdrop-filter is available, use a more transparent base and blur the background */
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.22) !important;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 8px 30px rgba(6, 12, 34, 0.08) !important;
+  }
+}
+
+/* Dark-theme variant: useful if the section sits on a dark background */
+.glass-effect.dark {
+  background: rgba(10, 25, 47, 0.35) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .glass-effect.dark {
+    background: rgba(10, 25, 47, 0.20);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Tweak inner cards so they look good on the glass surface */
+/* Make sure inner .card elements use translucent backgrounds instead of the global solid card color */
+.glass-effect .card {
+  background: rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(255,255,255,0.6) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .glass-effect .card {
+    background: rgba(255,255,255,0.65) !important;
+  }
+}
+
+/* Improve contrast for headings */
+.glass-effect .section-title {
+  color: var(--text-primary) !important;
+}
+
+/* Small responsive adjustments */
+@media (max-width: 767px) {
+  .glass-effect {
+    border-radius: 8px;
+  }
+}
