@@ -118,13 +118,25 @@ p, span, div, a, li, td, th {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
     text-align: center;
+}
+
+/* Ensure any glass-effect applied inside the hero carousel does not blur or apply frosted styles */
+.hero-carousel-section .glass-effect,
+.hero-carousel-section .hero-overlay,
+.hero-carousel-section .hero-slide .glass-effect {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
 }
 
 .hero-content h1 {
@@ -353,6 +365,20 @@ p, span, div, a, li, td, th {
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Improved visibility for animated content cards (fade-in-up) */
+.card.card-body.fade-in-up {
+    background: rgba(10, 25, 47, 0.95); /* near-opaque dark background for contrast */
+    color: #ffffff; /* ensure text is white */
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    padding: 28px !important;
+}
+
+.card.card-body.fade-in-up .lead {
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
 }
 
 .card-img-top {

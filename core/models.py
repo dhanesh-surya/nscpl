@@ -1,6 +1,26 @@
+
 from django.db import models
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+
+
+class RecognitionAchievement(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='recognition/', blank=True, null=True)
+    icon = models.CharField(max_length=50, blank=True, help_text="FontAwesome icon class (e.g. 'fas fa-trophy')")
+    url = models.URLField(blank=True, null=True)
+    is_clickable = models.BooleanField(default=True, help_text="If true, card is clickable and links to URL")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Recognition & Achievement'
+        verbose_name_plural = 'Recognition & Achievements'
+
+    def __str__(self):
+        return self.title
 
 
 class HeroSlide(models.Model):

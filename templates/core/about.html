@@ -79,27 +79,14 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section" {% if about_sections %}style="{{ about_sections.0.get_section_background_style }} color: {{ about_sections.0.text_color }};"{% endif %}>
+<section class="hero-section" style="background: linear-gradient(45deg, #cc2b5e, #753a88);; color: #ffffff;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
-                <div class="hero-content" data-aos="fade-up">
-                    {% for section in about_sections %}
-                        {% if section.section_type == 'hero' %}
-                            <h1 class="display-4 fw-bold mb-4">{{ section.title }}</h1>
-                            {% if section.subtitle %}
-                                <p class="lead">{{ section.subtitle }}</p>
-                            {% endif %}
-                            {% if section.content %}
-                                <p class="lead">{{ section.content|safe }}</p>
-                            {% endif %}
-                        {% endif %}
-                    {% empty %}
-                        <h1 class="display-4 fw-bold mb-4">About NSCPL</h1>
-                        <p class="lead">
-                            Dedicated to excellence in sports and event management, fostering athletic talent and community spirit.
-                        </p>
-                    {% endfor %}
+                <div class="hero-content aos-init aos-animate" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">About NSCPL</h1>
+                    <p class="lead">NSCPL (NSCPL PRIVATE LIMITED) is dedicated to excellence in sports and event management. We focus on fostering athletic talent, organizing competitive events, and building community engagement through professional sports services.</p>
+                    <p class="lead">Our mission is to deliver top-tier sporting experiences and create opportunities for athletes to grow and succeed.</p>
                 </div>
             </div>
         </div>
@@ -333,6 +320,48 @@
 {% endfor %}
 
 <!-- Team Section -->
+<!-- Recognition & Achievements Section -->
+{% if achievements %}
+    <section class="section-padding achievements-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center section-title mb-5" data-aos="fade-up">Recognition & Achievements</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% for a in achievements %}
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    {% if a.is_clickable and a.url %}
+                    <a href="{{ a.url }}" target="_blank" class="text-decoration-none text-reset">
+                    {% endif %}
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                {% if a.image %}
+                                    <img src="{{ a.image.url }}" alt="{{ a.title }}" class="img-fluid mb-2" style="max-height:120px; object-fit:contain;">
+                                {% elif a.icon %}
+                                    <i class="{{ a.icon }} fa-3x text-accent"></i>
+                                {% else %}
+                                    <i class="fas fa-award fa-3x text-accent"></i>
+                                {% endif %}
+                            </div>
+                            <h5 class="card-title mb-2">{{ a.title }}</h5>
+                            {% if a.description %}
+                                <p class="card-text small text-muted">{{ a.description|truncatewords:25 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if a.is_clickable and a.url %}
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
 {% for section in about_sections %}
     {% if section.section_type == 'team' %}
         <section class="section-padding team-section" 

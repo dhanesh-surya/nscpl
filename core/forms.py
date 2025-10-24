@@ -9,6 +9,7 @@ from .models import (
     WebsiteTheme, AboutSection, Footer, QuickLink,
     Stat, Value, AboutTeamMember
 )
+from .models import RecognitionAchievement
 from django.forms import inlineformset_factory
 
 
@@ -136,11 +137,6 @@ class AchievementsSectionForm(forms.ModelForm):
             'section_background_color': ColorPickerWidget(),
             'section_background_overlay': ColorPickerWidget(),
         }
-
-class ValueForm(forms.ModelForm):
-    class Meta:
-        model = Value
-        fields = '__all__'
 
 class AboutTeamMemberForm(forms.ModelForm):
     class Meta:
@@ -280,3 +276,28 @@ class StatAdminForm(forms.ModelForm):
     class Meta:
         model = Stat
         fields = '__all__'
+
+
+class ValueForm(forms.ModelForm):
+    icon = forms.ChoiceField(choices=FONT_AWESOME_ICONS, widget=IconSelectWidget, required=False)
+    
+    class Meta:
+        model = Value
+        fields = '__all__'
+        widgets = {
+            'color': ColorPickerWidget(),
+            'background_color': ColorPickerWidget(),
+            'background_overlay': ColorPickerWidget(),
+        }
+
+class RecognitionAchievementForm(forms.ModelForm):
+    class Meta:
+        model = RecognitionAchievement
+        fields = ['title', 'description', 'image', 'icon', 'url', 'is_clickable']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'icon': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "e.g. 'fas fa-trophy'"}),
+            'url': forms.URLInput(attrs={'class': 'form-control'}),
+            'is_clickable': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }

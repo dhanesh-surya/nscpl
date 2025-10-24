@@ -330,3 +330,48 @@ admin.site.register(WebsiteTheme, WebsiteThemeAdmin)
 admin.site.register(AboutSection, AboutSectionAdmin)
 admin.site.register(Stat, StatAdmin)
 admin.site.register(Footer, FooterAdmin)
+from .models import RecognitionAchievement
+
+
+class RecognitionAchievementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_clickable', 'created_at')
+    list_filter = ('is_clickable', 'created_at')
+    search_fields = ('title', 'description')
+    ordering = ('-created_at',)
+    fieldsets = (
+        (None, {'fields': ('title', 'description', 'image', 'icon', 'url', 'is_clickable')}),
+    )
+
+
+admin.site.register(RecognitionAchievement, RecognitionAchievementAdmin)
+
+class ValueAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_featured', 'is_active', 'order')
+    list_filter = ('is_featured', 'is_active')
+    search_fields = ('title', 'description')
+    ordering = ('order', 'title')
+    list_editable = ('is_featured', 'is_active', 'order')
+    form = ValueForm
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'icon', 'image', 'color', 'is_featured', 'is_active', 'order')
+        }),
+        ('Background Settings', {
+            'fields': (
+                'background_type', 'background_color', 'background_gradient',
+                'background_image', 'background_overlay', 'background_overlay_opacity'
+            ),
+            'classes': ('collapse',)
+        }),
+        ('Animation Settings', {
+            'fields': ('animation_type', 'animation_delay', 'animation_duration'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    class Media:
+        css = {
+            'all': ('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css',)
+        }
+
+admin.site.register(Value, ValueAdmin)

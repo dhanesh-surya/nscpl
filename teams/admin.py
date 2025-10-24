@@ -1,11 +1,55 @@
 from django.contrib import admin
-from .models import Team, Player
+from django.utils.html import format_html
+from django.forms import ModelForm
+from .models import Team, Player, SportPosition
+
+
+class PlayerInlineForm(ModelForm):
+    class Meta:
+        model = Player
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and hasattr(self.instance, 'team') and self.instance.team:
+            sport = self.instance.team.sport
+            positions = SportPosition.objects.filter(sport=sport)
+            if positions.exists():
+                self.fields['position'].widget.attrs['list'] = f'positions_{sport.id}'
+                self.fields['position'].widget.attrs['autocomplete'] = 'off'
 
 
 class PlayerInline(admin.TabularInline):
     model = Player
+    form = PlayerInlineForm
     extra = 0
-    fields = ['name', 'position', 'jersey_number', 'is_active']
+    fields = ['photo_preview', 'photo', 'name', 'position', 'jersey_number', 'is_active']
+    readonly_fields = ['photo_preview']
+
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super().get_formset(request, obj, **kwargs)
+        if obj:
+            sport = obj.sport
+            positions = SportPosition.objects.filter(sport=sport)
+            if positions.exists():
+                position_list = [f'<option value="{p.name}">{p.name}</option>' for p in positions]
+                datalist = f'<datalist id="positions_{sport.id}">{"".join(position_list)}</datalist>'
+                formset.datalist = datalist
+        return formset
+
+    def photo_preview(self, obj):
+        if obj and obj.photo:
+            return format_html('<img src="{}" style="height:48px; width:48px; object-fit:cover; border-radius:6px;" />', obj.photo.url)
+        return ""
+    photo_preview.short_description = 'Photo'
+
+
+@admin.register(SportPosition)
+class SportPositionAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'sport']
+    list_filter = ['sport']
+    search_fields = ['name', 'code', 'sport__name']
+    ordering = ['sport', 'name']
 
 
 @admin.register(Team)

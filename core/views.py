@@ -6,11 +6,11 @@ from django.utils.decorators import method_decorator
 from events.models import Event
 from news.models import NewsArticle
 from gallery.models import GalleryItem
-from .models import HeroSlide, WebsiteTheme, AboutSection, AboutTeamMember, Value, Stat, Footer, Popup
+from .models import HeroSlide, WebsiteTheme, AboutSection, AboutTeamMember, Value, Stat, Footer, Popup, RecognitionAchievement
 from .forms import (
     WebsiteThemeForm, AboutSectionForm, HeroSectionForm, MissionSectionForm, 
     ValuesSectionForm, TeamSectionForm, HistorySectionForm, 
-    AchievementsSectionForm, AboutTeamMemberForm, FooterForm
+    AchievementsSectionForm, AboutTeamMemberForm, FooterForm, QuickLinkFormSet
 )
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -50,6 +50,8 @@ class AboutView(TemplateView):
         context['about_sections'] = AboutSection.objects.filter(is_active=True).order_by('order')
         context['team_members'] = AboutTeamMember.objects.all().order_by('order')
         context['values'] = Value.objects.filter(is_active=True).order_by('order')
+        # Recognition & Achievements entries for About page
+        context['achievements'] = RecognitionAchievement.objects.all()
         context['footer'] = Footer.objects.prefetch_related('quick_links').first()
         context['popup'] = Popup.objects.filter(is_active=True).first()
         

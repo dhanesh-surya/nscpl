@@ -27,18 +27,25 @@ class Team(models.Model):
         super().save(*args, **kwargs)
 
 
-class Player(models.Model):
-    POSITION_CHOICES = [
-        ('GK', 'Goalkeeper'),
-        ('DEF', 'Defender'),
-        ('MID', 'Midfielder'),
-        ('FWD', 'Forward'),
-        ('CAP', 'Captain'),
-    ]
+class SportPosition(models.Model):
+    sport = models.ForeignKey('sports.Sport', on_delete=models.CASCADE, related_name='positions')
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10)
 
+    class Meta:
+        ordering = ['sport', 'name']
+        verbose_name = 'Sport Position'
+        verbose_name_plural = 'Sport Positions'
+        unique_together = ['sport', 'code']
+
+    def __str__(self):
+        return f"{self.name} ({self.sport.name})"
+
+
+class Player(models.Model):
     name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='players')
-    position = models.CharField(max_length=3, choices=POSITION_CHOICES, default='MID')
+    position = models.CharField(max_length=100)
     jersey_number = models.PositiveIntegerField(blank=True, null=True)
     photo = models.ImageField(upload_to="players/photos/", blank=True, null=True)
     bio = models.TextField(blank=True)

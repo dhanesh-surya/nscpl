@@ -234,7 +234,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-5">
+    <footer class="bg-dark text-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
@@ -250,10 +250,21 @@
                         Leading sports and event management company dedicated to promoting athletic excellence and community engagement.
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-link me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        {% if footer.facebook_url %}
+                            <a href="{{ footer.facebook_url }}" target="_blank" class="social-link me-3"><i class="fab fa-facebook-f"></i></a>
+                        {% endif %}
+                        {% if footer.twitter_url %}
+                            <a href="{{ footer.twitter_url }}" target="_blank" class="social-link me-3"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
+                        {% if footer.instagram_url %}
+                            <a href="{{ footer.instagram_url }}" target="_blank" class="social-link me-3"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if footer.linkedin_url %}
+                            <a href="{{ footer.linkedin_url }}" target="_blank" class="social-link me-3"><i class="fab fa-linkedin-in"></i></a>
+                        {% endif %}
+                        {% if footer.youtube_url %}
+                            <a href="{{ footer.youtube_url }}" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -288,10 +299,13 @@
             <hr class="my-4">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="text-white mb-0">&copy; 2024 NSCPL PRIVATE LIMITED. All rights reserved.</p>
+                    <p class="text-white">&copy; 2024 NSCPL PRIVATE LIMITED. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="text-white mb-0">Designed with <i class="fas fa-heart text-danger"></i> for sports excellence</p>
+                    <p class="text-white-50 mb-0 small mt-1">
+                        Powered by <a href="https://dnstech.in" target="_blank" rel="noopener" class="text-info text-decoration-none">DNSTECH</a>
+                    </p>
                 </div>
             </div>
         </div>

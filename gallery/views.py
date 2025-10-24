@@ -10,7 +10,7 @@ class GalleryView(ListView):
     paginate_by = 12
     
     def get_queryset(self):
-        queryset = GalleryItem.objects.all().order_by('-uploaded_date')
+        queryset = GalleryItem.objects.filter(video_url__isnull=True).order_by('-uploaded_date')
         
         # Filter by category if specified
         category_slug = self.request.GET.get('category')
@@ -34,5 +34,31 @@ class GalleryView(ListView):
         for item in all_items:
             all_tags.update(item.tag_list)
         context['all_tags'] = sorted(list(all_tags))
+        # Video items (separate)
+        video_qs = GalleryItem.objects.filter(video_url__isnull=False).order_by('-uploaded_date')
+        video_items = []
+        import re
+        for v in video_qs:
+            thumb = v.youtube_thumbnail()
+            # extract video id
+            vid = None
+            patterns = [
+                r'(?:youtube\.com\/(?:[^\/\n\s]+\/\s*)*(?:v\/|e\/|watch\?.*v=|\&v=)|youtu\.be\/)([A-Za-z0-9_-]{11})',
+                r'(?:youtube\.com\/embed\/)([A-Za-z0-9_-]{11})',
+                r'(?:youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})'
+            ]
+            for p in patterns:
+                m = re.search(p, v.video_url)
+                if m:
+                    vid = m.group(1)
+                    break
+            video_items.append({
+                'title': v.title,
+                'category': v.category,
+                'video_url': v.video_url,
+                'youtube_thumbnail': thumb,
+                'video_id': vid,
+            })
+        context['video_items'] = video_items
         
         return context
