@@ -1,0 +1,740 @@
+Watching for file changes with StatReloader
+[21/Oct/2025 18:54:05] "GET / HTTP/1.1" 200 26111
+[21/Oct/2025 18:54:05] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 18:54:05] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 18:54:05] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 18:54:05] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 18:54:06] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[21/Oct/2025 18:54:07] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[21/Oct/2025 18:54:07] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[21/Oct/2025 18:54:11] "GET /events/ HTTP/1.1" 200 14456
+[21/Oct/2025 18:54:15] "GET /gallery/ HTTP/1.1" 200 15852
+[21/Oct/2025 18:54:16] "GET /media/gallery/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 200 1715065
+[21/Oct/2025 18:54:17] "GET /contact/ HTTP/1.1" 200 46039
+[21/Oct/2025 18:54:20] "GET /theme-customize/ HTTP/1.1" 200 53983
+[21/Oct/2025 18:54:40] "GET / HTTP/1.1" 200 26111
+[21/Oct/2025 18:54:49] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:14] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[21/Oct/2025 18:55:29] "GET / HTTP/1.1" 200 26111
+[21/Oct/2025 18:55:33] "GET / HTTP/1.1" 200 26111
+[21/Oct/2025 18:55:50] "GET /events/ HTTP/1.1" 200 14199
+[21/Oct/2025 18:55:50] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 18:55:50] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 18:55:50] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 18:55:50] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 18:55:50] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:50] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 18:55:51] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 18:55:51] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 18:55:54] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[21/Oct/2025 18:55:54] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[21/Oct/2025 18:56:00] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[21/Oct/2025 18:56:05] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[21/Oct/2025 18:56:24] "GET /teams/ HTTP/1.1" 200 14680
+[21/Oct/2025 18:56:24] "GET /media/teams/logos/WhatsApp_Image_2025-08-28_at_2.04.42_PM.jpeg HTTP/1.1" 200 69494
+Internal Server Error: /teams/dhanesh/
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: teams/team_detail.html
+[21/Oct/2025 18:56:27] "GET /teams/dhanesh/ HTTP/1.1" 500 85629
+Internal Server Error: /teams/naresh/
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: teams/team_detail.html
+[21/Oct/2025 18:56:32] "GET /teams/naresh/ HTTP/1.1" 500 85619
+[21/Oct/2025 18:56:36] "GET /sports/ HTTP/1.1" 200 13919
+[21/Oct/2025 18:56:36] "GET /media/sports/ip2.jpg HTTP/1.1" 200 95781
+[21/Oct/2025 18:56:39] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 18:56:54,707] - Broken pipe from ('152.58.58.253', 60780)
+[21/Oct/2025 18:56:54,707] - Broken pipe from ('152.58.58.253', 60722)
+[21/Oct/2025 18:56:54,710] - Broken pipe from ('152.58.58.253', 60742)
+[21/Oct/2025 18:56:54,710] - Broken pipe from ('152.58.58.253', 60766)
+[21/Oct/2025 18:56:54,712] - Broken pipe from ('152.58.58.253', 60758)
+[21/Oct/2025 18:56:54,717] - Broken pipe from ('152.58.58.253', 60728)
+[21/Oct/2025 19:03:00] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:03:02] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 19:03:02] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:03:03] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[21/Oct/2025 19:03:04] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:03:09] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:04:49] "GET /news/ HTTP/1.1" 200 14849
+[21/Oct/2025 19:05:39,850] - Broken pipe from ('152.58.58.253', 41526)
+[21/Oct/2025 19:05:39,852] - Broken pipe from ('152.58.58.253', 41512)
+[21/Oct/2025 19:05:39,855] - Broken pipe from ('152.58.58.253', 44243)
+[21/Oct/2025 19:05:39,855] - Broken pipe from ('152.58.58.253', 41464)
+[21/Oct/2025 19:05:39,856] - Broken pipe from ('152.58.58.253', 37511)
+[21/Oct/2025 19:05:39,857] - Broken pipe from ('152.58.58.253', 41472)
+[21/Oct/2025 19:11:45] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:11:45] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 19:11:45] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 19:11:45] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 19:11:45] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 19:11:45] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 19:11:45] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:46] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[21/Oct/2025 19:11:52] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:11:57,755] - Broken pipe from ('152.58.58.253', 38452)
+[21/Oct/2025 19:11:57,755] - Broken pipe from ('152.58.58.253', 38424)
+[21/Oct/2025 19:11:57,755] - Broken pipe from ('152.58.58.253', 7783)
+[21/Oct/2025 19:11:57,755] - Broken pipe from ('152.58.58.253', 38440)
+[21/Oct/2025 19:11:57,755] - Broken pipe from ('152.58.58.253', 13524)
+[21/Oct/2025 19:11:57,764] - Broken pipe from ('152.58.58.253', 38470)
+[21/Oct/2025 19:22:09] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:22:11] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:22:11] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:22:12] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[21/Oct/2025 19:22:14] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:22:15] "GET /static/css/style.css HTTP/1.1" 200 16047
+[21/Oct/2025 19:22:16] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 200 2950
+[21/Oct/2025 19:22:16] "GET /static/css/glass.css HTTP/1.1" 200 2107
+[21/Oct/2025 19:22:16] "GET /static/css/gallery.css HTTP/1.1" 200 4005
+[21/Oct/2025 19:22:16] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 200 80425
+[21/Oct/2025 19:22:16] "GET /static/js/main.js HTTP/1.1" 200 9386
+[21/Oct/2025 19:22:16] "GET /static/js/gallery-lightbox.js HTTP/1.1" 200 2622
+[21/Oct/2025 19:22:16] "GET /media/events/ip3.jpg HTTP/1.1" 200 126247
+[21/Oct/2025 19:22:17] "GET /media/gallery/sports1.jpg HTTP/1.1" 200 102673
+[21/Oct/2025 19:22:17] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 200 133884
+[21/Oct/2025 19:22:17] "GET /media/news/ip2.jpg HTTP/1.1" 200 95781
+[21/Oct/2025 19:22:17] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 200 4605684
+[21/Oct/2025 19:22:18] "GET /media/themes/601790.jpg HTTP/1.1" 200 431147
+[21/Oct/2025 19:22:18] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 200 1108602
+[21/Oct/2025 19:22:20] "GET /media/hero/14632.jpg HTTP/1.1" 200 613006
+[21/Oct/2025 19:22:22] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 200 1715065
+[21/Oct/2025 19:26:31] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:26:31] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:26:36] "GET /sports/ HTTP/1.1" 200 13919
+[21/Oct/2025 19:26:36] "GET /media/sports/ip2.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:26:41] "GET /news/ HTTP/1.1" 200 14849
+[21/Oct/2025 19:26:46] "GET /about/ HTTP/1.1" 200 33675
+[21/Oct/2025 19:26:46] "GET /media/about/team/WhatsApp_Image_2025-10-07_at_4.12.34_PM.jpeg HTTP/1.1" 200 34423
+[21/Oct/2025 19:26:58] "GET /contact/ HTTP/1.1" 200 45782
+[21/Oct/2025 19:27:41,847] - Broken pipe from ('152.58.57.25', 40908)
+[21/Oct/2025 19:27:41,854] - Broken pipe from ('152.58.57.25', 40920)
+[21/Oct/2025 19:28:26] "GET /contact/ HTTP/1.1" 200 45782
+[21/Oct/2025 19:28:32] "GET /contact/ HTTP/1.1" 200 45782
+[21/Oct/2025 19:28:38] "GET /about/ HTTP/1.1" 200 33675
+[21/Oct/2025 19:28:47] "GET /about/ HTTP/1.1" 200 33675
+[21/Oct/2025 19:28:56] "GET /sports/ HTTP/1.1" 200 13919
+[21/Oct/2025 19:29:04] "GET /about/ HTTP/1.1" 200 33675
+[21/Oct/2025 19:29:23] "GET / HTTP/1.1" 200 25854
+[21/Oct/2025 19:29:49] "GET /events/1/ HTTP/1.1" 200 15670
+[21/Oct/2025 19:30:00,124] - Broken pipe from ('152.58.57.25', 33368)
+[21/Oct/2025 19:30:00,134] - Broken pipe from ('152.58.57.25', 35550)
+[21/Oct/2025 19:36:31] "GET /events/1/ HTTP/1.1" 200 15670
+[21/Oct/2025 19:36:32] "GET /static/css/style.css HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /static/css/glass.css HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Oct/2025 19:36:32] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[21/Oct/2025 19:36:55,997] - Broken pipe from ('152.58.57.25', 41616)
+[21/Oct/2025 19:36:55,997] - Broken pipe from ('152.58.57.25', 41630)
+[21/Oct/2025 19:36:55,997] - Broken pipe from ('152.58.57.25', 41634)
+[21/Oct/2025 19:36:55,998] - Broken pipe from ('152.58.57.25', 41608)
+[21/Oct/2025 19:36:55,998] - Broken pipe from ('152.58.57.25', 41594)
+[21/Oct/2025 19:36:55,998] - Broken pipe from ('152.58.57.25', 41620)
+[22/Oct/2025 00:25:02] "GET / HTTP/1.0" 200 25854
+[22/Oct/2025 01:42:09] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 01:42:09] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 01:42:09] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 01:42:10] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[22/Oct/2025 01:42:11] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 01:42:16] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:42:21] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 01:45:42] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 01:45:42] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:45:43] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[22/Oct/2025 01:45:44] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 01:55:10] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 01:58:58] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+Invalid HTTP_HOST header: 'nscplcg.in:8000'. You may need to add 'nscplcg.in' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'nscplcg.in:8000'. You may need to add 'nscplcg.in' to ALLOWED_HOSTS.
+Bad Request: /
+[22/Oct/2025 02:00:25] "GET / HTTP/1.1" 400 73725
+Invalid HTTP_HOST header: 'nscplcg.in:8000'. You may need to add 'nscplcg.in' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'nscplcg.in:8000'. You may need to add 'nscplcg.in' to ALLOWED_HOSTS.
+Bad Request: /favicon.ico
+[22/Oct/2025 02:00:26] "GET /favicon.ico HTTP/1.1" 400 73694
+/home/ubuntu/project/nscpl/nscpl_project/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 21, 2025 - 18:53:42
+Django version 5.0.7, using settings 'nscpl_project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[22/Oct/2025 02:06:35] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 02:06:40] "GET /teams/ HTTP/1.1" 200 14937
+[22/Oct/2025 02:06:41] "GET /media/teams/logos/WhatsApp_Image_2025-08-28_at_2.04.42_PM.jpeg HTTP/1.1" 200 69494
+[22/Oct/2025 02:06:47] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 02:06:49] "GET /static/css/glass.css HTTP/1.1" 200 2107
+[22/Oct/2025 02:06:49] "GET /static/css/style.css HTTP/1.1" 200 16047
+[22/Oct/2025 02:06:49] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 200 2950
+[22/Oct/2025 02:06:50] "GET /static/css/gallery.css HTTP/1.1" 200 4005
+[22/Oct/2025 02:06:50] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 200 133884
+[22/Oct/2025 02:06:50] "GET /media/events/ip3.jpg HTTP/1.1" 200 126247
+[22/Oct/2025 02:06:50] "GET /static/js/main.js HTTP/1.1" 200 9386
+[22/Oct/2025 02:06:51] "GET /media/gallery/sports1.jpg HTTP/1.1" 200 102673
+[22/Oct/2025 02:06:51] "GET /media/news/ip2.jpg HTTP/1.1" 200 95781
+[22/Oct/2025 02:06:51] "GET /media/themes/601790.jpg HTTP/1.1" 200 431147
+[22/Oct/2025 02:06:52] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 200 80425
+[22/Oct/2025 02:06:53] "GET /static/js/gallery-lightbox.js HTTP/1.1" 200 2622
+[22/Oct/2025 02:06:53] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 200 1108602
+[22/Oct/2025 02:06:58] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 200 4605684
+Not Found: /favicon.ico
+[22/Oct/2025 02:06:59] "GET /favicon.ico HTTP/1.1" 404 5783
+[22/Oct/2025 02:11:45] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 02:11:49] "GET /events/ HTTP/1.1" 200 14456
+[22/Oct/2025 02:11:52] "GET /teams/ HTTP/1.1" 200 14937
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 11, in main
+    from django.core.management import execute_from_command_line
+ModuleNotFoundError: No module named 'django'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 22, in <module>
+    main()
+  File "/home/ubuntu/project/nscpl/manage.py", line 13, in main
+    raise ImportError(
+ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 11, in main
+    from django.core.management import execute_from_command_line
+ModuleNotFoundError: No module named 'django'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 22, in <module>
+    main()
+  File "/home/ubuntu/project/nscpl/manage.py", line 13, in main
+    raise ImportError(
+ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
+Watching for file changes with StatReloader
+[22/Oct/2025 03:07:38] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 03:07:38] "GET /static/css/style.css HTTP/1.1" 200 16047
+[22/Oct/2025 03:07:39] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 200 2950
+[22/Oct/2025 03:07:39] "GET /static/css/gallery.css HTTP/1.1" 200 4005
+[22/Oct/2025 03:07:39] "GET /static/css/glass.css HTTP/1.1" 200 2107
+[22/Oct/2025 03:07:39] "GET /static/js/main.js HTTP/1.1" 200 9386
+[22/Oct/2025 03:07:39] "GET /static/js/gallery-lightbox.js HTTP/1.1" 200 2622
+[22/Oct/2025 03:07:39] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 200 80425
+Not Found: /favicon.ico
+[22/Oct/2025 03:07:40] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 03:07:46] "GET /about/ HTTP/1.1" 200 33932
+[22/Oct/2025 03:07:47] "GET /media/about/team/WhatsApp_Image_2025-10-07_at_4.12.34_PM.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 03:07:50] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 03:07:51] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 200 2950
+[22/Oct/2025 03:07:51] "GET /static/css/style.css HTTP/1.1" 200 16047
+[22/Oct/2025 03:07:51] "GET /static/css/glass.css HTTP/1.1" 200 2107
+[22/Oct/2025 03:07:51] "GET /static/css/gallery.css HTTP/1.1" 200 4005
+[22/Oct/2025 03:07:51] "GET /static/js/main.js HTTP/1.1" 200 9386
+[22/Oct/2025 03:07:51] "GET /static/js/gallery-lightbox.js HTTP/1.1" 200 2622
+[22/Oct/2025 03:07:51] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 200 80425
+[22/Oct/2025 03:08:30] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 03:49:35] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 03:49:35] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 03:49:38] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 03:49:38] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:45] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 03:49:51] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 03:49:56] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[22/Oct/2025 03:50:45,960] - Broken pipe from ('152.56.174.156', 40152)
+[22/Oct/2025 03:50:45,965] - Broken pipe from ('152.56.174.156', 40156)
+[22/Oct/2025 03:50:45,968] - Broken pipe from ('152.56.174.156', 40114)
+[22/Oct/2025 03:50:45,972] - Broken pipe from ('152.56.174.156', 40126)
+[22/Oct/2025 03:50:45,972] - Broken pipe from ('152.56.174.156', 40104)
+[22/Oct/2025 03:50:45,976] - Broken pipe from ('152.56.174.156', 40140)
+[22/Oct/2025 04:48:42] "GET / HTTP/1.1" 200 25854
+Not Found: /favicon.ico
+[22/Oct/2025 04:48:42] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 04:48:47] "GET /events/ HTTP/1.1" 200 14199
+[22/Oct/2025 04:49:05,801] - Broken pipe from ('152.59.46.212', 44796)
+[22/Oct/2025 04:49:05,801] - Broken pipe from ('152.59.46.212', 61544)
+[22/Oct/2025 04:53:11,995] - Broken pipe from ('152.59.46.94', 16443)
+[22/Oct/2025 04:53:12,036] - Broken pipe from ('152.59.46.94', 40310)
+[22/Oct/2025 04:54:52,782] - Broken pipe from ('152.59.46.235', 47131)
+[22/Oct/2025 04:54:52,786] - Broken pipe from ('152.59.46.235', 42062)
+[22/Oct/2025 05:00:45] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 05:00:45] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 05:00:45] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 05:00:45] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:46] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 05:00:47] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 05:00:47] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 05:00:52] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:00:53] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[22/Oct/2025 05:01:05] "GET /about/ HTTP/1.1" 200 33675
+[22/Oct/2025 05:01:05] "GET /media/about/team/WhatsApp_Image_2025-10-07_at_4.12.34_PM.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 05:01:15] "GET /gallery/ HTTP/1.1" 200 15595
+[22/Oct/2025 05:01:15] "GET /media/gallery/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[22/Oct/2025 05:01:38] "GET /contact/ HTTP/1.1" 200 45782
+[22/Oct/2025 05:02:04,746] - Broken pipe from ('59.184.73.185', 41182)
+[22/Oct/2025 05:02:04,746] - Broken pipe from ('59.184.73.185', 41196)
+[22/Oct/2025 05:02:04,747] - Broken pipe from ('59.184.73.185', 41166)
+[22/Oct/2025 05:02:04,747] - Broken pipe from ('59.184.73.185', 41134)
+[22/Oct/2025 05:02:04,747] - Broken pipe from ('59.184.73.185', 41150)
+[22/Oct/2025 05:02:04,747] - Broken pipe from ('59.184.73.185', 41142)
+[22/Oct/2025 05:11:21] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:11:22] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 05:11:22] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 05:11:22] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 05:11:23] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[22/Oct/2025 06:37:47] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 06:37:56] "GET /contact/ HTTP/1.1" 200 45782
+[22/Oct/2025 06:37:56] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 06:37:56] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 06:37:56] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 06:37:56] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 06:37:56] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 06:37:57] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 06:37:57] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 06:39:13] "POST /contact/ HTTP/1.1" 302 0
+[22/Oct/2025 06:39:14] "GET /contact/ HTTP/1.1" 200 46336
+[22/Oct/2025 06:39:33] "GET /events/ HTTP/1.1" 200 14199
+[22/Oct/2025 06:39:33] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 06:39:41,779] - Broken pipe from ('152.56.248.169', 56994)
+[22/Oct/2025 06:39:41,779] - Broken pipe from ('152.56.248.169', 57004)
+[22/Oct/2025 06:39:41,781] - Broken pipe from ('152.56.248.169', 56962)
+[22/Oct/2025 06:39:41,781] - Broken pipe from ('152.56.248.169', 56992)
+[22/Oct/2025 06:39:41,785] - Broken pipe from ('152.56.248.169', 56976)
+[22/Oct/2025 06:39:41,788] - Broken pipe from ('152.56.248.169', 57002)
+[22/Oct/2025 06:40:31] "GET /admin HTTP/1.1" 301 0
+[22/Oct/2025 06:40:32] "GET /admin/ HTTP/1.1" 302 0
+[22/Oct/2025 06:40:32] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3160
+[22/Oct/2025 06:40:32] "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+[22/Oct/2025 06:40:32] "GET /static/css/jazzmin.css HTTP/1.1" 200 8991
+[22/Oct/2025 06:40:32] "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+[22/Oct/2025 06:40:33] "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+[22/Oct/2025 06:40:33] "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+[22/Oct/2025 06:40:33] "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+[22/Oct/2025 06:40:33] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[22/Oct/2025 06:40:33] "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+[22/Oct/2025 06:40:34] "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+[22/Oct/2025 06:40:44] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[22/Oct/2025 06:40:44] "GET /admin/ HTTP/1.1" 200 64243
+[22/Oct/2025 06:40:45] "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+[22/Oct/2025 06:40:45] "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+[22/Oct/2025 06:41:09,861] - Broken pipe from ('152.56.253.184', 48446)
+[22/Oct/2025 06:41:09,862] - Broken pipe from ('152.56.253.184', 48490)
+[22/Oct/2025 06:41:09,865] - Broken pipe from ('152.56.253.184', 48458)
+[22/Oct/2025 06:41:09,869] - Broken pipe from ('152.56.253.184', 48498)
+[22/Oct/2025 06:41:09,871] - Broken pipe from ('152.56.253.184', 48474)
+[22/Oct/2025 06:41:09,872] - Broken pipe from ('152.56.253.184', 43344)
+[22/Oct/2025 06:41:38,511] - Broken pipe from ('152.56.253.137', 43250)
+[22/Oct/2025 06:41:38,522] - Broken pipe from ('152.56.253.137', 30794)
+[22/Oct/2025 06:44:09,271] - Broken pipe from ('152.56.251.30', 54789)
+[22/Oct/2025 06:44:09,273] - Broken pipe from ('152.56.251.30', 42460)
+[22/Oct/2025 06:45:19,079] - Broken pipe from ('152.56.252.15', 20235)
+[22/Oct/2025 06:45:19,084] - Broken pipe from ('152.56.252.15', 48388)
+[22/Oct/2025 07:01:33,813] - Broken pipe from ('152.56.253.150', 38622)
+[22/Oct/2025 07:01:33,820] - Broken pipe from ('152.56.253.150', 38618)
+[22/Oct/2025 07:01:59,957] - Broken pipe from ('152.56.253.150', 43758)
+[22/Oct/2025 07:01:59,963] - Broken pipe from ('152.56.253.150', 43770)
+[22/Oct/2025 07:02:18,150] - Broken pipe from ('152.56.254.78', 41602)
+[22/Oct/2025 07:02:18,155] - Broken pipe from ('152.56.254.78', 41604)
+[22/Oct/2025 07:47:53] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 07:47:54] "GET /static/css/style.css HTTP/1.1" 200 16047
+[22/Oct/2025 07:47:54] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 200 2950
+[22/Oct/2025 07:47:54] "GET /static/css/glass.css HTTP/1.1" 200 2107
+[22/Oct/2025 07:47:54] "GET /static/css/gallery.css HTTP/1.1" 200 4005
+[22/Oct/2025 07:47:54] "GET /media/events/ip3.jpg HTTP/1.1" 200 126247
+[22/Oct/2025 07:47:54] "GET /media/news/ip2.jpg HTTP/1.1" 200 95781
+[22/Oct/2025 07:47:54] "GET /static/js/main.js HTTP/1.1" 200 9386
+[22/Oct/2025 07:47:54] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 200 133884
+[22/Oct/2025 07:47:55] "GET /media/gallery/sports1.jpg HTTP/1.1" 200 102673
+[22/Oct/2025 07:47:55] "GET /static/js/gallery-lightbox.js HTTP/1.1" 200 2622
+[22/Oct/2025 07:47:55] "GET /media/themes/601790.jpg HTTP/1.1" 200 431147
+[22/Oct/2025 07:47:55] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 200 80425
+[22/Oct/2025 07:47:55] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 200 1108602
+[22/Oct/2025 07:47:56] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 200 4605684
+Not Found: /favicon.ico
+[22/Oct/2025 07:47:57] "GET /favicon.ico HTTP/1.1" 404 5783
+[22/Oct/2025 07:48:02] "GET /media/hero/14632.jpg HTTP/1.1" 200 613006
+[22/Oct/2025 07:48:07] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 200 1715065
+[22/Oct/2025 07:48:27] "GET /about/ HTTP/1.1" 200 33675
+[22/Oct/2025 07:48:28] "GET /media/about/team/WhatsApp_Image_2025-10-07_at_4.12.34_PM.jpeg HTTP/1.1" 200 34423
+[22/Oct/2025 07:48:52] "GET /sports/ HTTP/1.1" 200 13919
+[22/Oct/2025 07:48:53] "GET /media/sports/ip2.jpg HTTP/1.1" 200 95781
+[22/Oct/2025 07:49:01] "GET /news/ HTTP/1.1" 200 14849
+[22/Oct/2025 07:49:04] "GET /teams/ HTTP/1.1" 200 14680
+[22/Oct/2025 07:49:04] "GET /media/teams/logos/WhatsApp_Image_2025-08-28_at_2.04.42_PM.jpeg HTTP/1.1" 200 69494
+[22/Oct/2025 07:49:10] "GET /gallery/ HTTP/1.1" 200 15595
+[22/Oct/2025 07:49:12] "GET /media/gallery/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 200 1715065
+[22/Oct/2025 07:49:46] "GET /registration/register/ HTTP/1.1" 200 36310
+[22/Oct/2025 07:49:53] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 08:33:48] "GET /admin/ HTTP/1.1" 200 64243
+[22/Oct/2025 08:33:55] "GET /admin/ HTTP/1.1" 302 0
+[22/Oct/2025 08:33:56] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3160
+[22/Oct/2025 08:33:56] "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+[22/Oct/2025 08:33:57] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 08:33:57] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+[22/Oct/2025 08:33:57] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /static/css/jazzmin.css HTTP/1.1" 200 8991
+[22/Oct/2025 08:33:57] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 08:33:57] "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+[22/Oct/2025 08:33:57] "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+[22/Oct/2025 08:33:57] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+[22/Oct/2025 08:33:58] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[22/Oct/2025 08:33:58] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 08:33:58] "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+[22/Oct/2025 08:33:58] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[22/Oct/2025 08:33:58] "GET /favicon.ico HTTP/1.1" 404 5784
+[22/Oct/2025 08:33:59] "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+[22/Oct/2025 08:34:03] "GET /news/ HTTP/1.1" 200 15106
+[22/Oct/2025 08:34:08] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 08:34:13] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 08:34:15] "GET /events/ HTTP/1.1" 200 14456
+[22/Oct/2025 08:34:32,163] - Broken pipe from ('223.181.78.25', 24301)
+[22/Oct/2025 08:34:32,167] - Broken pipe from ('223.181.78.25', 21564)
+[22/Oct/2025 08:34:32,168] - Broken pipe from ('223.181.78.25', 7110)
+[22/Oct/2025 08:34:32,169] - Broken pipe from ('223.181.78.25', 10572)
+[22/Oct/2025 08:34:32,178] - Broken pipe from ('223.181.78.25', 21050)
+[22/Oct/2025 08:34:32,179] - Broken pipe from ('223.181.78.25', 18705)
+[22/Oct/2025 08:39:24] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 08:39:25] code 400, message Bad request syntax ('MGLNDD_13.61.9.147_8000')
+[22/Oct/2025 08:39:25] "MGLNDD_13.61.9.147_8000" 400 -
+[22/Oct/2025 08:40:26] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 08:41:05] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+[22/Oct/2025 08:41:26] "GET /registration/register/ HTTP/1.1" 200 36567
+[22/Oct/2025 08:41:46] "POST /registration/register/ HTTP/1.1" 200 37832
+[22/Oct/2025 08:42:01] code 400, message Bad request version ('À\x14À')
+[22/Oct/2025 08:42:01] You're accessing the development server over HTTPS, but it only supports HTTP.
+[22/Oct/2025 08:42:01] code 400, message Bad request syntax ('MGLNDD_13.61.9.147_8000')
+[22/Oct/2025 08:42:01] "MGLNDD_13.61.9.147_8000" 400 -
+[22/Oct/2025 08:42:12,824] - Broken pipe from ('152.56.173.133', 45278)
+[22/Oct/2025 08:42:12,824] - Broken pipe from ('152.56.173.133', 34070)
+[22/Oct/2025 08:43:10,596] - Broken pipe from ('152.56.173.133', 56528)
+[22/Oct/2025 08:43:10,604] - Broken pipe from ('152.56.173.133', 56538)
+[22/Oct/2025 08:44:43] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 08:44:57] "GET /events/ HTTP/1.1" 200 14456
+[22/Oct/2025 08:45:07] "GET /events/1/ HTTP/1.1" 200 15927
+[22/Oct/2025 08:45:56,855] - Broken pipe from ('152.56.173.133', 46458)
+[22/Oct/2025 08:45:56,855] - Broken pipe from ('152.56.173.133', 46464)
+[22/Oct/2025 08:46:41,505] - Broken pipe from ('152.56.173.133', 39370)
+[22/Oct/2025 08:46:41,511] - Broken pipe from ('152.56.173.133', 39386)
+[22/Oct/2025 08:47:06] "GET / HTTP/1.0" 200 25854
+[22/Oct/2025 08:47:55] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 08:47:55,736] - Broken pipe from ('47.250.142.224', 24238)
+[22/Oct/2025 08:49:06] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 08:50:44] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 08:52:24] code 400, message Bad request version ('À\x14À')
+[22/Oct/2025 08:52:24] You're accessing the development server over HTTPS, but it only supports HTTP.
+[22/Oct/2025 08:54:28] code 400, message Bad request syntax ('SSH-2.0-Go')
+[22/Oct/2025 08:54:28] "SSH-2.0-Go" 400 -
+[22/Oct/2025 08:55:57] code 400, message Bad request version ('À\x14À')
+[22/Oct/2025 08:55:57] You're accessing the development server over HTTPS, but it only supports HTTP.
+[22/Oct/2025 11:18:55] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
+[22/Oct/2025 11:18:56] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 11:18:58] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 11:18:58] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 11:18:59] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 11:18:59] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 11:18:59] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 11:18:59] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 304 0
+[22/Oct/2025 11:18:59] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 11:19:00] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 11:19:07] "GET /events/ HTTP/1.1" 200 14456
+[22/Oct/2025 11:19:09] "GET /teams/ HTTP/1.1" 200 14937
+[22/Oct/2025 11:19:10] "GET /media/teams/logos/WhatsApp_Image_2025-08-28_at_2.04.42_PM.jpeg HTTP/1.1" 200 69494
+[22/Oct/2025 11:19:16] "GET /news/ HTTP/1.1" 200 15106
+[22/Oct/2025 11:19:18] "GET /teams/ HTTP/1.1" 200 14937
+Internal Server Error: /teams/dhanesh/
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: teams/team_detail.html
+[22/Oct/2025 11:19:21] "GET /teams/dhanesh/ HTTP/1.1" 500 85653
+Internal Server Error: /teams/naresh/
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: teams/team_detail.html
+[22/Oct/2025 11:19:31] "GET /teams/naresh/ HTTP/1.1" 500 85643
+[22/Oct/2025 11:19:36] "GET /registration/register/ HTTP/1.1" 200 36567
+[22/Oct/2025 11:19:51] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 11:20:01] "GET /media/hero/Gemini_Generated_Image_mxv4i6mxv4i6mxv4.png HTTP/1.1" 304 0
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 11, in main
+    from django.core.management import execute_from_command_line
+ModuleNotFoundError: No module named 'django'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 22, in <module>
+    main()
+  File "/home/ubuntu/project/nscpl/manage.py", line 13, in main
+    raise ImportError(
+ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
+Watching for file changes with StatReloader
+[22/Oct/2025 11:52:47] "GET / HTTP/1.0" 200 25854
+[22/Oct/2025 11:52:52] "GET /events/ HTTP/1.0" 200 14199
+[22/Oct/2025 11:52:55] "GET /news/ HTTP/1.0" 200 14849
+[22/Oct/2025 11:53:15] "GET / HTTP/1.0" 200 25854
+[22/Oct/2025 11:53:57] "GET /news/ HTTP/1.0" 200 14849
+/home/ubuntu/project/nscpl/nscpl_project/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 22, 2025 - 11:52:41
+Django version 5.0.7, using settings 'nscpl_project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Traceback (most recent call last):
+  File "/home/ubuntu/project/nscpl/manage.py", line 22, in <module>
+    main()
+  File "/home/ubuntu/project/nscpl/manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/core/management/__init__.py", line 382, in execute
+    settings.INSTALLED_APPS
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/conf/__init__.py", line 89, in __getattr__
+    self._setup(name)
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/conf/__init__.py", line 76, in _setup
+    self._wrapped = Settings(settings_module)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/nscpl/venv/lib/python3.12/site-packages/django/conf/__init__.py", line 190, in __init__
+    mod = importlib.import_module(self.SETTINGS_MODULE)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/ubuntu/project/nscpl/nscpl_project/settings.py", line 75, in <module>
+    'DIRS': [BASE_DIR / 'templates'],
+             ~~~~~~~~~^~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for /: 'str' and 'str'
+Watching for file changes with StatReloader
+[22/Oct/2025 12:21:23] "GET /news/ HTTP/1.0" 200 14849
+[22/Oct/2025 12:21:39] "GET / HTTP/1.1" 200 26111
+[22/Oct/2025 12:21:50] "GET / HTTP/1.0" 200 25854
+[22/Oct/2025 12:21:54] "GET / HTTP/1.1" 200 25854
+[22/Oct/2025 12:21:54] "GET /static/css/style.css HTTP/1.1" 304 0
+[22/Oct/2025 12:21:54] "GET /static/css/simple-lightbox.min.css HTTP/1.1" 304 0
+[22/Oct/2025 12:21:54] "GET /static/css/glass.css HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /static/css/gallery.css HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/themes/601790.jpg HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/hero/Gemini_Generated_Image_jtn8zdjtn8zdjtn8.png HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/events/ip3.jpg HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/news/ip2.jpg HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /static/js/main.js HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/gallery/sports1.jpg HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /static/js/simple-lightbox.min.js HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /static/js/gallery-lightbox.js HTTP/1.1" 304 0
+[22/Oct/2025 12:21:55] "GET /media/popup_images/WhatsApp_Image_2025-10-21_at_7.39.49_AM_k6VwZrI.jpeg HTTP/1.1" 304 0
+[22/Oct/2025 12:21:56] "GET /media/footer/nscpl_logo_1_0MM8xcG.png HTTP/1.1" 200 4605684
+[22/Oct/2025 12:26:45] "GET /media/hero/14632.jpg HTTP/1.1" 304 0
