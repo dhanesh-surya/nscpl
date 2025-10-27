@@ -61,4 +61,11 @@ class GalleryView(ListView):
             })
         context['video_items'] = video_items
         
+        # Add PageHero for gallery page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='gallery', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        
         return context

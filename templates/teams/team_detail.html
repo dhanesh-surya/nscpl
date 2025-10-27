@@ -21,6 +21,31 @@
                 {% if team.coach %}
                 <p class="text-muted">Coach: {{ team.coach.get_full_name|default:team.coach.username }}</p>
                 {% endif %}
+                {# Contact icons (email/phone/linkedin/twitter) for this team #}
+                <div class="mt-3">
+                    <div class="d-flex gap-3 align-items-center">
+                        {% if team.contact_email %}
+                        <a href="mailto:{{ team.contact_email }}" title="Email {{ team.name }}" style="color: {{ team.contact_icon_color|default:'#212529' }};">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </a>
+                        {% endif %}
+                        {% if team.contact_phone %}
+                        <a href="tel:{{ team.contact_phone }}" title="Call {{ team.name }}" style="color: {{ team.contact_icon_color|default:'#212529' }};">
+                            <i class="fas fa-phone fa-lg"></i>
+                        </a>
+                        {% endif %}
+                        {% if team.contact_linkedin %}
+                        <a href="{{ team.contact_linkedin }}" target="_blank" rel="noopener" title="{{ team.name }} on LinkedIn" style="color: {{ team.contact_icon_color|default:'#212529' }};">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                        {% endif %}
+                        {% if team.contact_twitter %}
+                        <a href="{{ team.contact_twitter }}" target="_blank" rel="noopener" title="{{ team.name }} on Twitter" style="color: {{ team.contact_icon_color|default:'#212529' }};">
+                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
             <h3 class="mt-4">Players</h3>

@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django import forms
 from .models import Event, EventImage
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 class EventImageInline(admin.TabularInline):
@@ -10,6 +12,20 @@ class EventImageInline(admin.TabularInline):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    # Use a ModelForm to render the `description` field with CKEditor 5
+    class EventAdminForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = '__all__'
+            widgets = {
+                'description': CKEditor5Widget(attrs={
+                    'class': 'django_ckeditor_5',
+                    'data-field-name': 'description',
+                    'data-config-name': 'default'
+                })
+            }
+
+    form = EventAdminForm
     list_display = ['title', 'sport', 'date', 'location', 'is_upcoming', 'created_at']
     list_filter = ['sport', 'is_upcoming', 'date', 'created_at']
     search_fields = ['title', 'sport', 'location', 'description']

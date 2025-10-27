@@ -12,6 +12,16 @@ class SportListView(ListView):
     
     def get_queryset(self):
         return Sport.objects.filter(is_active=True).order_by('name')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add PageHero for sports page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='sports', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        return context
 
 
 class SportDetailView(DetailView):

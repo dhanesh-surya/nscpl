@@ -78,11 +78,79 @@
 {% endblock %}
 
 {% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
 <!-- Hero Section -->
 <section class="hero-section" style="background: linear-gradient(45deg, #cc2b5e, #753a88);; color: #ffffff;">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center">
+            <!-- Mobile: logo above content -->
+            <div class="col-12 d-lg-none text-center mb-4">
+                {% if footer.logo %}
+                    <img src="{{ footer.logo.url }}" alt="NSCPL Logo" class="img-fluid hero-logo hero-logo-trigger" data-logo-url="{{ footer.logo.url }}" style="max-height:80px; object-fit:contain; cursor: zoom-in;">
+                {% else %}
+                    <i class="fas fa-trophy fa-2x text-white"></i>
+                {% endif %}
+            </div>
+
+            <!-- Desktop: logo on the left -->
+            <div class="col-lg-2 d-none d-lg-flex align-items-center justify-content-center">
+                {% if footer.logo %}
+                    <img src="{{ footer.logo.url }}" alt="NSCPL Logo" class="img-fluid hero-logo hero-logo-trigger" data-logo-url="{{ footer.logo.url }}" style="max-height:120px; object-fit:contain; cursor: zoom-in;">
+                {% else %}
+                    <i class="fas fa-trophy fa-3x text-white"></i>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-8 mx-auto text-center text-lg-start">
                 <div class="hero-content aos-init aos-animate" data-aos="fade-up">
                     <h1 class="display-4 fw-bold mb-4">About NSCPL</h1>
                     <p class="lead">NSCPL (NSCPL PRIVATE LIMITED) is dedicated to excellence in sports and event management. We focus on fostering athletic talent, organizing competitive events, and building community engagement through professional sports services.</p>
@@ -92,6 +160,22 @@
         </div>
     </div>
 </section>
+
+<!-- Logo Modal (enlarged view) -->
+<div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white" id="logoModalLabel">NSCPL Logo</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="logoModalImage" src="" alt="Logo Large" class="img-fluid" style="max-height:70vh; object-fit:contain;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- Mission & Vision Section -->
 <section class="section-padding">
@@ -429,7 +513,7 @@
                                 {% endif %}
                                 {% if member.twitter_url %}
                                     <a href="{{ member.twitter_url }}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
-                                        <i class="fab fa-twitter"></i>
+                                        <i class="fa-brands fa-x-twitter"></i>
                                     </a>
                                 {% endif %}
                             </div>

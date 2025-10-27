@@ -18,4 +18,5 @@ urlpatterns = [
     path('team-member/add/', views.AboutTeamMemberCreateView.as_view(), name='add_team_member'),
     path('team-member/<int:pk>/edit/', views.AboutTeamMemberUpdateView.as_view(), name='edit_team_member'),
     path('team-member/<int:pk>/delete/', views.AboutTeamMemberDeleteView.as_view(), name='delete_team_member'),
+    path('page/<slug:slug>/', views.PageDetailView.as_view(), name='page_detail'),
 ]

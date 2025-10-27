@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django import forms
 from django.forms import ModelForm
 from .models import Team, Player, SportPosition
+from page_content.admin import StyleOptionsAdminMixin
+from django_ckeditor_5.widgets import CKEditor5Widget
+from core.forms import ColorPickerWidget
 
 
 class PlayerInlineForm(ModelForm):
@@ -53,7 +57,7 @@ class SportPositionAdmin(admin.ModelAdmin):
 
 
 @admin.register(Team)
-class TeamAdmin(admin.ModelAdmin):
+class TeamAdmin(StyleOptionsAdminMixin, admin.ModelAdmin):
     list_display = ['name', 'sport', 'founded_date', 'is_active', 'created_at']
     list_filter = ['sport', 'is_active', 'founded_date', 'created_at']
     search_fields = ['name', 'description']
@@ -62,6 +66,24 @@ class TeamAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     inlines = [PlayerInline]
     
+    # Use a ModelForm to render the `description` field with CKEditor 5
+    class TeamAdminForm(forms.ModelForm):
+        class Meta:
+            model = Team
+            fields = '__all__'
+            widgets = {
+                'description': CKEditor5Widget(attrs={
+                    'class': 'django_ckeditor_5',
+                    'data-field-name': 'description',
+                    'data-config-name': 'default'
+                }),
+                'contact_icon_color': ColorPickerWidget(),
+                'contact_icon_bg': ColorPickerWidget(),
+            }
+
+    form = TeamAdminForm
+    readonly_fields = ('contact_preview',)
+
     fieldsets = (
         ('Basic Information', {
             'fields': ('name', 'slug', 'sport', 'description')
@@ -75,7 +97,30 @@ class TeamAdmin(admin.ModelAdmin):
         ('Status', {
             'fields': ('is_active',)
         }),
+        ('Contact', {
+            'fields': ('contact_email', 'contact_phone', 'contact_linkedin', 'contact_twitter', 'contact_icon_color', 'contact_icon_bg', 'contact_preview'),
+            'classes': ('collapse',)
+        }),
     )
+
+    def contact_preview(self, obj):
+        """Render a small preview with Font Awesome icons and links for contact fields."""
+        if not obj:
+            return ""
+        parts = []
+        try:
+            if obj.contact_email:
+                parts.append(f"<a href=\"mailto:{obj.contact_email}\" class=\"me-3 text-decoration-none\"><i class=\"fas fa-envelope\"></i></a>")
+            if obj.contact_phone:
+                parts.append(f"<a href=\"tel:{obj.contact_phone}\" class=\"me-3 text-decoration-none\"><i class=\"fas fa-phone\"></i></a>")
+            if obj.contact_linkedin:
+                parts.append(f"<a href=\"{obj.contact_linkedin}\" target=\"_blank\" rel=\"noopener\" class=\"me-3 text-decoration-none\"><i class=\"fab fa-linkedin\"></i></a>")
+            if obj.contact_twitter:
+                parts.append(f"<a href=\"{obj.contact_twitter}\" target=\"_blank\" rel=\"noopener\" class=\"me-3 text-decoration-none\"><i class=\"fab fa-twitter\"></i></a>")
+        except Exception:
+            pass
+        return format_html(''.join(parts))
+    contact_preview.short_description = 'Contact preview'
 
 
 @admin.register(Player)

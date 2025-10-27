@@ -56,7 +56,7 @@ class CustomPlayerRegistrationForm(PlayerRegistrationForm):
             'photo',
         ]
         widgets = {
-            'sur_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'SUR NAME'}),
+            'sur_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'FIRST NAME'}),
             'fathers_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "FATHER'S NAME"}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
@@ -84,7 +84,7 @@ class CustomPlayerRegistrationForm(PlayerRegistrationForm):
             'transaction_screenshot': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
         labels = {
-            'sur_name': 'Surname',
+            'sur_name': 'Last Name',
             'first_name': 'First Name',
             'fathers_name': "Father's Name",
             'date_of_birth': 'Date of Birth',

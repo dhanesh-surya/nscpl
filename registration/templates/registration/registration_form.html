@@ -166,21 +166,6 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="{{ form.sur_name.id_for_label }}" class="form-label">{{ form.sur_name.label }}</label>
-                            {{ form.sur_name }}
-                            {% if form.sur_name.errors %}
-                                <div class="invalid-feedback d-block">
-                                    {% for error in form.sur_name.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <div class="invalid-feedback">
-                                    Please enter your surname.
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-4 mb-3">
                             <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
                             {{ form.first_name }}
                             {% if form.first_name.errors %}
@@ -195,6 +180,23 @@
                                 </div>
                             {% endif %}
                         </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.sur_name.id_for_label }}" class="form-label">Last Name</label>
+                            {{ form.sur_name }}
+                            {% if form.sur_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.sur_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="invalid-feedback">
+                                    Please enter your last name.
+                                </div>
+                            {% endif %}
+                        </div>
+
                         <div class="col-md-4 mb-3">
                             <label for="{{ form.fathers_name.id_for_label }}" class="form-label">{{ form.fathers_name.label }}</label>
                             {{ form.fathers_name }}
@@ -375,7 +377,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="{{ form.photo.id_for_label }}" class="form-label">Upload Photo</label>
+                            <label for="{{ form.photo.id_for_label }}" class="form-label">Upload Player's Photo</label>
                             {{ form.photo }}
                             {% if form.photo.errors %}
                                 <div class="invalid-feedback d-block">
@@ -577,7 +579,70 @@
                 <!-- Payment Information -->
                 <div class="form-section" data-aos="fade-up" data-aos-delay="500">
                     <h4>Payment Information</h4>
+
+                    {# First row: Trial Fees list #}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="alert alert-light" role="alert">
+                                <h4 class="mb-2 text-uppercase fw-bold">TRIAL FEES</h4>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-3 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2" style="font-size:1.25rem">🏏</div>
+                                            <div>
+                                                <div class="fw-semibold">BATTER</div>
+                                                <div class="small">₹ 1000</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2" style="font-size:1.25rem">🤹</div>
+                                            <div>
+                                                <div class="fw-semibold">ALL ROUNDER</div>
+                                                <div class="small">₹ 1100</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2" style="font-size:1.25rem">🎳</div>
+                                            <div>
+                                                <div class="fw-semibold">BOWLER</div>
+                                                <div class="small">₹ 900</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2" style="font-size:1.25rem">🧤🏏</div>
+                                            <div>
+                                                <div class="fw-semibold">WICKET KEEPER + BATTER</div>
+                                                <div class="small">₹ 1100</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="small mt-2">Please transfer the trial fee as per the role above to the bank account below and then enter the transaction details. Keep the transaction screenshot handy for upload.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Second row: Bank details #}
                     <div class="row">
+                        <div class="col-12">
+                            <div class="payment-info">
+                                <h5>Bank Details</h5>
+                                <p><strong>Bank Name:</strong> State Bank of India</p>
+                                <p><strong>A/C Holder Name:</strong> NSCPL PRIVATE LIMITED</p>
+                                <p><strong>Ac. No.:</strong> 44477347602</p>
+                                <p><strong>IFSC Code:</strong> SBIN0003740</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Third row: Transaction fields (user enters after payment) #}
+                    <div class="row mt-3">
                         <div class="col-md-6 mb-3">
                             <label for="{{ form.transaction_id.id_for_label }}" class="form-label">{{ form.transaction_id.label }}</label>
                             {{ form.transaction_id }}
@@ -607,16 +672,6 @@
                                     Please upload a screenshot of your transaction.
                                 </div>
                             {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="payment-info">
-                                <h5>Bank Details</h5>
-                                <p><strong>Bank Name:</strong> State Bank of India</p>
-                                <p><strong>Ac. No.:</strong> 44477347602</p>
-                                <p><strong>IFSC Code:</strong> SBIN0003740</p>
-                            </div>
                         </div>
                     </div>
                 </div>

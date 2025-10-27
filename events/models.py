@@ -25,6 +25,17 @@ class Event(models.Model):
     def is_past(self):
         return self.date < timezone.now().date()
 
+    def save(self, *args, **kwargs):
+        # Keep is_upcoming boolean in sync with the date to avoid admin/data drift.
+        try:
+            today = timezone.now().date()
+            # If date is in future or today, mark upcoming; otherwise, not upcoming
+            self.is_upcoming = self.date >= today
+        except Exception:
+            # If date not set or invalid, leave as-is
+            pass
+        super().save(*args, **kwargs)
+
 
 class EventImage(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='images')

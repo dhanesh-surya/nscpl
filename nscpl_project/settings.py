@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'gallery',
     'contact',
     'registration',
+    'page_content',
     'django_ckeditor_5',
 ]
 
@@ -96,6 +97,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.theme_context',
                 'core.context_processors.footer_context',
+                'core.context_processors.menu_context',
             ],
         },
     },
@@ -157,10 +159,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = str(BASE_DIR / 'media')
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
@@ -170,12 +172,12 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     },
 }
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [str(BASE_DIR / 'static')]
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = str(BASE_DIR / 'media')
 
 # Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -352,9 +354,101 @@ JAZZMIN_SETTINGS = {
 }
 
 
+customColorPalette = [
+    {'color': 'hsl(4, 90%, 58%)', 'label': 'Red'},
+    {'color': 'hsl(340, 82%, 52%)', 'label': 'Pink'},
+    {'color': 'hsl(291, 64%, 42%)', 'label': 'Purple'},
+    {'color': 'hsl(262, 52%, 47%)', 'label': 'Deep Purple'},
+    {'color': 'hsl(231, 48%, 48%)', 'label': 'Indigo'},
+    {'color': 'hsl(207, 90%, 54%)', 'label': 'Blue'},
+]
+
 CKEDITOR_5_CONFIGS = {
     'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'link', 'bulletedList', 'numberedList', 'todoList', '|', 'codeBlock', 'blockQuote', 'imageUpload', '|', 'alignment:left', 'alignment:right', 'alignment:center', 'alignment:justify', '|', 'fontColor', 'highlight', 'undo', 'redo'],
+        'toolbar': [
+            'heading',
+            '|',
+            'fontFamily',
+            'fontSize',
+            'fontColor',
+            'fontBackgroundColor',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            '|',
+            'alignment',
+            'bulletedList',
+            'numberedList',
+            'blockQuote',
+            '|',
+            'link',
+            'imageUpload',
+            'insertTable',
+            'mediaEmbed',
+            'codeBlock',
+            '|',
+            'sourceEditing',
+            'undo',
+            'redo',
+        ],
+        'height': '400px',
+        'width': '100%',
+        'language': 'en',
+        'codeBlock': {
+            'languages': [
+                { 'language': 'plaintext', 'label': 'Plain text' },
+                { 'language': 'html', 'label': 'HTML' },
+                { 'language': 'css', 'label': 'CSS' },
+                { 'language': 'javascript', 'label': 'JavaScript' },
+                { 'language': 'python', 'label': 'Python' },
+            ]
+        },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'},
+            ]
+        },
+        'fontSize': {
+            'options': [
+                9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 36
+            ]
+        },
+        'fontFamily': {
+            'options': [
+                'default',
+                'Arial, Helvetica, sans-serif',
+                'Times New Roman, Times, serif',
+                'Courier New, Courier, monospace',
+                'Georgia, serif',
+                'Verdana, Geneva, sans-serif'
+            ]
+        },
+        'alignment': {
+            'options': ['left', 'center', 'right', 'justify']
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells',
+                'tableCellProperties',
+                'tableProperties'
+            ]
+        },
+        'image': {
+            'toolbar': [
+                'imageStyle:inline',
+                'imageStyle:wrapText',
+                'imageStyle:breakText',
+                '|',
+                'toggleImageCaption',
+                'imageTextAlternative'
+            ]
+        },
     }
 }
 

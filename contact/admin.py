@@ -31,6 +31,21 @@ class ContactInfoForm(forms.ModelForm):
                 'readonly': True,
                 'style': 'background-color: #f8f9fa;'
             }),
+            'background_color': forms.TextInput(attrs={
+                'type': 'color',
+                'style': 'width: 80px; height: 40px; padding: 2px;'
+            }),
+            'background_type': forms.Select(attrs={
+                'style': 'width: 200px;'
+            }),
+            'background_gradient': forms.TextInput(attrs={
+                'placeholder': 'e.g., linear-gradient(to right, #ff0000, #0000ff)',
+                'style': 'width: 100%;'
+            }),
+            'text_color': forms.TextInput(attrs={
+                'type': 'color',
+                'style': 'width: 80px; height: 40px; padding: 2px;'
+            }),
         }
     
     def __init__(self, *args, **kwargs):
@@ -77,7 +92,7 @@ class ContactInfoAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Styling', {
-            'fields': ('background_color', 'text_color'),
+            'fields': ('background_type', 'background_color', 'background_gradient', 'background_image', 'text_color'),
             'classes': ('collapse',)
         }),
         ('Timestamps', {

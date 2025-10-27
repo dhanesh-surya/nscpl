@@ -243,6 +243,29 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
         });
     });
+
+    // Logo enlarge modal: open modal when elements with .hero-logo-trigger are clicked
+    const logoTriggers = document.querySelectorAll('.hero-logo-trigger');
+    if (logoTriggers.length) {
+        const logoModalEl = document.getElementById('logoModal');
+        const logoModalImg = logoModalEl ? logoModalEl.querySelector('#logoModalImage') : null;
+
+        logoTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function (e) {
+                const logoUrl = this.dataset && this.dataset.logoUrl ? this.dataset.logoUrl : null;
+                if (!logoUrl || !logoModalEl || !logoModalImg) return;
+                // set image src and show modal
+                logoModalImg.src = logoUrl;
+                const logoModal = new bootstrap.Modal(logoModalEl);
+                logoModal.show();
+
+                // clear image src when modal is hidden to free memory
+                logoModalEl.addEventListener('hidden.bs.modal', function () {
+                    logoModalImg.src = '';
+                }, { once: true });
+            });
+        });
+    }
     
     const tagFilters = document.querySelectorAll('[data-filter-tag]');
     tagFilters.forEach(filter => {

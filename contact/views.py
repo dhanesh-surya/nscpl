@@ -40,6 +40,14 @@ class ContactView(TemplateView):
             'contact_info': contact_info,
             'GOOGLE_MAPS_API_KEY': settings.GOOGLE_MAPS_API_KEY,
         })
+        
+        # Add PageHero for contact page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='contact', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        
         return context
     
     def post(self, request, *args, **kwargs):

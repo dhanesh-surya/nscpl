@@ -1,0 +1,19 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-3" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    {% if block.subheading %}<p class="lead text-center mb-5" data-aos="fade-in" data-aos-delay="200">{{ block.subheading }}</p>{% endif %}
+    <div class="row g-4 justify-content-center">
+      {% for item in block.items.all %}
+        <div class="col-lg-3 col-md-4 col-sm-6" data-aos="flip-up" data-aos-delay="{{ forloop.counter0|add:300 }}">
+          <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden hover-lift">
+            <div class="card-body text-center p-4">
+              {% if item.icon %}<div class="mb-3"><i class="{{ item.icon }} fa-3x"></i></div>{% endif %}
+              <h3 class="h5 fw-bold mb-3">{{ item.title }}</h3>
+              <p class="mb-0">{{ item.description }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

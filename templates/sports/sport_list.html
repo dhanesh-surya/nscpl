@@ -4,6 +4,56 @@
 {% block title %}Sports - NSCPL PRIVATE LIMITED{% endblock %}
 
 {% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
@@ -19,6 +69,7 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- Sports Section -->
 <section class="section-padding">

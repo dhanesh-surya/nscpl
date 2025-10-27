@@ -31,6 +31,7 @@ urlpatterns = [
     path('registration/', include('registration.urls')),
     path('sports/', include('sports.urls')),
     path('teams/', include('teams.urls')),
+    path('page/<slug:slug>/', include('page_content.urls')),
 ]
 
 if settings.DEBUG:

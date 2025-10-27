@@ -1,16 +1,6 @@
 from django import forms
+from django.utils.text import slugify
 from .models import Popup
-
-class PopupForm(forms.ModelForm):
-    class Meta:
-        model = Popup
-        fields = ['heading', 'text', 'image', 'is_active']
-from .models import (
-    WebsiteTheme, AboutSection, Footer, QuickLink,
-    Stat, Value, AboutTeamMember
-)
-from .models import RecognitionAchievement
-from django.forms import inlineformset_factory
 
 
 class ColorPickerWidget(forms.TextInput):
@@ -24,6 +14,25 @@ class ColorPickerWidget(forms.TextInput):
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)
+
+
+class PopupForm(forms.ModelForm):
+    class Meta:
+        model = Popup
+        fields = ['heading', 'text', 'image', 'is_active', 'background_color', 'text_color']
+        widgets = {
+            'heading': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'background_color': ColorPickerWidget(),
+            'text_color': ColorPickerWidget(),
+        }
+from .models import (
+    WebsiteTheme, AboutSection, Footer, QuickLink,
+    Stat, Value, AboutTeamMember
+)
+from .models import RecognitionAchievement
+from django.forms import inlineformset_factory
+
 
 
 # Placeholder forms to satisfy admin.py imports
@@ -70,6 +79,10 @@ class AboutSectionForm(forms.ModelForm):
             'text_color': ColorPickerWidget(),
             'section_background_color': ColorPickerWidget(),
             'section_background_overlay': ColorPickerWidget(),
+            'contact_email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com'}),
+            'contact_phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+1 555 555 5555'}),
+            'contact_linkedin': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://www.linkedin.com/in/username/'}),
+            'contact_twitter': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://twitter.com/username'}),
         }
 
 class HeroSectionForm(forms.ModelForm):
@@ -142,6 +155,14 @@ class AboutTeamMemberForm(forms.ModelForm):
     class Meta:
         model = AboutTeamMember
         fields = '__all__'
+        widgets = {
+            'team': forms.Select(attrs={'class': 'form-select'}),
+            'background_color': ColorPickerWidget(),
+            'background_gradient': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'e.g., linear-gradient(45deg, #ff0000, #0000ff)'}),
+            'background_overlay': ColorPickerWidget(),
+            'background_overlay_opacity': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '1', 'step': '0.1'}),
+            'animation_type': forms.Select(attrs={'class': 'form-select'}),
+        }
 
 
 
@@ -300,4 +321,88 @@ class RecognitionAchievementForm(forms.ModelForm):
             'icon': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "e.g. 'fas fa-trophy'"}),
             'url': forms.URLInput(attrs={'class': 'form-control'}),
             'is_clickable': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+from page_content.models import BlockType, Page, Block, MenuItem, StyleOptions
+from django.forms.models import inlineformset_factory
+
+
+class BlockForm(forms.ModelForm):
+    class Meta:
+        model = Block
+        fields = ['block_type', 'title', 'content', 'order', 'is_active']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control', 'style': 'width:80px;'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+BlockInlineFormSet = inlineformset_factory(Page, Block, form=BlockForm, extra=0, can_delete=True)
+
+
+class PageForm(forms.ModelForm):
+    class Meta:
+        model = Page
+        fields = ['title', 'slug', 'intro', 'content', 'is_published', 'template_name']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'intro': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'template_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def clean_slug(self):
+        slug = self.cleaned_data.get('slug')
+        if slug:
+            return slugify(slug)
+        return slug
+
+
+class MenuItemForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+        fields = ['title', 'slug', 'parent', 'page', 'url', 'order', 'is_active']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'parent': forms.Select(attrs={'class': 'form-select'}),
+            'page': forms.Select(attrs={'class': 'form-select'}),
+            'url': forms.TextInput(attrs={'class': 'form-control'}),
+            'order': forms.NumberInput(attrs={'class': 'form-control', 'style': 'width:80px;'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+    def clean_slug(self):
+        slug = self.cleaned_data.get('slug')
+        if slug:
+            return slugify(slug)
+        return slug
+
+
+class StyleOptionsForm(forms.ModelForm):
+    class Meta:
+        model = StyleOptions
+        fields = '__all__'
+        widgets = {
+            'background_type': forms.Select(attrs={'class': 'form-select'}),
+            'background_color': ColorPickerWidget(),
+            'background_gradient': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'e.g., linear-gradient(45deg, #ff0000, #0000ff)'}),
+            'text_color': ColorPickerWidget(),
+            'background_image': forms.FileInput(attrs={'class': 'form-control'}),
+            'background_image_opacity': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '1', 'step': '0.1'}),
+            'text_align': forms.Select(attrs={'class': 'form-select'}),
+            'padding_top': forms.Select(attrs={'class': 'form-select'}),
+            'padding_bottom': forms.Select(attrs={'class': 'form-select'}),
+            'padding_left': forms.Select(attrs={'class': 'form-select'}),
+            'padding_right': forms.Select(attrs={'class': 'form-select'}),
+            'margin_top': forms.Select(attrs={'class': 'form-select'}),
+            'margin_bottom': forms.Select(attrs={'class': 'form-select'}),
+            'container_width': forms.Select(attrs={'class': 'form-select'}),
+            'border_radius': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '50'}),
+            'shadow': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'animate_on_scroll': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'hover_effect': forms.Select(attrs={'class': 'form-select'}),
+            'custom_class': forms.TextInput(attrs={'class': 'form-control'}),
         }

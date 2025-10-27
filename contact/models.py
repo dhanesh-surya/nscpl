@@ -88,6 +88,26 @@ class ContactInfo(models.Model):
         default='#F8F9FA', 
         help_text='Contact section background color'
     )
+    background_type = models.CharField(
+        max_length=20,
+        choices=[
+            ('color', 'Solid Color'),
+            ('gradient', 'Gradient'),
+            ('image', 'Image')
+        ],
+        default='color',
+        help_text='Type of background for the contact section'
+    )
+    background_gradient = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text='CSS gradient value (e.g., linear-gradient(to right, #ff0000, #0000ff))'
+    )
+    background_image = models.ImageField(
+        upload_to='contact/backgrounds/',
+        blank=True,
+        help_text='Background image for contact section'
+    )
     text_color = models.CharField(
         max_length=7, 
         default='#2C3E50', 
@@ -139,40 +159,20 @@ class ContactInfo(models.Model):
             social_links['youtube'] = self.youtube_url
         return social_links
     
-    def geocode_address(self):
-        """Geocode the map_address to get latitude and longitude"""
-        if not self.map_address:
-            return False
-        
-        try:
-            import requests
-            from django.conf import settings
-            
-            # Use Google Geocoding API
-            api_key = getattr(settings, 'GOOGLE_MAPS_API_KEY', None)
-            if not api_key:
-                return False
-            
-            url = f"https://maps.googleapis.com/maps/api/geocode/json"
-            params = {
-                'address': self.map_address,
-                'key': api_key
-            }
-            
-            response = requests.get(url, params=params)
-            data = response.json()
-            
-            if data['status'] == 'OK' and data['results']:
-                location = data['results'][0]['geometry']['location']
-                self.latitude = location['lat']
-                self.longitude = location['lng']
-                return True
-            else:
-                return False
-                
-        except Exception as e:
-            print(f"Geocoding error: {e}")
-            return False
+    def get_background_style(self):
+        """Return CSS background style based on background_type"""
+        if self.background_type == 'gradient' and self.background_gradient:
+            return f'background: {self.background_gradient};'
+        elif self.background_type == 'image' and self.background_image:
+            return f'background: url({self.background_image.url}) center/cover no-repeat;'
+        elif self.background_type == 'color':
+            return f'background-color: {self.background_color};'
+        else:
+            return f'background-color: {self.background_color};'  # fallback to color
+    
+    def get_text_style(self):
+        """Return CSS text color style"""
+        return f'color: {self.text_color};'
     
     def save(self, *args, **kwargs):
         # Auto-geocode if map_address is provided and coordinates are not set

@@ -1,0 +1,39 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-5 text-gradient" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    <div class="timeline position-relative">
+      {% for s in block.steps.all %}
+        <div class="timeline-item d-flex mb-4" data-aos="slide-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+          <div class="timeline-marker bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-4" style="width:60px;height:60px;flex-shrink:0;">
+            {% if s.icon %}<i class="{{ s.icon }} fa-lg"></i>{% else %}<span class="fw-bold">{{ forloop.counter }}</span>{% endif %}
+          </div>
+          <div class="timeline-content bg-white rounded-4 shadow-lg p-4 flex-grow-1">
+            <h3 class="h5 fw-bold mb-2">{{ s.title }}</h3>
+            {% if s.detail %}<p class="text-muted mb-0">{{ s.detail }}</p>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<style>
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--bs-primary), var(--bs-secondary));
+  }
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+  }
+  .timeline-item:nth-child(even) .timeline-marker {
+    order: 2;
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+</style>

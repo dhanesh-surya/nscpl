@@ -2,14 +2,16 @@ from django.contrib import admin
 from django import forms
 from django.urls import reverse
 from django.utils.html import format_html
-from .models import HeroSlide, WebsiteTheme, AboutSection, AboutTeamMember, Value, Stat, Footer, QuickLink, Popup
+from django.utils.safestring import mark_safe
+from django.contrib.contenttypes.models import ContentType
+from .models import HeroSlide, WebsiteTheme, AboutSection, AboutTeamMember, Value, Stat, Footer, QuickLink, Popup, PageHero
 from .widgets import FontPreviewSelect
 from .forms import (
     HeroSectionForm, MissionSectionForm,
     ValuesSectionForm, TeamSectionForm, HistorySectionForm,
-    AchievementsSectionForm, AboutSectionForm, ValueForm
+    AchievementsSectionForm, AboutSectionForm, ValueForm,
+    PopupForm, WebsiteThemeForm, AboutTeamMemberForm, StatForm, FooterForm
 )
-from .forms import WebsiteThemeForm, AboutSectionForm, HeroSectionForm, MissionSectionForm, ValuesSectionForm, TeamSectionForm, HistorySectionForm, AchievementsSectionForm, ValueForm, AboutTeamMemberForm, StatForm, FooterForm
 
 
 class ColorPickerWidget(forms.TextInput):
@@ -222,25 +224,21 @@ class AboutSectionAdmin(admin.ModelAdmin):
         }),
         ('Styling Options', {
             'fields': ('background_color', 'text_color'),
-            'classes': ('collapse',)
         }),
         ('Section Background', {
             'fields': (
                 'section_background_type', 'section_background_color', 'section_background_gradient',
                 'section_background_image', 'section_background_overlay', 'section_background_overlay_opacity',
             ),
-            'classes': ('collapse',)
         }),
         ('Section Animation', {
             'fields': ('section_animation_type', 'section_animation_duration'),
-            'classes': ('collapse',)
         }),
         ('Section Glass Effect', {
             'fields': (
                 'section_glass_effect', 'section_glass_opacity', 'section_glass_blur',
                 'section_glass_border', 'section_glass_backdrop',
             ),
-            'classes': ('collapse',)
         }),
     )
 
@@ -323,13 +321,126 @@ class PopupAdmin(admin.ModelAdmin):
     list_filter = ('is_active',)
     search_fields = ('heading', 'text')
     list_editable = ('is_active',)
+    readonly_fields = ('preview',)
+    form = PopupForm
+
+    fieldsets = (
+        (None, {
+            'fields': ('heading', 'text', 'image', 'is_active'),
+            'classes': ('wide',)
+        }),
+        ('Styling', {
+            'fields': (('background_color', 'text_color'),),
+            'classes': ('collapse',)
+        }),
+        ('Preview (HTML/CSS/JS)', {
+            'fields': ('preview',),
+            'classes': ('collapse',)
+        }),
+    )
+
+    def preview(self, obj):
+        if not obj:
+            return format_html("<em>Save the object to see preview</em>")
+
+        img = ''
+        try:
+            if obj.image and hasattr(obj.image, 'url'):
+                img = (
+                    f"<div style=\"text-align:center;margin-top:8px\">"
+                    f"<img src=\"{obj.image.url}\" style=\"max-width:100%;height:auto;border-radius:6px;\"/>"
+                    f"</div>"
+                )
+        except Exception:
+            img = ''
+
+        # Use the configured colors for the admin preview if available
+        bg = getattr(obj, 'background_color', '#FFFFFF') or '#FFFFFF'
+        fg = getattr(obj, 'text_color', '#212529') or '#212529'
+
+        html = f"""
+        <div style="font-family: Arial, Helvetica, sans-serif; max-width:800px;">
+          <style>
+            .admin-popup-preview {{ padding:12px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.06); }}
+            .admin-popup-preview h3 {{ margin:0 0 6px 0 }}
+          </style>
+          <div class="admin-popup-preview" style="background: {bg}; color: {fg};">
+            <h3 style="color: {fg};">{obj.heading}</h3>
+            <div style="color: {fg};">{obj.text}</div>
+            {img}
+          </div>
+        </div>
+        """
+        return mark_safe(html)
+
+    preview.short_description = 'Popup preview (HTML/CSS/JS)'
 
 
 admin.site.register(HeroSlide, HeroSlideAdmin)
+admin.site.register(Popup, PopupAdmin)
 admin.site.register(WebsiteTheme, WebsiteThemeAdmin)
 admin.site.register(AboutSection, AboutSectionAdmin)
 admin.site.register(Stat, StatAdmin)
 admin.site.register(Footer, FooterAdmin)
+
+
+class PageHeroForm(forms.ModelForm):
+    class Meta:
+        model = PageHero
+        fields = '__all__'
+        widgets = {
+            'background_color': ColorPickerWidget(),
+            'background_overlay': ColorPickerWidget(),
+            'text_color': ColorPickerWidget(),
+        }
+
+
+class PageHeroAdmin(admin.ModelAdmin):
+    form = PageHeroForm
+    list_display = ('get_page_display', 'background_type', 'is_active', 'created_at')
+    list_filter = ('page', 'background_type', 'is_active')
+    search_fields = ('page',)
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (
+        (None, {
+            'fields': ('page', 'is_active')
+        }),
+        ('Content', {
+            'fields': (
+                'title', 'subtitle', 'description', 'title_size'
+            )
+        }),
+        ('Background Settings', {
+            'fields': (
+                'background_type',
+                'background_color',
+                'background_gradient',
+                'background_image',
+                ('background_overlay', 'background_overlay_opacity')
+            )
+        }),
+        ('Layout Settings', {
+            'fields': (
+                'height',
+                'text_color',
+                'enable_animation'
+            )
+        }),
+        ('Statistics Display', {
+            'fields': (
+                'show_event_count', 'show_sports_count',
+                'custom_stat_1_text', 'custom_stat_1_value',
+                'custom_stat_2_text', 'custom_stat_2_value'
+            ),
+            'classes': ('collapse',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
+admin.site.register(PageHero, PageHeroAdmin)
 from .models import RecognitionAchievement
 
 

@@ -36,30 +36,32 @@
 /* Overlay sits absolutely at the bottom of the image */
 .gallery-overlay {
   position: absolute;
+  top: 0; /* cover the entire item */
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 12px 14px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.0) 60%);
+  padding: 1rem;
+  /* darker, semi-transparent overlay to ensure caption contrast */
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.12) 100%);
   color: #fff;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
-  justify-content: flex-end;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
   pointer-events: none; /* let clicks pass to the anchor */
-  transform: translateY(30%);
+  transform: translateY(12%);
   opacity: 0;
   transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .28s ease;
 }
 .gallery-overlay .text-center {
   width: 100%;
-  text-align: left;
+  text-align: center; /* center captions for easier reading */
   pointer-events: auto; /* allow interaction if needed inside overlay */
 }
 .gallery-overlay h5 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
@@ -68,8 +70,8 @@
 }
 .gallery-overlay p {
   margin: 0;
-  font-size: .85rem;
-  color: rgba(255,255,255,0.85);
+  font-size: .9rem;
+  color: rgba(255,255,255,0.9);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -78,7 +80,7 @@
   text-overflow: ellipsis;
 }
 
-/* Slide-up animation on hover */
+/* Slide-up / fade-in animation on hover */
 .gallery-item:hover .gallery-overlay {
   transform: translateY(0);
   opacity: 1;

@@ -1,0 +1,23 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-5 text-gradient" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="accordion shadow-lg rounded-4 overflow-hidden" id="faq{{ block.id }}" data-aos="slide-up">
+          {% for q in block.faqs.all %}
+            <div class="accordion-item border-0 bg-white">
+              <h2 class="accordion-header" id="faqh{{ block.id }}{{ forloop.counter }}">
+                <button class="accordion-button{% if not forloop.first %} collapsed{% endif %} fw-bold py-3 px-4 bg-gradient-primary-to-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqc{{ block.id }}{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="faqc{{ block.id }}{{ forloop.counter }}">
+                  <i class="fas fa-question-circle me-2"></i>{{ q.question }}
+                </button>
+              </h2>
+              <div id="faqc{{ block.id }}{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="faqh{{ block.id }}{{ forloop.counter }}" data-bs-parent="#faq{{ block.id }}">
+                <div class="accordion-body p-4">{{ q.answer|safe }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

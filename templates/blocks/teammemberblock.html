@@ -1,0 +1,54 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-3 text-gradient" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    {% if block.subheading %}<p class="text-center text-muted mb-5">{{ block.subheading }}</p>{% endif %}
+    <div class="row g-4 justify-content-center">
+      {% for m in block.members.all %}
+        <div class="col-lg-3 col-md-4 col-sm-6" data-aos="flip-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="team-card bg-white rounded-4 shadow-lg p-4 text-center h-100 hover-lift">
+            {% if m.photo %}
+              <div class="mb-4">
+                <img src="{{ m.photo.url }}" class="rounded-circle mx-auto shadow" style="width:120px;height:120px;object-fit:cover;" alt="{{ m.name }}"/>
+              </div>
+            {% endif %}
+            <h3 class="h4 fw-bold mb-2">{{ m.name }}</h3>
+            {% if m.role %}<div class="text-primary fw-semibold mb-3">{{ m.role }}</div>{% endif %}
+            {% if m.bio %}<p class="text-muted small mb-4">{{ m.bio }}</p>{% endif %}
+            <div class="social-links">
+              {% if m.facebook %}<a href="{{ m.facebook }}" class="text-primary me-3 fs-5"><i class="fab fa-facebook"></i></a>{% endif %}
+              {% if m.twitter %}<a href="{{ m.twitter }}" class="text-primary me-3 fs-5"><i class="fa-brands fa-x-twitter"></i></a>{% endif %}
+              {% if m.instagram %}<a href="{{ m.instagram }}" class="text-primary me-3 fs-5"><i class="fab fa-instagram"></i></a>{% endif %}
+              {% if m.linkedin %}<a href="{{ m.linkedin }}" class="text-primary me-3 fs-5"><i class="fab fa-linkedin"></i></a>{% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-3 text-gradient" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    {% if block.subheading %}<p class="text-center text-muted mb-5">{{ block.subheading }}</p>{% endif %}
+    <div class="row g-4 justify-content-center">
+      {% for m in block.members.all %}
+        <div class="col-lg-3 col-md-4 col-sm-6" data-aos="flip-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+          <div class="team-card bg-white rounded-4 shadow-lg p-4 text-center h-100 hover-lift">
+            {% if m.photo %}
+              <div class="mb-4">
+                <img src="{{ m.photo.url }}" class="rounded-circle mx-auto shadow" style="width:120px;height:120px;object-fit:cover;" alt="{{ m.name }}"/>
+              </div>
+            {% endif %}
+            <h3 class="h4 fw-bold mb-2">{{ m.name }}</h3>
+            {% if m.role %}<div class="text-primary fw-semibold mb-3">{{ m.role }}</div>{% endif %}
+            {% if m.bio %}<p class="text-muted small mb-4">{{ m.bio }}</p>{% endif %}
+            <div class="social-links">
+              {% if m.facebook %}<a href="{{ m.facebook }}" class="text-primary me-3 fs-5"><i class="fab fa-facebook"></i></a>{% endif %}
+              {% if m.twitter %}<a href="{{ m.twitter }}" class="text-primary me-3 fs-5"><i class="fa-brands fa-x-twitter"></i></a>{% endif %}
+              {% if m.instagram %}<a href="{{ m.instagram }}" class="text-primary me-3 fs-5"><i class="fab fa-instagram"></i></a>{% endif %}
+              {% if m.linkedin %}<a href="{{ m.linkedin }}" class="text-primary me-3 fs-5"><i class="fab fa-linkedin"></i></a>{% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

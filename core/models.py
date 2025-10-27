@@ -1,7 +1,9 @@
-
 from django.db import models
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 
 class RecognitionAchievement(models.Model):
@@ -211,6 +213,125 @@ class WebsiteTheme(models.Model):
         super().save(*args, **kwargs)
 
 
+class PageHero(models.Model):
+    PAGE_CHOICES = [
+        ('home', 'Home Page'),
+        ('events', 'Events Page'),
+        ('news', 'News Page'),
+        ('sports', 'Sports Page'),
+        ('teams', 'Teams Page'),
+        ('gallery', 'Gallery Page'),
+        ('about', 'About Page'),
+        ('contact', 'Contact Page'),
+    ]
+    
+    page = models.CharField(max_length=20, choices=PAGE_CHOICES, unique=True)
+    title = models.CharField(max_length=200, default="Welcome")
+    subtitle = models.CharField(max_length=300, blank=True)
+    description = models.TextField(blank=True)
+    
+    # Background customization
+    background_type = models.CharField(
+        max_length=20,
+        choices=[
+            ('solid', 'Solid Color'),
+            ('gradient', 'Gradient'),
+            ('image', 'Background Image'),
+        ],
+        default='gradient'
+    )
+    background_color = models.CharField(max_length=7, default="#0A192F", help_text="Solid background color")
+    background_gradient = models.CharField(
+        max_length=200, 
+        default="linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%)",
+        help_text="CSS gradient (e.g., linear-gradient(45deg, #ff0000, #0000ff))"
+    )
+    background_image = models.ImageField(
+        upload_to="page_heroes/", 
+        blank=True, 
+        null=True, 
+        help_text="Background image for the hero section"
+    )
+    background_overlay = models.CharField(
+        max_length=7, 
+        default="#000000", 
+        help_text="Overlay color for background image"
+    )
+    background_overlay_opacity = models.FloatField(
+        default=0.3, 
+        help_text="Overlay opacity (0.0 = transparent, 1.0 = opaque)"
+    )
+    
+    # Content customization
+    text_color = models.CharField(max_length=7, default="#FFFFFF", help_text="Text color")
+    title_size = models.CharField(
+        max_length=20,
+        choices=[
+            ('display-3', 'Extra Large'),
+            ('display-4', 'Large'),
+            ('display-5', 'Medium'),
+            ('display-6', 'Small'),
+        ],
+        default='display-3'
+    )
+    
+    # Stats/Badges
+    show_event_count = models.BooleanField(default=True, help_text="Show total events count")
+    show_sports_count = models.BooleanField(default=True, help_text="Show sports categories count")
+    custom_stat_1_text = models.CharField(max_length=50, blank=True)
+    custom_stat_1_value = models.CharField(max_length=50, blank=True)
+    custom_stat_2_text = models.CharField(max_length=50, blank=True)
+    custom_stat_2_value = models.CharField(max_length=50, blank=True)
+    
+    # Layout
+    height = models.CharField(
+        max_length=20,
+        choices=[
+            ('min-vh-25', 'Small (25vh)'),
+            ('min-vh-50', 'Medium (50vh)'),
+            ('min-vh-75', 'Large (75vh)'),
+            ('min-vh-100', 'Full Screen (100vh)'),
+        ],
+        default='min-vh-50'
+    )
+    
+    # Animation
+    enable_animation = models.BooleanField(default=True)
+    
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Page Hero'
+        verbose_name_plural = 'Page Heroes'
+
+    def __str__(self):
+        return f"{self.get_page_display()} Hero"
+    
+    def get_background_style(self):
+        """Generate CSS background style based on background_type"""
+        if self.background_type == 'solid':
+            return f"background-color: {self.background_color};"
+        elif self.background_type == 'gradient':
+            return f"background: {self.background_gradient};"
+        elif self.background_type == 'image' and self.background_image:
+            overlay_color = self.background_overlay
+            opacity = self.background_overlay_opacity
+            return f"background-image: linear-gradient(rgba({int(overlay_color[1:3], 16)}, {int(overlay_color[3:5], 16)}, {int(overlay_color[5:7], 16)}, {opacity})), url('{self.background_image.url}'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;"
+        return ""
+    
+    def get_event_count(self):
+        """Get total events count for display"""
+        from events.models import Event
+        return Event.objects.count()
+    
+    def get_sports_count(self):
+        """Get unique sports count for display"""
+        from events.models import Event
+        return Event.objects.values('sport').distinct().count()
+
+
 class AboutSection(models.Model):
     SECTION_CHOICES = [
         ('hero', 'Hero Section'),
@@ -222,35 +343,47 @@ class AboutSection(models.Model):
         ('achievements', 'Achievements Section'),
         ('stats', 'Stats Section'),
     ]
-    
-    section_type = models.CharField(max_length=20, choices=SECTION_CHOICES, unique=True)
+    section_type = models.CharField(
+        max_length=20,
+        choices=SECTION_CHOICES,
+        default='hero',
+        help_text="Type of about section"
+    )
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=300, blank=True)
-    content = CKEditor5Field('Text', config_name='default')
-    image = models.ImageField(upload_to="about/", blank=True, null=True)
-    background_color = models.CharField(max_length=7, default='#FFFFFF', help_text='Hex color code')
-    text_color = models.CharField(max_length=7, default='#2C3E50', help_text='Hex color code')
+    content = CKEditor5Field('Content', config_name='default')
+    image = models.ImageField(upload_to='about/', blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
     
-    # Section background customization fields
+    # Styling options
+    background_color = models.CharField(max_length=7, default='#FFFFFF', help_text='Hex color code for section background')
+    text_color = models.CharField(max_length=7, default='#212529', help_text='Hex color code for section text')
+    # Contact details for sections that may display contact info
+    contact_email = models.EmailField(max_length=254, blank=True, help_text='Contact email for this section')
+    contact_phone = models.CharField(max_length=30, blank=True, help_text='Contact phone number for this section')
+    contact_linkedin = models.URLField(blank=True, help_text='LinkedIn profile or page URL')
+    contact_twitter = models.URLField(blank=True, help_text='Twitter profile URL')
+    
+    # Section background customization
     section_background_type = models.CharField(
         max_length=20,
         choices=[
             ('solid', 'Solid Color'),
             ('gradient', 'Gradient'),
             ('image', 'Background Image'),
-            ('pattern', 'Pattern'),
         ],
         default='solid',
         help_text="Choose the background type for this section"
     )
-    section_background_color = models.CharField(max_length=7, default='#F8F9FA', help_text='Section background color')
+    section_background_color = models.CharField(max_length=7, default='#FFFFFF', help_text='Section background color')
     section_background_gradient = models.CharField(
         max_length=200, 
         blank=True, 
         help_text='CSS gradient for section background (e.g., linear-gradient(45deg, #ff0000, #0000ff))'
     )
     section_background_image = models.ImageField(
-        upload_to="about/backgrounds/", 
+        upload_to="about/section_backgrounds/", 
         blank=True, 
         null=True, 
         help_text="Background image for this section"
@@ -262,7 +395,7 @@ class AboutSection(models.Model):
     )
     section_background_overlay_opacity = models.FloatField(
         default=0.3, 
-        help_text='Section overlay opacity (0.0 = transparent, 1.0 = opaque)'
+        help_text='Section background overlay opacity (0.0 = transparent, 1.0 = opaque)'
     )
     
     # Section animation settings
@@ -273,61 +406,43 @@ class AboutSection(models.Model):
             ('fade', 'Fade In'),
             ('slide', 'Slide Up'),
             ('zoom', 'Zoom In'),
-            ('parallax', 'Parallax'),
+            ('bounce', 'Bounce'),
         ],
-        default='none',
+        default='fade',
         help_text="Animation effect for this section"
     )
     section_animation_duration = models.PositiveIntegerField(
         default=1000, 
-        help_text='Section animation duration in milliseconds'
+        help_text='Animation duration in milliseconds'
     )
     
     # Glass effect settings
-    section_glass_effect = models.BooleanField(
-        default=False,
-        help_text='Enable glass morphism effect for this section'
-    )
-    section_glass_opacity = models.FloatField(
-        default=0.2,
-        help_text='Glass effect opacity (0.0 = transparent, 1.0 = opaque)'
-    )
-    section_glass_blur = models.PositiveIntegerField(
-        default=10,
-        help_text='Glass effect blur intensity (0-50px)'
-    )
-    section_glass_border = models.BooleanField(
-        default=True,
-        help_text='Add subtle border to glass effect'
-    )
-    section_glass_backdrop = models.BooleanField(
-        default=True,
-        help_text='Enable backdrop filter for glass effect'
-    )
+    section_glass_effect = models.BooleanField(default=False, help_text="Enable glass morphism effect")
+    section_glass_opacity = models.FloatField(default=0.8, help_text='Glass background opacity (0.0 = transparent, 1.0 = opaque)')
+    section_glass_blur = models.PositiveIntegerField(default=10, help_text='Glass blur amount in pixels')
+    section_glass_border = models.BooleanField(default=True, help_text="Show glass border")
+    section_glass_backdrop = models.BooleanField(default=True, help_text="Apply backdrop filter")
     
-    is_active = models.BooleanField(default=True)
-    order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['order', 'section_type']
+        ordering = ['order', 'title']
         verbose_name = 'About Section'
         verbose_name_plural = 'About Sections'
 
     def __str__(self):
         return f"{self.get_section_type_display()} - {self.title}"
-    
+
     def get_section_background_style(self):
-        """Generate CSS background style for the section based on section_background_type"""
+        """Generate CSS background style based on section_background_type"""
         if self.section_background_type == 'solid':
             return f"background-color: {self.section_background_color};"
         elif self.section_background_type == 'gradient':
             if self.section_background_gradient:
                 return f"background: {self.section_background_gradient};"
             else:
-                # Fallback gradient using section_background_color
-                return f"background: linear-gradient(135deg, {self.section_background_color}, {self.background_color});"
+                return f"background-color: {self.section_background_color};"
         elif self.section_background_type == 'image' and self.section_background_image:
             overlay_color = self.section_background_overlay
             opacity = self.section_background_overlay_opacity
@@ -338,16 +453,24 @@ class AboutSection(models.Model):
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             """
-        elif self.section_background_type == 'pattern':
-            return f"""
-                background-color: {self.section_background_color};
-                background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,.2) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(255,255,255,.2) 2px, transparent 0);
-                background-size: 100px 100px;
-            """
         return ""
-    
+
+    def get_section_glass_effect_style(self):
+        """Generate CSS for glass morphism effect"""
+        if not self.section_glass_effect:
+            return ""
+        
+        styles = []
+        if self.section_glass_backdrop:
+            styles.append(f"backdrop-filter: blur({self.section_glass_blur}px);")
+        styles.append(f"background-color: rgba(255, 255, 255, {self.section_glass_opacity});")
+        if self.section_glass_border:
+            styles.append("border: 1px solid rgba(255, 255, 255, 0.2);")
+        
+        return " ".join(styles)
+
     def get_section_animation_attributes(self):
-        """Generate animation attributes for section template"""
+        """Generate animation attributes for template"""
         if self.section_animation_type == 'none':
             return ""
         
@@ -357,67 +480,28 @@ class AboutSection(models.Model):
         
         return attrs
 
-    def get_section_glass_effect_style(self):
-        """Generate glass effect CSS for section template"""
-        if not self.section_glass_effect:
-            return ""
-
-        styles = []
-
-        # Glass effect base background using white with configured opacity
-        styles.append(f"background: rgba(255, 255, 255, {self.section_glass_opacity});")
-
-        # Backdrop blur for frosted glass effect
-        if self.section_glass_backdrop:
-            styles.append(f"backdrop-filter: blur({self.section_glass_blur}px);")
-            styles.append(f"-webkit-backdrop-filter: blur({self.section_glass_blur}px);")
-
-        # Optional border for glass panels
-        if self.section_glass_border:
-            styles.append("border: 1px solid rgba(255, 255, 255, 0.25);")
-
-        # Subtle shadow and rounded corners for depth
-        styles.append("box-shadow: 0 8px 32px rgba(31, 38, 135, 0.06);")
-        styles.append("border-radius: 0.5rem;")
-
-        # Ensure content sits above any background
-        styles.append("overflow: hidden;")
-
-        return " ".join(styles)
-
-
-from django_ckeditor_5.fields import CKEditor5Field
 
 class Popup(models.Model):
     heading = models.CharField(max_length=200)
     text = CKEditor5Field('Text', config_name='default')
     image = models.ImageField(upload_to='popup_images/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    # Styling options for popup
+    background_color = models.CharField(max_length=7, default='#FFFFFF', help_text='Hex color code for popup background')
+    text_color = models.CharField(max_length=7, default='#212529', help_text='Hex color code for popup text')
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Popup'
+        verbose_name_plural = 'Popups'
 
     def __str__(self):
         return self.heading
     
-    def get_section_glass_effect_style(self):
-        """Generate glass effect CSS for section template"""
-        if not self.section_glass_effect:
-            return ""
-        
-        styles = []
-        
-        # Glass effect base styles
-        styles.append(f"background: rgba(255, 255, 255, {self.section_glass_opacity});")
-        
-        if self.section_glass_backdrop:
-            styles.append(f"backdrop-filter: blur({self.section_glass_blur}px);")
-            styles.append("-webkit-backdrop-filter: blur({}px);".format(self.section_glass_blur))
-        
-        if self.section_glass_border:
-            styles.append("border: 1px solid rgba(255, 255, 255, 0.3);")
-        
-        # Box shadow for depth
-        styles.append("box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);")
-        
-        return " ".join(styles)
+    def get_popup_style(self):
+        """Return inline CSS style for popup based on configured colors"""
+        return f"background-color: {self.background_color}; color: {self.text_color};"
 
 
 class Stat(models.Model):
@@ -593,6 +677,8 @@ class Value(models.Model):
 
 class AboutTeamMember(models.Model):
     name = models.CharField(max_length=100)
+    # Link this team member to a Team (optional)
+    team = models.ForeignKey('teams.Team', on_delete=models.SET_NULL, related_name='about_members', blank=True, null=True)
     position = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="about/team/")
@@ -709,3 +795,7 @@ class AboutTeamMember(models.Model):
             attrs += f' data-aos-delay="{self.animation_delay}"'
         
         return attrs
+
+
+
+

@@ -15,6 +15,16 @@ from .forms import (
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Popup
+from page_content.models import Page
+from django.template.loader import render_to_string
+from page_content.models import (
+    HeroBannerBlock, TextImageBlock, FeatureHighlightsBlock, TestimonialBlock,
+    CallToActionBlock, GalleryBlock, VideoEmbedBlock, FAQBlock, CounterStatsBlock,
+    ContactFormBlock, TeamMemberBlock, BlogPreviewBlock, TwoColumnTextBlock,
+    TimelineBlock, FooterInfoBlock, Block
+)
+from contact.forms import ContactForm
+from news.models import NewsArticle
 
 
 class HomeView(TemplateView):
@@ -38,6 +48,13 @@ class HomeView(TemplateView):
             context['stats_section'] = None
             context['stats'] = None
             
+        # Add PageHero for home page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='home', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        
         return context
 
 
@@ -54,6 +71,13 @@ class AboutView(TemplateView):
         context['achievements'] = RecognitionAchievement.objects.all()
         context['footer'] = Footer.objects.prefetch_related('quick_links').first()
         context['popup'] = Popup.objects.filter(is_active=True).first()
+        
+        # Add PageHero for about page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='about', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
         
         return context
 
@@ -224,7 +248,10 @@ class TeamSectionEditView(TemplateView):
             return redirect('core:team_section_edit')
         else:
             messages.error(request, 'Please correct the errors below.')
-            return render(request, self.template_name, {'form': form})
+            # return same context as get_context_data so template can render correctly
+            context = self.get_context_data(**kwargs)
+            context['form'] = form
+            return render(request, self.template_name, context)
 
 
 @method_decorator(staff_member_required, name='dispatch')
@@ -307,10 +334,11 @@ class AboutTeamMemberCreateView(CreateView):
     form_class = AboutTeamMemberForm
     template_name = 'core/section_forms/team_member_form.html'
     success_url = reverse_lazy('core:team_section_edit')
-
     def form_valid(self, form):
+        # Save then redirect to the newly created member's edit page so changes are visible immediately
+        self.object = form.save()
         messages.success(self.request, 'Team member added successfully!')
-        return super().form_valid(form)
+        return redirect('core:edit_team_member', pk=self.object.pk)
 
     def form_invalid(self, form):
         messages.error(self.request, 'Please correct the errors below.')
@@ -324,8 +352,10 @@ class AboutTeamMemberUpdateView(UpdateView):
     success_url = reverse_lazy('core:team_section_edit')
 
     def form_valid(self, form):
+        # Save and redirect back to the same edit page so the updated styles render here
+        self.object = form.save()
         messages.success(self.request, 'Team member updated successfully!')
-        return super().form_valid(form)
+        return redirect('core:edit_team_member', pk=self.object.pk)
 
     def form_invalid(self, form):
         messages.error(self.request, 'Please correct the errors below.')
@@ -378,3 +408,55 @@ class FooterEditView(TemplateView):
         else:
             messages.error(request, 'Please correct the errors below.')
             return render(request, self.template_name, {'form': form, 'formset': formset, 'footer': footer})
+
+
+class PageDetailView(TemplateView):
+    template_name = 'core/page_detail.html'
+
+    def get(self, request, slug=None, *args, **kwargs):
+        page = get_object_or_404(Page, slug=slug)
+        # Gather all typed blocks for this page
+        typed_qs_lists = [
+            HeroBannerBlock.objects.filter(page=page, is_active=True),
+            TextImageBlock.objects.filter(page=page, is_active=True),
+            FeatureHighlightsBlock.objects.filter(page=page, is_active=True),
+            TestimonialBlock.objects.filter(page=page, is_active=True),
+            CallToActionBlock.objects.filter(page=page, is_active=True),
+            GalleryBlock.objects.filter(page=page, is_active=True),
+            VideoEmbedBlock.objects.filter(page=page, is_active=True),
+            FAQBlock.objects.filter(page=page, is_active=True),
+            CounterStatsBlock.objects.filter(page=page, is_active=True),
+            ContactFormBlock.objects.filter(page=page, is_active=True),
+            TeamMemberBlock.objects.filter(page=page, is_active=True),
+            BlogPreviewBlock.objects.filter(page=page, is_active=True),
+            TwoColumnTextBlock.objects.filter(page=page, is_active=True),
+            TimelineBlock.objects.filter(page=page, is_active=True),
+            FooterInfoBlock.objects.filter(page=page, is_active=True),
+        ]
+        items = []
+        for qs in typed_qs_lists:
+            items.extend(list(qs))
+        # Include generic rich Blocks if any
+        generic_blocks = list(Block.objects.filter(page=page, is_active=True))
+        items.extend(generic_blocks)
+
+        # Compute template names; map generic Block to a generic template
+        def tpl_for(obj):
+            model_name = obj._meta.model_name
+            if model_name == 'block':
+                return 'blocks/generic_rich_text.html'
+            return f'blocks/{model_name}.html'
+
+        items = sorted(items, key=lambda x: (getattr(x, 'order', 0), x.pk or 0))
+
+        context = {
+            'page': page,
+            'content_blocks': [{'obj': b, 'template': tpl_for(b)} for b in items],
+            'theme': WebsiteTheme.objects.filter(is_active=True).first(),
+            'footer': Footer.objects.prefetch_related('quick_links').first(),
+            'popup': Popup.objects.filter(is_active=True).first(),
+            # Extras used by some blocks
+            'news_list': NewsArticle.objects.filter(is_published=True).order_by('-published_date')[:6],
+            'contact_form': ContactForm(),
+        }
+        return render(request, self.template_name, context)

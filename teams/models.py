@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.db import models as dj_models
+from page_content.models import StyleOptions
 
 
 class Team(models.Model):
@@ -12,6 +14,19 @@ class Team(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # Styling options for team cards and sections
+    style_options = dj_models.OneToOneField(
+        'page_content.StyleOptions', on_delete=dj_models.SET_NULL,
+        null=True, blank=True, help_text='Custom styling options for this team'
+    )
+    # Contact information
+    contact_email = models.EmailField(max_length=254, blank=True, help_text='Contact email for the team')
+    contact_phone = models.CharField(max_length=30, blank=True, help_text='Contact phone number for the team')
+    contact_linkedin = models.URLField(blank=True, help_text='LinkedIn profile or page URL for the team')
+    contact_twitter = models.URLField(blank=True, help_text='Twitter profile URL for the team')
+    # Contact icon colors
+    contact_icon_color = models.CharField(max_length=7, default='#212529', blank=True, help_text='Hex color for contact icons (e.g., #ffffff)')
+    contact_icon_bg = models.CharField(max_length=7, default='', blank=True, help_text='Optional background color for icon buttons (hex)')
 
     class Meta:
         ordering = ['name']
@@ -24,6 +39,10 @@ class Team(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        # Ensure style_options exists for the team
+        if not self.style_options:
+            so = StyleOptions.objects.create()
+            self.style_options = so
         super().save(*args, **kwargs)
 
 

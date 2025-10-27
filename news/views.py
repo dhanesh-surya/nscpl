@@ -11,6 +11,16 @@ class NewsListView(ListView):
     
     def get_queryset(self):
         return NewsArticle.objects.filter(is_published=True).order_by('-published_date')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add PageHero for news page
+        try:
+            from core.models import PageHero
+            context['page_hero'] = PageHero.objects.get(page='news', is_active=True)
+        except PageHero.DoesNotExist:
+            context['page_hero'] = None
+        return context
 
 
 class NewsDetailView(DetailView):
