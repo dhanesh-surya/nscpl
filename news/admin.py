@@ -19,11 +19,7 @@ class NewsArticleAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'content', 'featured_image')
         }),
         ('Author & Status', {
-<<<<<<< HEAD
             'fields': ('author', 'is_published', 'published_date')
-=======
-            'fields': ('author', 'is_published')
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
         }),
     )
     

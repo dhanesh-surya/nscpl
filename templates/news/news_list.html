@@ -81,7 +81,7 @@
                 <div class="card news-card h-100 shadow-sm">
                     {% if article.featured_image %}
                     <div class="position-relative">
-                        <img src="{{ article.featured_image.url }}" class="card-img-top" alt="{{ article.title }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ article.featured_image.url }}" class="card-img-top" alt="{{ article.title }}" style="aspect-ratio: 1; object-fit: cover;">
                         <div class="position-absolute top-0 start-0 m-2">
                             <span class="badge bg-primary">
                                 <i class="fas fa-newspaper me-1"></i>News
@@ -101,11 +101,7 @@
                             <small class="text-muted">{{ article.published_date|date:"M d, Y" }}</small>
                         </div>
                         <h5 class="card-title">{{ article.title }}</h5>
-<<<<<<< HEAD
                         <p class="card-text">{{ article.content|striptags|truncatewords:15 }}</p>
-=======
-                        <p class="card-text">{{ article.content|truncatewords:15 }}</p>
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
                         <div class="mt-auto">
                             <a href="{% url 'news:news_detail' article.slug %}" class="btn btn-outline-primary">
                                 Read More <i class="fas fa-arrow-right ms-1"></i>

@@ -177,10 +177,7 @@ p, span, div, a, li, td, th {
     transition: all 0.3s ease;
     border: 2px solid white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-<<<<<<< HEAD
     z-index: 10;
-=======
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
 }
 
 .hero-carousel-section .carousel-control-prev {
@@ -283,7 +280,6 @@ p, span, div, a, li, td, th {
 
 @media (max-width: 768px) {
     .hero-carousel-section {
-<<<<<<< HEAD
         height: 60vh;
     }
     
@@ -292,13 +288,6 @@ p, span, div, a, li, td, th {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
-=======
-        height: 80vh;
-    }
-    
-    .hero-slide {
-        height: 80vh;
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
     }
     
     .hero-content h1 {

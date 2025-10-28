@@ -7,11 +7,7 @@
 {% block content %}
 {% if page_hero %}
 <section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
-<<<<<<< HEAD
          style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: 0px; padding-top: 80px;">
-=======
-         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
   <div class="container-fluid">
     <div class="row align-items-center h-100">
       <div class="col-lg-8 col-md-10 mx-auto">
@@ -217,11 +213,7 @@
                             <small class="text-muted">{{ article.published_date|date:"M d, Y" }}</small>
                         </div>
                         <h5 class="card-title">{{ article.title }}</h5>
-<<<<<<< HEAD
                         <p class="card-text">{{ article.content|striptags|truncatewords:15 }}</p>
-=======
-                        <p class="card-text">{{ article.content|truncatewords:15 }}</p>
->>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
                         <a href="{% url 'news:news_detail' article.slug %}" class="btn btn-outline-primary">
                             Read More <i class="fas fa-arrow-right ms-1"></i>
                         </a>
