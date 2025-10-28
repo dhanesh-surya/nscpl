@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- DEBUG: Rendering default hero section -->
+<!-- Default Hero Section (fallback) -->
+<section class="pt-3 pb-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); color: var(--text-light);">
+  <div class="container-fluid">
+    <div class="row align-items-center min-vh-50">
+      <div class="col-lg-8 col-md-10 mx-auto text-center">
+        <div data-aos="fade-up">
+          <h1 class="display-3 fw-bold mb-4">All Events</h1>
+          <p class="lead fs-4 mb-4 opacity-90">
+            Discover all our sports events and tournaments. Stay updated with the latest happenings.
+          </p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ events|length }} Events
+            </div>
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>Multiple Sports
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Events Section -->
+<section class="py-5 events-section" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+  <div class="container">
+    {% if events %}
+      <!-- Events Grid -->
+      <div class="row g-4">
+        {% for event in events %}
+          <div class="col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <article class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all duration-300" style="background-color: var(--card-bg); border-color: var(--card-border);">
+              {% if event.banner %}
+                <div class="position-relative overflow-hidden">
+                  <img src="{{ event.banner.url }}" class="card-img-top" alt="{{ event.title }}"
+                       style="height: 220px; object-fit: cover;">
+                  <div class="card-img-overlay d-flex align-items-end p-3 bg-gradient-dark">
+                    <div class="w-100">
+                      <span class="badge" style="background-color: var(--accent-color); color: var(--text-light);">{{ event.sport }}</span>
+                      <h5 class="card-title text-white mb-0 fw-bold">{{ event.title }}</h5>
+                    </div>
+                  </div>
+                  <!-- Overlay on hover -->
+                  <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary bg-opacity-75 d-flex align-items-center justify-content-center opacity-0 hover-opacity-100 transition-opacity">
+                    <a href="{% url 'events:event_detail' event.pk %}" class="btn" style="background-color: var(--button-primary-bg); color: var(--button-primary-text);">
+                      <i class="fas fa-eye me-2"></i>View Details
+                    </a>
+                  </div>
+                </div>
+              {% else %}
+                <!-- Fallback for no banner -->
+                <div class="card-header" style="background-color: var(--primary-color); color: var(--text-light);">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-calendar-alt fa-2x me-3"></i>
+                    <div>
+                      <h5 class="mb-0">{{ event.title }}</h5>
+                      <small class="opacity-75">{{ event.sport }}</small>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3">
+                  <div class="d-flex align-items-center text-muted mb-2">
+                    <i class="fas fa-calendar-day me-2" style="color: var(--accent-color);"></i>
+                    <span class="fw-semibold">{{ event.date|date:"l, F j, Y" }}</span>
+                  </div>
+                  <div class="d-flex align-items-center text-muted">
+                    <i class="fas fa-map-marker-alt me-2" style="color: var(--accent-color);"></i>
+                    <span>{{ event.location }}</span>
+                  </div>
+                </div>
+
+                {% if event.description %}
+                  <p class="card-text text-muted flex-grow-1">{{ event.description|striptags|truncatewords:25 }}</p>
+                {% endif %}
+
+                <div class="mt-auto">
+                  <a href="{% url 'events:event_detail' event.pk %}" class="btn w-100" style="background-color: var(--button-primary-bg); color: var(--button-primary-text); border-color: var(--button-primary-bg);">
+                    <i class="fas fa-info-circle me-2"></i>View Details
+                  </a>
+                </div>
+              </div>
+
+              <!-- Card footer with date badge -->
+              <div class="card-footer border-0 pt-0" style="background-color: var(--card-bg);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">
+                    <i class="fas fa-clock me-1"></i>{{ event.date|date:"M j" }}
+                  </small>
+                  {% if event.is_upcoming %}
+                    <span class="badge" style="background-color: var(--highlight-color); color: var(--text-light);">
+                      <i class="fas fa-circle me-1"></i>Upcoming
+                    </span>
+                  {% else %}
+                    <span class="badge bg-secondary">
+                      <i class="fas fa-check-circle me-1"></i>Past Event
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if is_paginated %}
+        <div class="d-flex justify-content-center mt-5">
+          <nav aria-label="Events pagination">
+            <ul class="pagination pagination-lg">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+
+              {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                  </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
+        <div class="text-center mt-3">
+          <small class="text-muted">
+            Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ paginator.count }} events
+          </small>
+        </div>
+      {% endif %}
+
+    {% else %}
+      <!-- Empty State -->
+      <div class="row justify-content-center py-5">
+        <div class="col-lg-6 col-md-8 text-center" data-aos="fade-up">
+          <div class="empty-state">
+            <div class="mb-4">
+              <i class="fas fa-calendar-times fa-6x text-muted"></i>
+            </div>
+            <h2 class="h3 mb-3">No Events Available</h2>
+            <p class="lead text-muted mb-4">
+              There are currently no events in our database. Please check back later for exciting sports events and tournaments.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+              <a href="{% url 'core:home' %}" class="btn" style="background-color: var(--button-primary-bg); color: var(--button-primary-text);">
+                <i class="fas fa-home me-2"></i>Go Home
+              </a>
+              <a href="{% url 'news:news_list' %}" class="btn btn-outline-primary">
+                <i class="fas fa-newspaper me-2"></i>Read News
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hover-shadow-lg:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.bg-gradient-dark {
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease;
+}
+
+.hover-opacity-100:hover {
+  opacity: 1 !important;
+}
+
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.duration-300 {
+  transition-duration: 0.3s;
+}
+
+.card {
+  border-radius: var(--card-radius) !important;
+}
+
+.btn {
+  border-radius: var(--button-primary-border-radius) !important;
+}
+</style>
+{% endblock %}

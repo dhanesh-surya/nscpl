@@ -1,0 +1,14 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.title %}<h2 class="h1 fw-bold text-center mb-5 text-gradient" data-aos="zoom-in">{{ block.title }}</h2>{% endif %}
+    <div class="row justify-content-center">
+      <div class="col-lg-8" data-aos="slide-up">
+        <div class="video-wrapper position-relative rounded-4 overflow-hidden shadow-lg">
+          <div class="ratio ratio-16x9">
+            <iframe src="{{ block.embed_url }}" title="{{ block.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

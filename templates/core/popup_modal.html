@@ -1,0 +1,23 @@
+{% if popup %}
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="{{ popup.get_popup_style|default:'' }}; border: none; border-radius: 12px; overflow: hidden;">
+                <div class="modal-header" style="background: transparent; border-bottom: none;">
+                    <h5 class="modal-title" id="popupModalLabel" style="color: {{ popup.text_color }};">{{ popup.heading }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(0.0);"></button>
+                </div>
+                <div class="modal-body text-center" style="color: {{ popup.text_color }}; padding: 1.5rem;">
+                    {% if popup.image %}
+                        <img src="{{ popup.image.url }}" class="img-fluid mb-3 rounded zz_image" alt="{{ popup.title }}" style="max-height: 400px; object-fit: cover; border-radius: 8px;"> 
+                    {% endif %}
+                    <div class="popup-text lead" style="color: {{ popup.text_color }};">
+                        {{ popup.text|safe }}
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center" style="background: transparent; border-top: none;">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

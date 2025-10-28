@@ -1,0 +1,520 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NSCPL PRIVATE LIMITED{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Load all available fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700;800&family=Fira+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&family=Satoshi:wght@300;400;500;600;700;800&family=Cabinet+Grotesk:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20241027">
+    <link rel="stylesheet" href="{% static 'css/simple-lightbox.min.css' %}">
+    <!-- Glass effect utilities -->
+    <link rel="stylesheet" href="{% static 'css/glass.css' %}">
+    <!-- Gallery/lightbox overrides -->
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    
+    <!-- Theme CSS -->
+    <style>
+        :root {
+            --primary-color: {% if theme %}{{ theme.primary_color }}{% else %}#0A192F{% endif %};
+            --accent-color: {% if theme %}{{ theme.accent_color }}{% else %}#00BFA6{% endif %};
+            --secondary-color: {% if theme %}{{ theme.secondary_color }}{% else %}#F5F5F5{% endif %};
+            --highlight-color: {% if theme %}{{ theme.highlight_color }}{% else %}#FF9800{% endif %};
+            --text-primary: {% if theme %}{{ theme.text_primary }}{% else %}#2C3E50{% endif %};
+            --text-secondary: {% if theme %}{{ theme.text_secondary }}{% else %}#6C757D{% endif %};
+            --text-light: {% if theme %}{{ theme.text_light }}{% else %}#FFFFFF{% endif %};
+            --navbar-bg: {% if theme %}{{ theme.navbar_background }}{% else %}#0A192F{% endif %};
+            --navbar-text: {% if theme %}{{ theme.navbar_text_color }}{% else %}#FFFFFF{% endif %};
+            --navbar-hover: {% if theme %}{{ theme.navbar_hover_color }}{% else %}#00BFA6{% endif %};
+            --button-primary-bg: {% if theme %}{{ theme.button_primary_bg }}{% else %}#00BFA6{% endif %};
+            --button-primary-text: {% if theme %}{{ theme.button_primary_text }}{% else %}#FFFFFF{% endif %};
+            --button-secondary-bg: {% if theme %}{{ theme.button_secondary_bg }}{% else %}#6C757D{% endif %};
+            --button-secondary-text: {% if theme %}{{ theme.button_secondary_text }}{% else %}#FFFFFF{% endif %};
+            --link-color: {% if theme %}{{ theme.link_color }}{% else %}#00BFA6{% endif %};
+            --link-hover-color: {% if theme %}{{ theme.link_hover_color }}{% else %}#FF9800{% endif %};
+            --card-bg: {% if theme %}{{ theme.card_background }}{% else %}#FFFFFF{% endif %};
+            --card-border: {% if theme %}{{ theme.card_border_color }}{% else %}#E9ECEF{% endif %};
+            --footer-bg: {% if theme %}{{ theme.footer_background }}{% else %}#0A192F{% endif %};
+            --footer-text: {% if theme %}{{ theme.footer_text_color }}{% else %}#FFFFFF{% endif %};
+            --footer-link: {% if theme %}{{ theme.footer_link_color }}{% else %}#00BFA6{% endif %};
+            --font-family: '{% if theme %}{{ theme.font_family }}{% else %}Inter{% endif %}', sans-serif;
+            --heading-font: '{% if theme %}{{ theme.heading_font_family }}{% else %}Inter{% endif %}', sans-serif;
+            --font-size-base: {% if theme %}{{ theme.font_size_base }}{% else %}16{% endif %}px;
+            --section-padding: {% if theme %}{{ theme.section_padding }}{% else %}80{% endif %}px;
+            --card-radius: {% if theme %}{{ theme.card_border_radius }}{% else %}8{% endif %}px;
+            --dynamic-background: {% if theme and theme.background_type == 'color' %}{{ theme.background_color }}{% elif theme and theme.background_type == 'image' and theme.background_image %}url('{{ theme.background_image.url }}') center/cover fixed{% elif theme and theme.background_type == 'gradient' and theme.background_gradient %}{{ theme.background_gradient }}{% else %}#FFFFFF{% endif %};
+            --navbar-dynamic-bg: {% if theme and theme.navbar_style == 'transparent' %}transparent{% elif theme and theme.navbar_style == 'glass' %}rgba(10, 25, 47, 0.9){% else %}var(--navbar-bg){% endif %};
+            --button-primary-border-radius: {% if theme and theme.button_style == 'pill' %}50px{% elif theme and theme.button_style == 'square' %}0{% else %}8px{% endif %};
+            --button-secondary-border-radius: {% if theme and theme.button_style == 'pill' %}50px{% elif theme and theme.button_style == 'square' %}0{% else %}8px{% endif %};
+            --navbar-backdrop-filter: {% if theme and theme.navbar_style == 'glass' %}blur(10px){% else %}none{% endif %};
+            --link-text-decoration: {% if theme and theme.link_underline %}underline{% else %}none{% endif %};
+            --card-box-shadow: {% if theme and theme.card_shadow %}0 4px 6px rgba(0, 0, 0, 0.1){% else %}none{% endif %};
+        }
+        
+        body {
+            font-family: var(--font-family) !important;
+            font-size: var(--font-size-base) !important;
+            color: var(--text-primary) !important;
+            background: var(--dynamic-background);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font) !important;
+        }
+        
+        p, span, div, a, li, td, th, label, input, textarea, select, button {
+            font-family: var(--font-family) !important;
+        }
+        
+        .navbar-brand, .navbar-nav .nav-link {
+            font-family: var(--heading-font) !important;
+        }
+        
+        .card-title, .card-text {
+            font-family: var(--font-family) !important;
+        }
+        
+        .btn {
+            font-family: var(--font-family) !important;
+        }
+        
+        .navbar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            color: var(--accent-color) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand, .navbar-nav .nav-link {
+            color: var(--navbar-text) !important;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--navbar-hover) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary-bg);
+            border-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
+            border-radius: var(--button-primary-border-radius);
+        }
+        
+        .btn-secondary {
+            background-color: var(--button-secondary-bg);
+            border-color: var(--button-secondary-bg);
+            color: var(--button-secondary-text);
+            border-radius: var(--button-secondary-border-radius);
+        }
+        
+        a {
+            color: var(--link-color);
+            text-decoration: var(--link-text-decoration);
+        }
+        
+        a:hover {
+            color: var(--link-hover-color);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-box-shadow);
+        }
+        
+        footer {
+            background-color: var(--footer-bg) !important;
+            color: var(--footer-text) !important;
+        }
+        
+        footer a {
+            color: var(--footer-link) !important;
+        }
+        
+        .section-padding {
+            padding: var(--section-padding) 0;
+        }
+        
+        /* Modern Block Styles */
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .text-gradient { background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .bg-gradient-primary-to-secondary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-10px); }
+        .rounded-4 { border-radius: 1rem; }
+        .hover-text-white:hover { color: #ffffff !important; transition: color 0.3s ease; }
+        .transition { transition: all 0.3s ease; }
+        .hover-opacity-100:hover { opacity: 1 !important; }
+        .opacity-0 { opacity: 0; }
+        .gallery-item img { transition: transform 0.3s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .caption-overlay { transition: opacity 0.3s ease; opacity: 0; }
+        .gallery-item:hover .caption-overlay { opacity: 1; }
+        .stat-card { transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .blog-card { transition: all 0.3s ease; }
+        .blog-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .overlay { transition: opacity 0.3s ease; }
+        .blog-card:hover .overlay { opacity: 1; }
+        .social-link { transition: color 0.3s ease; }
+        .social-link:hover { color: var(--accent-color) !important; }
+        
+        /* Hero Carousel Transitions */
+        .carousel-item { transition: opacity 0.6s ease-in-out !important; }
+        .carousel-fade .carousel-item { opacity: 0; transition-duration: 0.6s; }
+        .carousel-fade .carousel-item.active { opacity: 1; }
+        .carousel-control-prev, .carousel-control-next { transition: opacity 0.3s ease; }
+        .carousel-control-prev:hover, .carousel-control-next:hover { opacity: 0.8; }
+        .carousel-indicators button { 
+          transition: all 0.3s ease; 
+          width: 12px !important; 
+          height: 12px !important; 
+          border-radius: 50% !important; 
+          margin: 0 4px !important;
+        }
+        .carousel-indicators button:hover { transform: scale(1.2); }
+        .carousel-indicators button.active { background-color: #fff !important; }
+        
+        /* Testimonial Cards */
+        .testimonial-card {
+          transition: all 0.3s ease;
+          border: 1px solid rgba(0,0,0,0.05);
+        }
+        .testimonial-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .testimonial-card .rounded-circle {
+          transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover .rounded-circle {
+          transform: scale(1.1);
+        }
+        
+        /* Hero Banner Enhancements */
+        .hero-overlay { transition: opacity 0.6s ease; }
+        .hero-title, .hero-subtitle, .hero-button { 
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        .carousel-item.active .hero-title,
+        .carousel-item.active .hero-subtitle,
+        .carousel-item.active .hero-button {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .hero-title { animation: fadeInUp 0.8s ease-out 0.2s both; }
+        .hero-subtitle { animation: fadeInUp 0.8s ease-out 0.4s both; }
+        .hero-button { animation: fadeInUp 0.8s ease-out 0.6s both; }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* Mobile responsiveness for hero sections */
+        @media (max-width: 768px) {
+          .hero-carousel-section .hero-content h1 {
+            font-size: 2.5rem !important;
+          }
+          .hero-carousel-section .hero-content h2 {
+            font-size: 1.5rem !important;
+          }
+          .hero-carousel-section .hero-content p {
+            font-size: 1.1rem !important;
+          }
+          section.pb-5 .col-lg-8 h1 {
+            font-size: 2.5rem !important;
+          }
+          section.pb-5 .col-lg-8 h2 {
+            font-size: 1.5rem !important;
+          }
+          section.pb-5 .col-lg-8 p {
+            font-size: 1.1rem !important;
+          }
+        }
+        
+    </style>
+    <style>
+        /* X icon sizing for social links */
+        .x-icon { height: 16px; width: auto; display: inline-block; vertical-align: middle; }
+        .social-link img.x-icon { filter: none; }
+
+        /* Navbar: use CSS variables from WebsiteTheme (--navbar-dynamic-bg, --navbar-backdrop-filter, --navbar-text) */
+        .navbar-custom {
+            background: var(--navbar-dynamic-bg) !important;
+            backdrop-filter: var(--navbar-backdrop-filter) !important;
+            -webkit-backdrop-filter: var(--navbar-backdrop-filter) !important;
+            transition: background 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: var(--navbar-text) !important;
+        }
+        .navbar-custom .nav-link:hover {
+            color: var(--navbar-hover) !important;
+        }
+        .navbar-custom .navbar-toggler { border-color: rgba(255,255,255,0.12); }
+        .navbar-custom .navbar-toggler-icon { filter: invert(1); }
+        /* stronger glass on scroll */
+        .navbar-custom.navbar-scrolled {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            /* fallback stronger bg when scrolled */
+            background: rgba(10,25,47,0.95) !important;
+        }
+        /* Hover dropdowns */
+        .navbar .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+        .navbar .dropdown-menu {
+            padding: 0;
+            background: var(--navbar-dynamic-bg);
+            backdrop-filter: var(--navbar-backdrop-filter);
+            -webkit-backdrop-filter: var(--navbar-backdrop-filter);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .navbar .dropdown-item {
+            padding: 0.25rem 0.5rem;
+            color: var(--navbar-text) !important;
+        }
+        .navbar .dropdown-item:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--navbar-hover) !important;
+        }
+    </style>
+    
+    {% block extra_css %}
+    {% endblock %}
+    <style>
+        .sl-overlay {
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 99999 !important;
+        }
+        .sl-wrapper {
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 100000 !important;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'core:home' %}">
+                {% if footer.logo %}
+                    <img src="{{ footer.logo.url }}" alt="Navbar Logo" style="height: 40px;">
+                    <span class="ms-2">NSCPL</span>
+                {% else %}
+                    <i class="fas fa-trophy me-2"></i>NSCPL
+                {% endif %}
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:theme_customize' %}">
+                            <i class="fas fa-palette me-1"></i>Theme
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {# Append any active site_menu items configured via admin #}
+                    {% if site_menu %}
+                        {% for item in site_menu %}
+                            {% if item.children %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{ item.url }}" id="navbarDropdown{{ forloop.counter }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ item.title }}</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.counter }}">
+                                        {% for child in item.children %}
+                                            <li><a class="dropdown-item" href="{{ child.url }}">{{ child.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{{ item.url }}">{{ item.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-accent mb-3">
+                        {% if footer.logo %}
+                            <img src="{{ footer.logo.url }}" alt="Footer Logo" style="height: 50px;">
+                            <span class="ms-2">NSCPL PRIVATE LIMITED</span>
+                        {% else %}
+                            <i class="fas fa-trophy me-2"></i>NSCPL PRIVATE LIMITED
+                        {% endif %}
+                    </h5>
+                    <p class="text-white">
+                        Leading sports and event management company dedicated to promoting athletic excellence and community engagement.
+                    </p>
+                    <div class="social-links">
+                        {% if footer.facebook_url %}
+                            <a href="{{ footer.facebook_url }}" target="_blank" class="social-link me-3"><i class="fab fa-facebook-f"></i></a>
+                        {% endif %}
+                        {% if footer.twitter_url %}
+                            <a href="{{ footer.twitter_url }}" target="_blank" class="social-link me-3"><i class="fa-brands fa-x-twitter"></i></a>
+                        {% endif %}
+                        {% if footer.instagram_url %}
+                            <a href="{{ footer.instagram_url }}" target="_blank" class="social-link me-3"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if footer.linkedin_url %}
+                            <a href="{{ footer.linkedin_url }}" target="_blank" class="social-link me-3"><i class="fab fa-linkedin-in"></i></a>
+                        {% endif %}
+                        {% if footer.youtube_url %}
+                            <a href="{{ footer.youtube_url }}" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-accent mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        {% for link in footer.quick_links.all %}
+                            <li><a href="{{ link.url }}" class="text-white text-decoration-none footer-link">{{ link.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-accent mb-3">Contact Info</h5>
+                    <div class="contact-info">
+                        <p class="text-white mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            {% if footer.address %}{{ footer.address }}{% else %}123 Sports Avenue, City, State 12345{% endif %}
+                        </p>
+                        <p class="text-white mb-2">
+                            <i class="fas fa-phone me-2"></i>
+                            {% if footer.phone_number %}{{ footer.phone_number }}{% else %}+1 (555) 123-4567{% endif %}
+                        </p>
+                        <p class="text-white mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            {% if footer.email %}{{ footer.email }}{% else %}info@nscpl.com{% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-white">&copy; 2024 NSCPL PRIVATE LIMITED. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-white mb-0">Designed with <i class="fas fa-heart text-danger"></i> for sports excellence</p>
+                    <p class="text-white-50 mb-0 small mt-1">
+                        Developed by <a href="https://dnstech.in" target="_blank" rel="noopener" class="text-info text-decoration-none">DNSTECH</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+    </script>
+    <script>
+        // Toggle stronger glass style on scroll for better contrast when theme.navbar_style == 'glass'
+        (function(){
+            try {
+                var nav = document.querySelector('.navbar-custom');
+                if(!nav) return;
+                function onScroll(){
+                    if(window.scrollY > 20){
+                        nav.classList.add('navbar-scrolled');
+                    } else {
+                        nav.classList.remove('navbar-scrolled');
+                    }
+                }
+                window.addEventListener('scroll', onScroll);
+                // initialize state
+                onScroll();
+            } catch (e) {
+                // fail silently
+                console.error('Navbar scroll script error', e);
+            }
+        })();
+    </script>
+    
+
+    {% block extra_js %}
+    {% endblock %}
+    <!-- Page-specific lightbox initialization handled in individual templates -->
+{% if theme and theme.custom_css %}
+        {{ theme.custom_css|safe }}
+{% endif %}
+</body>
+</html>

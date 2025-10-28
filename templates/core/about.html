@@ -1,0 +1,626 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block extra_css %}
+<style>
+    .value-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        max-height: 280px;
+    }
+    
+    .value-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .value-card[data-background-type="gradient"] {
+        background-attachment: fixed;
+    }
+    
+    .value-card[data-background-type="image"] {
+        background-attachment: fixed;
+    }
+    
+    .value-icon i {
+        transition: transform 0.3s ease;
+    }
+    
+    .value-card:hover .value-icon i {
+        transform: scale(1.1);
+    }
+    
+    /* Custom animations */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    .value-card.pulse-animation {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Gradient backgrounds */
+    .gradient-1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .gradient-2 {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .gradient-3 {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    /* Values section styling */
+    .values-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .values-section[data-aos="parallax"] {
+        background-attachment: fixed;
+    }
+    
+    /* Pattern background styles */
+    .values-section.pattern-bg {
+        background-image: 
+            radial-gradient(circle at 25px 25px, rgba(255,255,255,.2) 2px, transparent 0),
+            radial-gradient(circle at 75px 75px, rgba(255,255,255,.2) 2px, transparent 0);
+        background-size: 100px 100px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(45deg, #cc2b5e, #753a88);; color: #ffffff;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Mobile: logo above content -->
+            <div class="col-12 d-lg-none text-center mb-4">
+                {% if footer.logo %}
+                    <img src="{{ footer.logo.url }}" alt="NSCPL Logo" class="img-fluid hero-logo hero-logo-trigger" data-logo-url="{{ footer.logo.url }}" style="max-height:80px; object-fit:contain; cursor: zoom-in;">
+                {% else %}
+                    <i class="fas fa-trophy fa-2x text-white"></i>
+                {% endif %}
+            </div>
+
+            <!-- Desktop: logo on the left -->
+            <div class="col-lg-2 d-none d-lg-flex align-items-center justify-content-center">
+                {% if footer.logo %}
+                    <img src="{{ footer.logo.url }}" alt="NSCPL Logo" class="img-fluid hero-logo hero-logo-trigger" data-logo-url="{{ footer.logo.url }}" style="max-height:120px; object-fit:contain; cursor: zoom-in;">
+                {% else %}
+                    <i class="fas fa-trophy fa-3x text-white"></i>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-8 mx-auto text-center text-lg-start">
+                <div class="hero-content aos-init aos-animate" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">About NSCPL</h1>
+                    <p class="lead">NSCPL (NSCPL PRIVATE LIMITED) is dedicated to excellence in sports and event management. We focus on fostering athletic talent, organizing competitive events, and building community engagement through professional sports services.</p>
+                    <p class="lead">Our mission is to deliver top-tier sporting experiences and create opportunities for athletes to grow and succeed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Logo Modal (enlarged view) -->
+<div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white" id="logoModalLabel">NSCPL Logo</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="logoModalImage" src="" alt="Logo Large" class="img-fluid" style="max-height:70vh; object-fit:contain;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Mission & Vision Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            {% for section in about_sections %}
+                {% if section.section_type == 'mission' %}
+                <div class="col-lg-6 mb-5" data-aos="fade-right">
+                    <div class="card h-100" style="{% if section.get_section_background_style %}{{ section.get_section_background_style }}{% endif %}{% if section.text_color %}{% if section.get_section_background_style %} {% endif %}color: {{ section.text_color }};{% endif %}">
+
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-bullseye fa-3x text-accent"></i>
+                            </div>
+                            <h3 class="card-title text-center mb-4">{{ section.title }}</h3>
+                            <p class="card-text lead">{{ section.content|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if section.section_type == 'vision' %}
+                <div class="col-lg-6 mb-5" data-aos="fade-left">
+                    <div class="card h-100" style="{% if section.get_section_background_style %}{{ section.get_section_background_style }}{% endif %}{% if section.text_color %}{% if section.get_section_background_style %} {% endif %}color: {{ section.text_color }};{% endif %}">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-eye fa-3x text-accent"></i>
+                            </div>
+                            <h3 class="card-title text-center mb-4">{{ section.title }}</h3>
+                            <p class="card-text lead">{{ section.content|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% empty %}
+            <div class="col-lg-6 mb-5" data-aos="fade-right">
+                <div class="card h-100">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-bullseye fa-3x text-accent"></i>
+                        </div>
+                        <h3 class="card-title text-center mb-4">Our Mission</h3>
+                        <p class="card-text lead">
+                            To promote sports excellence and community engagement through professional event management, 
+                            athlete development, and fostering a culture of healthy competition and teamwork.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5" data-aos="fade-left">
+                <div class="card h-100">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-eye fa-3x text-accent"></i>
+                        </div>
+                        <h3 class="card-title text-center mb-4">Our Vision</h3>
+                        <p class="card-text lead">
+                            To be the leading sports and event management company, recognized for our commitment to 
+                            excellence, innovation, and the development of future sporting champions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+{% for section in about_sections %}
+    {% if section.section_type == 'values' %}
+        <section class="section-padding values-section" 
+                 style="{{ section.get_section_background_style|safe }} {{ section.get_section_glass_effect_style|safe }}"
+                 {{ section.get_section_animation_attributes|safe }}>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center section-title mb-5" data-aos="fade-up" style="color: {{ section.text_color }};">{{ section.title }}</h2>
+                    </div>
+                </div>
+        
+                {% if values %}
+                <!-- Dynamic Individual Values with Background Customization -->
+                <div class="row">
+                    {% for value in values %}
+                    <div class="col-lg-4 col-md-6 mb-3" {{ value.get_animation_attributes|safe }}>
+                        <div class="card h-100 border-0 shadow-sm value-card" 
+                             style="{{ value.get_background_style|safe }}"
+                             data-background-type="{{ value.background_type }}">
+                            <div class="card-body text-center p-3 position-relative">
+                                <!-- Background overlay for better text readability -->
+                                {% if value.background_type == 'image' %}
+                                <div class="position-absolute top-0 start-0 w-100 h-100" 
+                                     style="background: rgba(255,255,255,0.9); border-radius: 0.375rem;"></div>
+                                {% endif %}
+                                
+                                <div class="position-relative">
+                                    <div class="value-icon mb-2">
+                                        {% if value.icon %}
+                                            <i class="{{ value.icon }} fa-2x" style="color: {{ value.color }};"></i>
+                                        {% else %}
+                                            <i class="fas fa-heart fa-2x" style="color: {{ value.color }};"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h5 class="card-title mb-2" 
+                                        style="{% if value.background_type == 'image' %}color: #2c3e50;{% endif %}">
+                                        {{ value.title }}
+                                    </h5>
+                                    <p class="card-text small {% if value.background_type != 'image' %}text-muted{% endif %}" 
+                                       style="{% if value.background_type == 'image' %}color: #495057;{% endif %}">
+                                        {{ value.description|truncatewords:15 }}
+                                    </p>
+                                    {% if value.is_featured %}
+                                        <span class="badge bg-primary mt-1" style="font-size: 0.7rem;">Featured</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- Fallback Static Values -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center" style="color: {{ section.text_color }};">
+                            <p class="lead">{{ section.content|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    {% endif %}
+{% empty %}
+<section class="section-padding values-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center section-title mb-5" data-aos="fade-up">Our Values</h2>
+            </div>
+        </div>
+        
+        {% if values %}
+        <!-- Dynamic Individual Values with Background Customization -->
+        <div class="row">
+            {% for value in values %}
+            <div class="col-lg-4 col-md-6 mb-3" {{ value.get_animation_attributes|safe }}>
+                <div class="card h-100 border-0 shadow-sm value-card" 
+                     style="{{ value.get_background_style|safe }}"
+                     data-background-type="{{ value.background_type }}">
+                    <div class="card-body text-center p-3 position-relative">
+                        <!-- Background overlay for better text readability -->
+                        {% if value.background_type == 'image' %}
+                        <div class="position-absolute top-0 start-0 w-100 h-100" 
+                             style="background: rgba(255,255,255,0.9); border-radius: 0.375rem;"></div>
+                        {% endif %}
+                        
+                        <div class="position-relative">
+                            <div class="value-icon mb-2">
+                                {% if value.icon %}
+                                    <i class="{{ value.icon }} fa-2x" style="color: {{ value.color }};"></i>
+                                {% else %}
+                                    <i class="fas fa-heart fa-2x" style="color: {{ value.color }};"></i>
+                                {% endif %}
+                            </div>
+                            <h5 class="card-title mb-2" 
+                                style="{% if value.background_type == 'image' %}color: #2c3e50;{% endif %}">
+                                {{ value.title }}
+                            </h5>
+                            <p class="card-text small {% if value.background_type != 'image' %}text-muted{% endif %}" 
+                               style="{% if value.background_type == 'image' %}color: #495057;{% endif %}">
+                                {{ value.description|truncatewords:15 }}
+                            </p>
+                            {% if value.is_featured %}
+                                <span class="badge bg-primary mt-1" style="font-size: 0.7rem;">Featured</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Fallback Static Values -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up">
+                <div class="text-center">
+                    <div class="value-icon mb-2">
+                        <i class="fas fa-heart fa-2x text-accent"></i>
+                    </div>
+                    <h5>Passion</h5>
+                    <p class="text-muted small">We are passionate about sports and committed to nurturing athletic talent.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center">
+                    <div class="value-icon mb-2">
+                        <i class="fas fa-handshake fa-2x text-accent"></i>
+                    </div>
+                    <h5>Integrity</h5>
+                    <p class="text-muted small">We maintain the highest standards of honesty and fair play in all our activities.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center">
+                    <div class="value-icon mb-2">
+                        <i class="fas fa-lightbulb fa-2x text-accent"></i>
+                    </div>
+                    <h5>Innovation</h5>
+                    <p class="text-muted small">We embrace new technologies and methods to enhance sports experiences.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center">
+                    <div class="value-icon mb-2">
+                        <i class="fas fa-users fa-2x text-accent"></i>
+                    </div>
+                    <h5>Community</h5>
+                    <p class="text-muted small">We build strong communities through sports and shared experiences.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endfor %}
+
+<!-- Team Section -->
+<!-- Recognition & Achievements Section -->
+{% if achievements %}
+    <section class="section-padding achievements-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center section-title mb-5" data-aos="fade-up">Recognition & Achievements</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% for a in achievements %}
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    {% if a.is_clickable and a.url %}
+                    <a href="{{ a.url }}" target="_blank" class="text-decoration-none text-reset">
+                    {% endif %}
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                {% if a.image %}
+                                    <img src="{{ a.image.url }}" alt="{{ a.title }}" class="img-fluid mb-2" style="max-height:120px; object-fit:contain;">
+                                {% elif a.icon %}
+                                    <i class="{{ a.icon }} fa-3x text-accent"></i>
+                                {% else %}
+                                    <i class="fas fa-award fa-3x text-accent"></i>
+                                {% endif %}
+                            </div>
+                            <h5 class="card-title mb-2">{{ a.title }}</h5>
+                            {% if a.description %}
+                                <p class="card-text small text-muted">{{ a.description|truncatewords:25 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if a.is_clickable and a.url %}
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% for section in about_sections %}
+    {% if section.section_type == 'team' %}
+        <section class="section-padding team-section" 
+                 style="{{ section.get_section_background_style|safe }} {{ section.get_section_glass_effect_style|safe }}"
+                 {{ section.get_section_animation_attributes|safe }}>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center section-title mb-5" data-aos="fade-up" style="color: {{ section.text_color }};">{{ section.title }}</h2>
+                        {% if section.subtitle %}
+                            <p class="text-center lead mb-5" style="color: {{ section.text_color }};">{{ section.subtitle }}</p>
+                        {% endif %}
+                        {% if section.content %}
+                            <div class="text-center mb-5" style="color: {{ section.text_color }};">
+                                <p>{{ section.content|safe }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+        <div class="row">
+            {% for member in team_members %}
+            <div class="col-lg-4 col-md-6 mb-4" {{ member.get_animation_attributes|safe }}>
+                <div class="card team-card" 
+                     style="{{ member.get_background_style|safe }}"
+                     data-background-type="{{ member.background_type }}">
+                    <div class="text-center position-relative">
+                        <!-- Background overlay for better text readability -->
+                        {% if member.background_type == 'image' %}
+                        <div class="position-absolute top-0 start-0 w-100 h-100" 
+                             style="background: rgba(255,255,255,0.9); border-radius: 0.375rem;"></div>
+                        {% endif %}
+                        
+                        <div class="position-relative">
+                            {% if member.photo %}
+                                <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center bg-light" style="width: 120px; height: 120px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                            {% endif %}
+                            <h5 style="{% if member.background_type == 'image' %}color: #2c3e50;{% endif %}">{{ member.name }}</h5>
+                            <p class="{% if member.background_type != 'image' %}text-muted{% endif %}"{% if member.background_type == 'image' %} style="color: #495057;"{% endif %}>{{ member.position }}</p>
+                            {% if member.bio %}
+                                <p class="{% if member.background_type != 'image' %}text-muted{% endif %}" style="{% if member.background_type == 'image' %}color: #495057;{% endif %}">{{ member.bio }}</p>
+                            {% endif %}
+                            {% if member.is_featured %}
+                                <span class="badge bg-primary mt-2">Featured</span>
+                            {% endif %}
+                            {% if member.email or member.phone or member.linkedin_url or member.twitter_url %}
+                            <div class="mt-3">
+                                {% if member.email %}
+                                    <a href="mailto:{{ member.email }}" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                {% endif %}
+                                {% if member.phone %}
+                                    <a href="tel:{{ member.phone }}" class="btn btn-sm btn-outline-success me-2">
+                                        <i class="fas fa-phone"></i>
+                                    </a>
+                                {% endif %}
+                                {% if member.linkedin_url %}
+                                    <a href="{{ member.linkedin_url }}" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                {% endif %}
+                                {% if member.twitter_url %}
+                                    <a href="{{ member.twitter_url }}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-1.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>John Smith</h5>
+                        <p class="text-muted">CEO & Founder</p>
+                        <p>20+ years in sports management and event organization.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-2.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>Sarah Johnson</h5>
+                        <p class="text-muted">Event Director</p>
+                        <p>Specialist in large-scale sports event coordination.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-3.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>Mike Davis</h5>
+                        <p class="text-muted">Sports Coordinator</p>
+                        <p>Expert in athlete development and training programs.</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+            </div>
+        </section>
+    {% endif %}
+{% empty %}
+<section class="section-padding team-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center section-title mb-5" data-aos="fade-up">Our Team</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-1.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>John Smith</h5>
+                        <p class="text-muted">CEO & Founder</p>
+                        <p>20+ years in sports management and event organization.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-2.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>Sarah Johnson</h5>
+                        <p class="text-muted">Event Director</p>
+                        <p>Specialist in large-scale sports event coordination.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card team-card">
+                    <div class="text-center">
+                        <img src="{% static 'images/team-3.jpg' %}" alt="Team Member" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+                        <h5>Mike Davis</h5>
+                        <p class="text-muted">Sports Coordinator</p>
+                        <p>Expert in athlete development and training programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+<!-- CTA Section -->
+<section class="section-padding bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4" data-aos="fade-up">Ready to Get Started?</h2>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Join us in promoting sports excellence and community engagement.
+                </p>
+                <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
+                    <a href="{% url 'contact:contact' %}" class="btn btn-accent btn-lg me-3">
+                        <i class="fas fa-envelope me-2"></i>Contact Us
+                    </a>
+                    <a href="{% url 'events:event_list' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i>View Events
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,62 @@
+<section class="hero-carousel position-relative {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-in"{% endif %}>
+  {% if block.slides.exists %}
+    <div id="heroCarousel{{ block.id }}" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+      <div class="carousel-inner">
+        {% for slide in block.slides.all %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}" style="min-height: 400px; background: {% if slide.background_image %}url('{{ slide.background_image.url }}') center/cover no-repeat{% else %}var(--primary-color){% endif %}; transition: opacity 0.6s ease-in-out;">
+            <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);"></div>
+            <div class="d-flex align-items-center justify-content-center h-100 position-relative">
+              <div class="container-fluid">
+                <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-10 text-center text-white">
+                    <h1 class="display-4 fw-bold mb-4 hero-title" style="transition: transform 0.8s ease-out, opacity 0.8s ease-out; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);" data-aos="fade-up" data-aos-delay="200">{{ slide.title }}</h1>
+                    {% if slide.subtitle %}
+                      <p class="lead mb-4 hero-subtitle" style="transition: transform 0.8s ease-out, opacity 0.8s ease-out; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);" data-aos="fade-up" data-aos-delay="400">{{ slide.subtitle }}</p>
+                    {% endif %}
+                    {% if slide.button_text and slide.button_url %}
+                      <div class="d-flex justify-content-center hero-button" style="transition: transform 0.8s ease-out, opacity 0.8s ease-out;" data-aos="zoom-in" data-aos-delay="600">
+                        <a href="{{ slide.button_url }}" class="btn btn-light btn-lg px-4 py-2 shadow-lg hover-lift" style="transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">{{ slide.button_text }}</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if block.slides.count > 1 %}
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel{{ block.id }}" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel{{ block.id }}" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators position-absolute bottom-0 mb-5">
+          {% for slide in block.slides.all %}
+            <button type="button" data-bs-target="#heroCarousel{{ block.id }}" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% else %}
+    <!-- Fallback: Single hero section if no slides -->
+    <div class="d-flex align-items-center justify-content-center h-100 position-relative" style="min-height: 400px; background: var(--primary-color);">
+      <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);"></div>
+      <div class="container-fluid position-relative">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10 text-center text-white">
+            <h1 class="display-4 fw-bold mb-4 hero-title" style="transition: transform 0.8s ease-out, opacity 0.8s ease-out; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);" data-aos="fade-up" data-aos-delay="200">Welcome</h1>
+            <p class="lead mb-4 hero-subtitle" style="transition: transform 0.8s ease-out, opacity 0.8s ease-out; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);" data-aos="fade-up" data-aos-delay="400">Create amazing hero banners by adding slides in the admin panel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>

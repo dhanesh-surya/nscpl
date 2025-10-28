@@ -1,0 +1,56 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-5 text-shadow" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    <div class="row text-center g-4">
+      {% for c in block.counters.all %}
+        <div class="col-6 col-md-3" data-aos="count-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+          <div class="stat-card bg-white bg-opacity-10 rounded-4 p-4 shadow-lg hover-lift">
+            {% if c.icon %}<div class="mb-3"><i class="{{ c.icon }} fa-3x text-primary"></i></div>{% endif %}
+            <div class="display-4 fw-bold text-white counter" data-target="{{ c.number }}">0</div>
+            <div class="h5 text-white-50">{{ c.label }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+    {% if block.heading %}<h2 class="h1 fw-bold text-center mb-5 text-shadow" data-aos="zoom-in">{{ block.heading }}</h2>{% endif %}
+    <div class="row text-center g-4">
+      {% for c in block.counters.all %}
+        <div class="col-6 col-md-3" data-aos="count-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+          <div class="stat-card bg-white bg-opacity-10 rounded-4 p-4 shadow-lg hover-lift">
+            {% if c.icon %}<div class="mb-3"><i class="{{ c.icon }} fa-3x text-primary"></i></div>{% endif %}
+            <div class="display-4 fw-bold text-white counter" data-target="{{ c.number }}">0</div>
+            <div class="h5 text-white-50">{{ c.label }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const counters = document.querySelectorAll('.counter');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = +entry.target.getAttribute('data-target');
+          const counter = entry.target;
+          let count = 0;
+          const increment = target / 100;
+          const timer = setInterval(() => {
+            count += increment;
+            if (count >= target) {
+              counter.innerText = target;
+              clearInterval(timer);
+            } else {
+              counter.innerText = Math.ceil(count);
+            }
+          }, 30);
+          observer.unobserve(counter);
+        }
+      });
+    });
+    counters.forEach(counter => observer.observe(counter));
+  });
+</script>

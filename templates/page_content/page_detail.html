@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page.title }} - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+<!-- Page Hero -->
+<section class="hero-section bg-gradient-primary-to-secondary text-white py-5 position-relative overflow-hidden">
+    <!-- Background Pattern Overlay -->
+    <div class="hero-bg-pattern position-absolute top-0 start-0 w-100 h-100 opacity-10"></div>
+
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+                <div class="hero-content" data-aos="fade-up">
+                    <!-- Page Title with Enhanced Styling -->
+                    <h1 class="display-2 fw-bold mb-4 text-white text-shadow-lg" style="font-family: 'Montserrat', sans-serif; letter-spacing: -0.02em; line-height: 1.1;">
+                        {{ page.title }}
+                        <span class="d-block fs-4 fw-normal text-white-75 mt-2" style="font-family: 'Inter', sans-serif;">Professional Excellence</span>
+                    </h1>
+
+                    {% if page.intro %}
+                    <!-- Enhanced Description Card -->
+                    <div class="intro-card bg-white bg-opacity-15 backdrop-blur-sm rounded-4 p-4 p-md-5 mt-4 shadow-lg border border-white border-opacity-20 mx-auto" style="max-width: 700px;">
+                        <div class="intro-icon mb-3">
+                            <i class="fas fa-quote-left fa-2x text-white opacity-75"></i>
+                        </div>
+                        <p class="lead text-white mb-4 fs-4 lh-base fw-light" style="font-family: 'Inter', sans-serif; font-style: italic;">
+                            {{ page.intro }}
+                        </p>
+                        <div class="intro-decoration">
+                            <i class="fas fa-quote-right fa-2x text-white opacity-75 float-end"></i>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Scroll Indicator -->
+                    <div class="scroll-indicator mt-5" data-aos="fade-in" data-aos-delay="500">
+                        <div class="scroll-mouse">
+                            <div class="scroll-wheel"></div>
+                        </div>
+                        <p class="small text-white-75 mt-2 mb-0">Scroll to explore</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="hero-decoration-1 position-absolute top-50 start-0 translate-middle-y opacity-25" style="width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; transform: translate(-50%, -50%);"></div>
+    <div class="hero-decoration-2 position-absolute top-25 end-0 opacity-20" style="width: 150px; height: 150px; background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent); border-radius: 50%; transform: translate(50%, -50%);"></div>
+</section>
+
+<!-- Page Content -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                {% if page.content %}
+                <div class="page-content mb-5" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="card-header bg-gradient-primary-to-secondary text-white py-4 px-4 px-md-5">
+                            <h2 class="h3 fw-bold mb-0" style="font-family: 'Montserrat', sans-serif;">
+                                <i class="fas fa-file-alt me-3"></i>Page Content
+                            </h2>
+                        </div>
+                        <div class="card-body p-4 p-md-5">
+                            <div class="content-wrapper fs-5 lh-base text-muted" style="font-family: 'Inter', sans-serif;">
+                                {{ page.content|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% for block in content_blocks %}
+                <!-- Content Block -->
+                <div class="content-block mb-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:200 }}">
+                    {% include block.template_name %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

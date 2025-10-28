@@ -1,0 +1,30 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    <div class="row g-5">
+      <div class="col-lg-6" data-aos="slide-right">
+        <div class="footer-info p-4 bg-white bg-opacity-10 rounded-4">
+          <h3 class="h4 fw-bold mb-4 text-white">Contact Information</h3>
+          {% if block.address %}<div class="mb-3"><i class="fas fa-map-marker-alt me-3 text-primary"></i>{{ block.address }}</div>{% endif %}
+          {% if block.phone %}<div class="mb-3"><i class="fas fa-phone me-3 text-primary"></i>{{ block.phone }}</div>{% endif %}
+          {% if block.email %}<div class="mb-3"><i class="fas fa-envelope me-3 text-primary"></i>{{ block.email }}</div>{% endif %}
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="slide-left">
+        <div class="footer-links p-4 bg-white bg-opacity-10 rounded-4">
+          <h3 class="h4 fw-bold mb-4 text-white">Quick Links</h3>
+          {% if block.links_json %}
+            <ul class="list-unstyled">
+              {% for l in block.links_json %}
+                <li class="mb-2"><a href="{{ l.url }}" class="text-decoration-none text-white-50 hover-text-white">{{ l.name }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if block.copyright_text %}
+      <hr class="border-light my-5"/>
+      <div class="text-center small text-white-50">{{ block.copyright_text }}</div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load core_filters %}
+
+{% block title %}Home - NSCPL PRIVATE LIMITED{% endblock %}
+
+{% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: 0px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- Hero Carousel Section -->
+<section class="hero-carousel-section">
+    {% if hero_slides %}
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            {% for slide in hero_slides %}
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active" aria-current="true"{% endif %} 
+                    aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+        
+        <!-- Carousel Inner -->
+        <div class="carousel-inner">
+            {% for slide in hero_slides %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="hero-slide" style="background-image: url('{{ slide.background_image.url }}');">
+                    <div class="hero-overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center h-100">
+                            <div class="col-lg-8 mx-auto text-center">
+                                <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+                                    <h1 class="display-3 fw-bold mb-4 text-white">
+                                        {{ slide.title }}
+                                    </h1>
+                                    {% if slide.subtitle %}
+                                    <h2 class="h3 mb-4 text-white-50">{{ slide.subtitle }}</h2>
+                                    {% endif %}
+                                    {% if slide.description %}
+                                    <p class="lead mb-4 text-white">
+                                        {{ slide.description }}
+                                    </p>
+                                    {% endif %}
+                                    {% if slide.button_text and slide.button_url %}
+                                    <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+                                        <a href="{{ slide.button_url }}" class="btn btn-accent btn-lg me-3">
+                                            {{ slide.button_text }}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    {% else %}
+    <!-- Fallback Hero Section -->
+    <div class="hero-slide" style="background-image: url('{% static 'images/hero-sports.jpg' %}');">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row align-items-center h-100">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="hero-content" data-aos="fade-up">
+                        <h1 class="display-3 fw-bold mb-4 text-white">
+                            Welcome to <span class="text-highlight">NSCPL</span>
+                        </h1>
+                        <p class="lead mb-4 text-white">
+                            Leading sports and event management company dedicated to promoting athletic excellence and community engagement.
+                        </p>
+                        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="200">
+                            <a href="{% url 'events:event_list' %}" class="btn btn-accent btn-lg me-3">
+                                <i class="fas fa-calendar-alt me-2"></i>View Events
+                            </a>
+                            <a href="{% url 'core:about' %}" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-info-circle me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+{% endif %}
+
+<!-- Featured Events Section -->
+{% if featured_events %}
+<section class="section-padding glass-effect">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center section-title" data-aos="fade-up">Featured Events</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for event in featured_events %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card event-card h-100">
+                    {% if event.banner %}
+                    <img src="{{ event.banner.url }}" class="card-img-top" alt="{{ event.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge-sport">{{ event.sport }}</span>
+                            <span class="event-date">{{ event.date|date:"M d" }}</span>
+                        </div>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text text-muted">
+                            <i class="fas fa-map-marker-alt me-1"></i>{{ event.location }}
+                        </p>
+                        <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                        <a href="{% url 'events:event_detail' event.pk %}" class="btn btn-primary">
+                            View Details <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'events:event_list' %}" class="btn btn-accent btn-lg">
+                View All Events <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Latest News Section -->
+{% if latest_news %}
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center section-title" data-aos="fade-up"><span class="bg-highlight text-white px-2 py-1 rounded">Latest News</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for article in latest_news %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card news-card h-100">
+                    {% if article.featured_image %}
+                    <img src="{{ article.featured_image.url }}" class="card-img-top" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>{{ article.author.get_full_name|default:article.author.username }}
+                            </small>
+                            <small class="text-muted">{{ article.published_date|date:"M d, Y" }}</small>
+                        </div>
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.content|striptags|truncatewords:15 }}</p>
+                        <a href="{% url 'news:news_detail' article.slug %}" class="btn btn-outline-primary">
+                            Read More <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'news:news_list' %}" class="btn btn-accent btn-lg">
+                View All News <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Gallery Section -->
+{% if featured_gallery %}
+<section class="section-padding glass-effect">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center section-title" data-aos="fade-up"><span class="bg-highlight text-white px-2 py-1 rounded">Featured Gallery</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for item in featured_gallery %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="gallery-item">
+                    <a href="{{ item.image.url }}" class="gallery-link d-block position-relative">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid">
+                        <div class="gallery-overlay">
+                            <div class="text-center">
+                                <h5 class="text-white">{{ item.title }}</h5>
+                                <p class="text-white-50">{{ item.category.name }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'gallery:gallery' %}" class="btn btn-accent btn-lg">
+                View Full Gallery <i class="fas fa-images ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Stats Section -->
+{% if stats_section %}
+<section class="section-padding bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            {% for stat in stats %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay=" {{ forloop.counter0|mul:100 }} ">
+                <div class="stat-item">
+                    {% if stat.icon %}
+                    <i class="{{ stat.icon }} fa-3x text-accent mb-3"></i>
+                    {% endif %}
+                    <h3 class="display-4 fw-bold">{{ stat.number }}+</h3>
+                    <p class="lead">{{ stat.title }}</p>
+                    {% if stat.description %}
+                    <p class="small">{{ stat.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Default Stats Section (if no dynamic stats are available) -->
+<section class="section-padding bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
+                <div class="stat-item">
+                    <i class="fas fa-trophy fa-3x text-accent mb-3"></i>
+                    <h3 class="display-4 fw-bold">50+</h3>
+                    <p class="lead">Events Organized</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-item">
+                    <i class="fas fa-users fa-3x text-accent mb-3"></i>
+                    <h3 class="display-4 fw-bold">500+</h3>
+                    <p class="lead">Athletes Supported</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-item">
+                    <i class="fas fa-medal fa-3x text-accent mb-3"></i>
+                    <h3 class="display-4 fw-bold">100+</h3>
+                    <p class="lead">Teams Managed</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-item">
+                    <i class="fas fa-star fa-3x text-accent mb-3"></i>
+                    <h3 class="display-4 fw-bold">15+</h3>
+                    <p class="lead">Sports Categories</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% include 'core/popup_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/simple-lightbox.min.js' %}"></script>
+    <script src="{% static 'js/gallery-lightbox.js' %}"></script>
+{% endblock %}

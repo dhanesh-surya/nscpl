@@ -1,0 +1,63 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    <div class="row justify-content-center">
+      <div class="col-lg-6" data-aos="slide-up">
+        <div class="contact-form-card bg-white rounded-4 shadow-lg p-5">
+          {% if block.heading %}<h2 class="h1 fw-bold text-center mb-4 text-gradient">{{ block.heading }}</h2>{% endif %}
+          {% if block.description %}<p class="text-center text-muted mb-4">{{ block.description }}</p>{% endif %}
+          {% load static %}
+          {% with form=contact_form|default:None %}
+            {% if not form %}
+              {# Fallback: render a minimal form that posts to contact page #}
+              <form action="{% url 'contact:contact' %}" method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <input class="form-control form-control-lg rounded-3" type="text" name="name" placeholder="Your Name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input class="form-control form-control-lg rounded-3" type="email" name="email" placeholder="Email" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input class="form-control form-control-lg rounded-3" type="text" name="phone" placeholder="Phone">
+                  </div>
+                  <div class="col-md-6">
+                    <input class="form-control form-control-lg rounded-3" type="text" name="subject" placeholder="Subject" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea class="form-control form-control-lg rounded-3" name="message" rows="4" placeholder="Message" required></textarea>
+                  </div>
+                  <div class="col-12 text-center">
+                    <button class="btn btn-primary btn-lg px-5 py-3 rounded-3 hover-lift" type="submit">
+                      <i class="fas fa-paper-plane me-2"></i>Send Message
+                    </button>
+                  </div>
+                </div>
+              </form>
+            {% else %}
+              <form action="{% url 'contact:contact' %}" method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                  {% for field in form %}
+                    <div class="col-12">
+                      {{ field.label_tag }}
+                      {{ field }}
+                      {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                  <div class="col-12 text-center">
+                    <button class="btn btn-primary btn-lg px-5 py-3 rounded-3 hover-lift" type="submit">
+                      <i class="fas fa-paper-plane me-2"></i>Send Message
+                    </button>
+                  </div>
+                </div>
+              </form>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

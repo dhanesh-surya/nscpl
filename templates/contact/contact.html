@@ -1,0 +1,897 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Us - {{ contact_info.company_name|default:"NSCPL PRIVATE LIMITED" }}{% endblock %}
+
+{% block content %}
+{% if page_hero %}
+<section class="pb-5 position-relative overflow-hidden {{ page_hero.height }} text-center" 
+         style="color: {{ page_hero.text_color }}; {{ page_hero.get_background_style }}; margin-top: -30px; padding-top: 80px;">
+  <div class="container-fluid">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page_hero.enable_animation %}
+        <div data-aos="fade-up">
+        {% endif %}
+          {% if page_hero.title %}
+          <h1 class="{{ page_hero.title_size }} fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.title }}</h1>
+          {% endif %}
+          {% if page_hero.subtitle %}
+          <h2 class="h3 mb-4 opacity-90" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">{{ page_hero.subtitle }}</h2>
+          {% endif %}
+          {% if page_hero.description %}
+          <p class="lead fs-4 mb-4 opacity-90">{{ page_hero.description }}</p>
+          {% endif %}
+          
+          <!-- Statistics Badges -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+            {% if page_hero.show_event_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-calendar-alt me-2"></i>{{ page_hero.get_event_count }} Events
+            </div>
+            {% endif %}
+            {% if page_hero.show_sports_count %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-trophy me-2"></i>{{ page_hero.get_sports_count }} Sports
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_1_text and page_hero.custom_stat_1_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-star me-2"></i>{{ page_hero.custom_stat_1_value }} {{ page_hero.custom_stat_1_text }}
+            </div>
+            {% endif %}
+            {% if page_hero.custom_stat_2_text and page_hero.custom_stat_2_value %}
+            <div class="badge bg-light text-primary px-4 py-2 fs-6">
+              <i class="fas fa-award me-2"></i>{{ page_hero.custom_stat_2_value }} {{ page_hero.custom_stat_2_text }}
+            </div>
+            {% endif %}
+          </div>
+        {% if page_hero.enable_animation %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- Enhanced Hero Section -->
+<section class="contact-hero-section" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); position: relative; overflow: hidden;">
+    <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3);"></div>
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="display-3 fw-bold text-white mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        Get In Touch
+                    </h1>
+                    <p class="lead text-white mb-4" style="font-size: 1.3rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                        {{ contact_info.tagline|default:"We'd love to hear from you. Send us a message and we'll respond as soon as possible." }}
+                    </p>
+                    <div class="hero-stats d-flex justify-content-center gap-4 flex-wrap" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-item text-center">
+                            <div class="stat-number text-white fw-bold" style="font-size: 2rem;">24/7</div>
+                            <div class="stat-label text-white-50">Support</div>
+                        </div>
+                        <div class="stat-item text-center">
+                            <div class="stat-number text-white fw-bold" style="font-size: 2rem;">&lt;24h</div>
+                            <div class="stat-label text-white-50">Response Time</div>
+                        </div>
+                        <div class="stat-item text-center">
+                            <div class="stat-number text-white fw-bold" style="font-size: 2rem;">100%</div>
+                            <div class="stat-label text-white-50">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Contact Information Cards -->
+{% if contact_info %}
+<section class="py-5" style="background: var(--secondary-color);">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Quick Contact Cards -->
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-card h-100 text-center p-4" style="background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-map-marker-alt fa-3x" style="color: var(--accent-color);"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Visit Us</h5>
+                    <p class="text-muted mb-0" style="line-height: 1.6;">
+                        {{ contact_info.get_full_address }}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-card h-100 text-center p-4" style="background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-phone fa-3x" style="color: var(--accent-color);"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Call Us</h5>
+                    <p class="text-muted mb-2">
+                        <a href="tel:{{ contact_info.primary_phone }}" class="text-decoration-none" style="color: var(--primary-color); font-weight: 600;">
+                            {{ contact_info.primary_phone }}
+                        </a>
+                    </p>
+                    {% if contact_info.secondary_phone %}
+                    <p class="text-muted mb-0">
+                        <a href="tel:{{ contact_info.secondary_phone }}" class="text-decoration-none" style="color: var(--primary-color);">
+                            {{ contact_info.secondary_phone }}
+                        </a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="contact-card h-100 text-center p-4" style="background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-envelope fa-3x" style="color: var(--accent-color);"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Email Us</h5>
+                    <p class="text-muted mb-2">
+                        <a href="mailto:{{ contact_info.primary_email }}" class="text-decoration-none" style="color: var(--primary-color); font-weight: 600;">
+                            {{ contact_info.primary_email }}
+                        </a>
+                    </p>
+                    {% if contact_info.secondary_email %}
+                    <p class="text-muted mb-0">
+                        <a href="mailto:{{ contact_info.secondary_email }}" class="text-decoration-none" style="color: var(--primary-color);">
+                            {{ contact_info.secondary_email }}
+                        </a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="contact-card h-100 text-center p-4" style="background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-clock fa-3x" style="color: var(--accent-color);"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Business Hours</h5>
+                    <p class="text-muted mb-1" style="font-size: 0.9rem;">{{ contact_info.business_hours_weekdays }}</p>
+                    <p class="text-muted mb-1" style="font-size: 0.9rem;">{{ contact_info.business_hours_saturday }}</p>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">{{ contact_info.business_hours_sunday }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Main Contact Section -->
+<section class="py-5" style="{{ contact_info.get_background_style }} {{ contact_info.get_text_style }}">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <div class="contact-form-container" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="form-header mb-5">
+                        <h2 class="fw-bold mb-3" style="color: var(--primary-color);">Send us a Message</h2>
+                        <p class="text-muted mb-0">Fill out the form below and we'll get back to you as soon as possible.</p>
+                    </div>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert" style="border-radius: 10px;">
+                                <i class="fas fa-{% if message.tags == 'success' %}check-circle{% else %}exclamation-triangle{% endif %} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="contact-form-card" style="background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); padding: 3rem; border: 1px solid #f0f0f0;">
+                        <form method="post" id="contactForm" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label fw-semibold" style="color: var(--primary-color);">
+                                        <i class="fas fa-user me-2"></i>Full Name *
+                                    </label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.name.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold" style="color: var(--primary-color);">
+                                        <i class="fas fa-envelope me-2"></i>Email Address *
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.email.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label fw-semibold" style="color: var(--primary-color);">
+                                        <i class="fas fa-phone me-2"></i>Phone Number
+                                    </label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.phone.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.subject.id_for_label }}" class="form-label fw-semibold" style="color: var(--primary-color);">
+                                        <i class="fas fa-tag me-2"></i>Subject *
+                                    </label>
+                                    {{ form.subject }}
+                                    {% if form.subject.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.subject.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="{{ form.message.id_for_label }}" class="form-label fw-semibold" style="color: var(--primary-color);">
+                                    <i class="fas fa-comment me-2"></i>Message *
+                                </label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.message.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg" id="submitBtn" style="background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); color: white; border: none; border-radius: 50px; padding: 15px 30px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,191,166,0.3);">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    <span class="btn-text">Send Message</span>
+                                    <span class="btn-loading d-none">
+                                        <i class="fas fa-spinner fa-spin me-2"></i>Sending...
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Information Sidebar -->
+            <div class="col-lg-4">
+                <div class="contact-info-sidebar" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="info-card" style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem;">
+                        <h3 class="fw-bold mb-4 text-white">
+                            <i class="fas fa-info-circle me-2"></i>Why Contact Us?
+                        </h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle me-2" style="color: #4CAF50;"></i>
+                                <strong>Expert Support:</strong> Our team is here to help with any questions
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle me-2" style="color: #4CAF50;"></i>
+                                <strong>Quick Response:</strong> We typically respond within 24 hours
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle me-2" style="color: #4CAF50;"></i>
+                                <strong>Personalized Service:</strong> Tailored solutions for your needs
+                            </li>
+                            <li class="mb-0">
+                                <i class="fas fa-check-circle me-2" style="color: #4CAF50;"></i>
+                                <strong>Free Consultation:</strong> No obligation initial discussion
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    {% if contact_info and contact_info.show_social_links and contact_info.get_social_links %}
+                    <div class="social-card" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h4 class="fw-bold mb-4" style="color: var(--primary-color);">
+                            <i class="fas fa-share-alt me-2"></i>Follow Us
+                        </h4>
+                        <div class="social-links d-flex flex-wrap gap-3">
+                            {% for platform, url in contact_info.get_social_links.items %}
+                                <a href="{{ url }}" target="_blank" class="social-link" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--accent-color); color: white; border-radius: 50%; text-decoration: none; transition: all 0.3s ease;">
+                                    <i class="fab fa-{{ platform }}"></i>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Map Section -->
+{% if contact_info and contact_info.show_map %}
+<section class="py-5" style="background: var(--secondary-color);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="fw-bold mb-3" style="color: var(--primary-color);">
+                        <i class="fas fa-map-marker-alt me-2"></i>Find Us
+                    </h2>
+                    <p class="text-muted">Visit our office or get directions</p>
+                </div>
+                
+                <div class="map-container" data-aos="fade-up" data-aos-delay="200" style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                    {% if contact_info.map_embed_code %}
+                        <!-- Custom Google Maps Embed Code -->
+                        <div class="google-map-wrapper" style="position: relative; height: 450px; overflow: hidden;">
+                            {{ contact_info.map_embed_code|safe }}
+                            
+                            <!-- Map overlay with additional info -->
+                            <div class="map-overlay" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); max-width: 250px;">
+                                <h6 class="fw-bold mb-2" style="color: var(--primary-color);">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Our Location
+                                </h6>
+                                <p class="mb-2" style="font-size: 0.9rem; color: var(--text-primary);">
+                                    {{ contact_info.map_address|default:contact_info.get_full_address }}
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="https://maps.google.com/?q={{ contact_info.map_address|default:contact_info.get_full_address|urlencode }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--accent-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-external-link-alt me-1"></i>Directions
+                                    </a>
+                                    <a href="tel:{{ contact_info.primary_phone }}" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--primary-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-phone me-1"></i>Call
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% elif contact_info.latitude and contact_info.longitude %}
+                        <!-- Live Google Maps Embed with Coordinates -->
+                        <div class="google-map-wrapper" style="position: relative; height: 400px;">
+                            <iframe 
+                                src="https://www.google.com/maps/embed/v1/place?key={{ GOOGLE_MAPS_API_KEY }}&q={{ contact_info.latitude }},{{ contact_info.longitude }}&zoom={{ contact_info.map_zoom }}&maptype=roadmap"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0; border-radius: 20px;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="NSCPL Location Map">
+                            </iframe>
+                            
+                            <!-- Map overlay with additional info -->
+                            <div class="map-overlay" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); max-width: 250px;">
+                                <h6 class="fw-bold mb-2" style="color: var(--primary-color);">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Our Location
+                                </h6>
+                                <p class="mb-2" style="font-size: 0.9rem; color: var(--text-primary);">
+                                    {{ contact_info.get_full_address }}
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="https://maps.google.com/?q={{ contact_info.latitude }},{{ contact_info.longitude }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--accent-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-external-link-alt me-1"></i>Directions
+                                    </a>
+                                    <a href="tel:{{ contact_info.primary_phone }}" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--primary-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-phone me-1"></i>Call
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% elif contact_info.map_address %}
+                        <!-- Map using map_address field -->
+                        <div class="google-map-wrapper" style="position: relative; height: 400px;">
+                            <iframe 
+                                src="https://www.google.com/maps/embed/v1/place?key={{ GOOGLE_MAPS_API_KEY }}&q={{ contact_info.map_address|urlencode }}&zoom={{ contact_info.map_zoom }}&maptype=roadmap"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0; border-radius: 20px;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="NSCPL Location Map">
+                            </iframe>
+                            
+                            <!-- Map overlay with additional info -->
+                            <div class="map-overlay" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); max-width: 250px;">
+                                <h6 class="fw-bold mb-2" style="color: var(--primary-color);">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Our Location
+                                </h6>
+                                <p class="mb-2" style="font-size: 0.9rem; color: var(--text-primary);">
+                                    {{ contact_info.map_address }}
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="https://maps.google.com/?q={{ contact_info.map_address|urlencode }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--accent-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-external-link-alt me-1"></i>Directions
+                                    </a>
+                                    <a href="tel:{{ contact_info.primary_phone }}" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--primary-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-phone me-1"></i>Call
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Fallback map using full address -->
+                        <div class="google-map-wrapper" style="position: relative; height: 400px;">
+                            <iframe 
+                                src="https://www.google.com/maps/embed/v1/place?key={{ GOOGLE_MAPS_API_KEY }}&q={{ contact_info.get_full_address|urlencode }}&zoom=15&maptype=roadmap"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0; border-radius: 20px;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="NSCPL Location Map">
+                            </iframe>
+                            
+                            <!-- Map overlay with additional info -->
+                            <div class="map-overlay" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); max-width: 250px;">
+                                <h6 class="fw-bold mb-2" style="color: var(--primary-color);">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Our Location
+                                </h6>
+                                <p class="mb-2" style="font-size: 0.9rem; color: var(--text-primary);">
+                                    {{ contact_info.get_full_address }}
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="https://maps.google.com/?q={{ contact_info.get_full_address|urlencode }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--accent-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-external-link-alt me-1"></i>Directions
+                                    </a>
+                                    <a href="tel:{{ contact_info.primary_phone }}" 
+                                       class="btn btn-sm" 
+                                       style="background: var(--primary-color); color: white; border: none; border-radius: 5px; padding: 5px 10px; text-decoration: none; font-size: 0.8rem;">
+                                        <i class="fas fa-phone me-1"></i>Call
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- FAQ Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="fw-bold mb-3" style="color: var(--primary-color);">
+                        <i class="fas fa-question-circle me-2"></i>Frequently Asked Questions
+                    </h2>
+                    <p class="text-muted">Quick answers to common questions</p>
+                </div>
+                
+                <div class="accordion" id="contactFAQ" data-aos="fade-up" data-aos-delay="200">
+                    <div class="accordion-item mb-3" style="border-radius: 15px; border: 1px solid #e9ecef;">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="border-radius: 15px;">
+                                How quickly do you respond to inquiries?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call us directly.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item mb-3" style="border-radius: 15px; border: 1px solid #e9ecef;">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="border-radius: 15px;">
+                                What information should I include in my message?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                Please include your name, contact information, and a detailed description of your inquiry or request. The more specific you are, the better we can assist you.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item mb-3" style="border-radius: 15px; border: 1px solid #e9ecef;">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="border-radius: 15px;">
+                                Do you offer consultations or meetings?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                            <div class="accordion-body">
+                                Yes, we offer both in-person and virtual consultations. Please mention your preference in your message, and we'll arrange a suitable time.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Enhanced Contact Page Styles */
+.contact-hero-section {
+    padding: 6rem 0;
+    position: relative;
+    margin-top: -50px; /* Adjust this value to move the section up */
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+}
+
+.contact-form-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+}
+
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 166, 0.25);
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,191,166,0.3);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 191, 166, 0.25);
+}
+
+/* Loading animation for form submission */
+.btn-loading {
+    display: none;
+}
+
+.btn.loading .btn-text {
+    display: none;
+}
+
+.btn.loading .btn-loading {
+    display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-hero-section {
+        padding: 4rem 0;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .contact-form-card {
+        padding: 2rem !important;
+    }
+}
+
+/* Animation delays for staggered effects */
+.contact-card:nth-child(1) { animation-delay: 0.1s; }
+.contact-card:nth-child(2) { animation-delay: 0.2s; }
+.contact-card:nth-child(3) { animation-delay: 0.3s; }
+.contact-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Google Maps styling */
+.google-map-wrapper {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.google-map-wrapper iframe {
+    width: 100% !important;
+    height: 450px !important;
+    border: 0 !important;
+    border-radius: 20px !important;
+    display: block;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.95);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    max-width: 250px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+
+.map-overlay:hover {
+    background: rgba(255,255,255,0.98);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Responsive map overlay */
+@media (max-width: 768px) {
+    .map-overlay {
+        position: relative;
+        top: auto;
+        right: auto;
+        max-width: 100%;
+        margin: 15px;
+        border-radius: 15px;
+    }
+    
+    .google-map-wrapper {
+        height: 300px !important;
+    }
+    
+    .google-map-wrapper iframe {
+        height: 300px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .map-overlay {
+        margin: 10px;
+        padding: 12px;
+    }
+    
+    .map-overlay h6 {
+        font-size: 0.9rem;
+    }
+    
+    .map-overlay p {
+        font-size: 0.8rem;
+    }
+    
+    .map-overlay .btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#contactForm');
+    const submitBtn = document.querySelector('#submitBtn');
+    
+    if (form) {
+        // Enhanced form validation
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Validate form
+            if (validateContactForm()) {
+                // Submit form
+                form.submit();
+            } else {
+                // Remove loading state
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Real-time validation
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+        });
+    }
+    
+    // Add hover effects to contact cards
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+
+function validateContactForm() {
+    const form = document.querySelector('#contactForm');
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            isValid = false;
+        }
+    });
+    
+    return isValid;
+}
+
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldName = field.name;
+    let isValid = true;
+    let errorMessage = '';
+    
+    // Remove existing error styling
+    field.classList.remove('is-invalid');
+    const existingError = field.parentNode.querySelector('.invalid-feedback');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required.`;
+    }
+    
+    // Email validation
+    if (fieldName === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address.';
+        }
+    }
+    
+    // Phone validation (if provided)
+    if (fieldName === 'phone' && value) {
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+        if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''))) {
+            isValid = false;
+            errorMessage = 'Please enter a valid phone number.';
+        }
+    }
+    
+    // Length validation
+    if (value) {
+        const minLength = field.getAttribute('minlength');
+        const maxLength = field.getAttribute('maxlength');
+        
+        if (minLength && value.length < parseInt(minLength)) {
+            isValid = false;
+            errorMessage = `Minimum length is ${minLength} characters.`;
+        }
+        
+        if (maxLength && value.length > parseInt(maxLength)) {
+            isValid = false;
+            errorMessage = `Maximum length is ${maxLength} characters.`;
+        }
+    }
+    
+    // Apply validation styling
+    if (!isValid) {
+        field.classList.add('is-invalid');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback d-block';
+        errorDiv.textContent = errorMessage;
+        field.parentNode.appendChild(errorDiv);
+    }
+    
+    return isValid;
+}
+
+// Add smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Enhanced map functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Add loading state to map iframe
+    const mapIframes = document.querySelectorAll('iframe[title*="Map"]');
+    mapIframes.forEach(iframe => {
+        iframe.addEventListener('load', function() {
+            console.log('Google Maps loaded successfully');
+            // Add any post-load functionality here
+        });
+        
+        iframe.addEventListener('error', function() {
+            console.error('Failed to load Google Maps');
+            // Show fallback content or error message
+            const wrapper = iframe.closest('.google-map-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = `
+                    <div class="map-fallback d-flex align-items-center justify-content-center" style="height: 400px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; border-radius: 20px;">
+                        <div class="text-center">
+                            <i class="fas fa-map fa-4x mb-3"></i>
+                            <h4>Map Unavailable</h4>
+                            <p class="mb-3">Unable to load Google Maps</p>
+                            <a href="https://maps.google.com/?q={{ contact_info.get_full_address|urlencode }}" target="_blank" class="btn btn-light btn-lg">
+                                <i class="fas fa-external-link-alt me-2"></i>Open in Google Maps
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    });
+    
+    // Add click tracking for map interactions
+    const mapOverlays = document.querySelectorAll('.map-overlay');
+    mapOverlays.forEach(overlay => {
+        const directionBtn = overlay.querySelector('a[href*="maps.google.com"]');
+        const callBtn = overlay.querySelector('a[href^="tel:"]');
+        
+        if (directionBtn) {
+            directionBtn.addEventListener('click', function() {
+                console.log('Directions button clicked');
+                // Add analytics tracking here if needed
+            });
+        }
+        
+        if (callBtn) {
+            callBtn.addEventListener('click', function() {
+                console.log('Call button clicked');
+                // Add analytics tracking here if needed
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,751 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Theme Customization - NSCPL{% endblock %}
+
+{% block extra_css %}
+<style>
+    .color-picker-wrapper {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    
+    .color-picker-input {
+        border: 2px solid #e9ecef !important;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .color-picker-input:hover {
+        border-color: #007bff !important;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .color-text-input {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .color-preview {
+        width: 100%;
+        height: 20px;
+        border-radius: 4px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        transition: all 0.3s ease;
+    }
+    
+    .color-preview:hover {
+        transform: scale(1.02);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .form-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #007bff;
+    }
+    
+    .form-section h4 {
+        color: #007bff;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+    
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .form-select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .preview-panel {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 300px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 20px;
+        z-index: 1000;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    .preview-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    .font-preview {
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f8f9fa;
+        margin-top: 10px;
+    }
+    
+    .gradient-preview {
+        height: 60px;
+        border-radius: 8px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+    }
+    
+    .btn-preview {
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-preview:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .card-preview {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 10px;
+        background: white;
+    }
+    
+    .navbar-preview {
+        background: #0A192F;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .navbar-preview a {
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+    
+    .navbar-preview a:hover {
+        color: #00BFA6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">
+                        <i class="fas fa-palette me-2"></i>
+                        Website Theme Customization
+                    </h2>
+                    <p class="mb-0 mt-2">Customize your website's appearance with our powerful theme editor</p>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Basic Settings -->
+                        <div class="form-section">
+                            <h4 class="text-primary mb-3">
+                                <i class="fas fa-cog me-2"></i>Basic Settings
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="{{ form.name.id_for_label }}" class="form-label">Theme Name</label>
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            {{ form.is_active }}
+                                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                                Active Theme
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Color Scheme -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-palette me-2"></i>Color Scheme
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.primary_color.id_for_label }}" class="form-label">Primary Color</label>
+                                    {{ form.primary_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.accent_color.id_for_label }}" class="form-label">Accent Color</label>
+                                    {{ form.accent_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.secondary_color.id_for_label }}" class="form-label">Secondary Color</label>
+                                    {{ form.secondary_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.highlight_color.id_for_label }}" class="form-label">Highlight Color</label>
+                                    {{ form.highlight_color }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Background Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-image me-2"></i>Background Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.background_type.id_for_label }}" class="form-label">Background Type</label>
+                                    {{ form.background_type }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.background_color.id_for_label }}" class="form-label">Background Color</label>
+                                    {{ form.background_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.background_image.id_for_label }}" class="form-label">Background Image</label>
+                                    {{ form.background_image }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="{{ form.background_gradient.id_for_label }}" class="form-label">Background Gradient</label>
+                                    {{ form.background_gradient }}
+                                    <div class="form-text">Example: linear-gradient(45deg, #ff0000, #0000ff)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typography -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-font me-2"></i>Typography
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.font_family.id_for_label }}" class="form-label">Font Family</label>
+                                    {{ form.font_family }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.font_size_base.id_for_label }}" class="form-label">Base Font Size (px)</label>
+                                    {{ form.font_size_base }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.heading_font_family.id_for_label }}" class="form-label">Heading Font Family</label>
+                                    {{ form.heading_font_family }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Colors -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-text-width me-2"></i>Text Colors
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.text_primary.id_for_label }}" class="form-label">Primary Text</label>
+                                    {{ form.text_primary }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.text_secondary.id_for_label }}" class="form-label">Secondary Text</label>
+                                    {{ form.text_secondary }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.text_light.id_for_label }}" class="form-label">Light Text</label>
+                                    {{ form.text_light }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navbar Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-bars me-2"></i>Navbar Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.navbar_background.id_for_label }}" class="form-label">Background</label>
+                                    {{ form.navbar_background }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.navbar_text_color.id_for_label }}" class="form-label">Text Color</label>
+                                    {{ form.navbar_text_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.navbar_hover_color.id_for_label }}" class="form-label">Hover Color</label>
+                                    {{ form.navbar_hover_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.navbar_style.id_for_label }}" class="form-label">Style</label>
+                                    {{ form.navbar_style }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-mouse-pointer me-2"></i>Button Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.button_style.id_for_label }}" class="form-label">Button Style</label>
+                                    {{ form.button_style }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.button_primary_bg.id_for_label }}" class="form-label">Primary Background</label>
+                                    {{ form.button_primary_bg }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.button_primary_text.id_for_label }}" class="form-label">Primary Text</label>
+                                    {{ form.button_primary_text }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.button_secondary_bg.id_for_label }}" class="form-label">Secondary Background</label>
+                                    {{ form.button_secondary_bg }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-link me-2"></i>Link Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.link_color.id_for_label }}" class="form-label">Link Color</label>
+                                    {{ form.link_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.link_hover_color.id_for_label }}" class="form-label">Hover Color</label>
+                                    {{ form.link_hover_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.link_underline }}
+                                        <label class="form-check-label" for="{{ form.link_underline.id_for_label }}">
+                                            Show Underline
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-id-card me-2"></i>Card Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.card_background.id_for_label }}" class="form-label">Background</label>
+                                    {{ form.card_background }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.card_border_color.id_for_label }}" class="form-label">Border Color</label>
+                                    {{ form.card_border_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="{{ form.card_border_radius.id_for_label }}" class="form-label">Border Radius (px)</label>
+                                    {{ form.card_border_radius }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.card_shadow }}
+                                        <label class="form-check-label" for="{{ form.card_shadow.id_for_label }}">
+                                            Enable Shadows
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-shoe-prints me-2"></i>Footer Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.footer_background.id_for_label }}" class="form-label">Background</label>
+                                    {{ form.footer_background }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.footer_text_color.id_for_label }}" class="form-label">Text Color</label>
+                                    {{ form.footer_text_color }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.footer_link_color.id_for_label }}" class="form-label">Link Color</label>
+                                    {{ form.footer_link_color }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Layout Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-th-large me-2"></i>Layout Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.container_max_width.id_for_label }}" class="form-label">Container Width</label>
+                                    {{ form.container_max_width }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.section_padding.id_for_label }}" class="form-label">Section Padding (px)</label>
+                                    {{ form.section_padding }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Animation Settings -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-magic me-2"></i>Animation Settings
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.enable_animations }}
+                                        <label class="form-check-label" for="{{ form.enable_animations.id_for_label }}">
+                                            Enable Animations
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.animation_duration.id_for_label }}" class="form-label">Animation Duration (ms)</label>
+                                    {{ form.animation_duration }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom CSS -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-primary mb-3">
+                                    <i class="fas fa-code me-2"></i>Custom CSS
+                                </h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="{{ form.custom_css.id_for_label }}" class="form-label">Custom CSS Code</label>
+                                    {{ form.custom_css }}
+                                    <div class="form-text">Add your custom CSS code here. This will be applied to the entire website.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'core:home' %}" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left me-2"></i>Back to Home
+                                    </a>
+                                    <div>
+                                        <a href="{% url 'core:theme_preview' %}" class="btn btn-info me-2" target="_blank">
+                                            <i class="fas fa-eye me-2"></i>Preview Theme
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i>Save Theme
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Toggle Button -->
+<button class="btn btn-info preview-toggle" onclick="togglePreview()">
+    <i class="fas fa-eye me-2"></i>Live Preview
+</button>
+
+<!-- Preview Panel -->
+<div id="previewPanel" class="preview-panel" style="display: none;">
+    <h5 class="mb-3">Live Preview</h5>
+    <div id="previewContent">
+        <!-- Preview content will be generated here -->
+    </div>
+</div>
+
+<script>
+// Color picker functionality
+function updateColorPreview(input) {
+    const textInput = input.parentElement.querySelector('.color-text-input');
+    const preview = input.parentElement.parentElement.querySelector('.color-preview');
+    
+    if (textInput) {
+        textInput.value = input.value.toUpperCase();
+    }
+    if (preview) {
+        preview.style.backgroundColor = input.value;
+    }
+    
+    updateLivePreview();
+}
+
+function updateColorFromText(input) {
+    const colorInput = input.parentElement.querySelector('.color-picker-input');
+    const preview = input.parentElement.parentElement.querySelector('.color-preview');
+    
+    if (colorInput && /^#[0-9A-F]{6}$/i.test(input.value)) {
+        colorInput.value = input.value;
+    }
+    if (preview) {
+        preview.style.backgroundColor = input.value;
+    }
+    
+    updateLivePreview();
+}
+
+// Font preview functionality
+function previewFont(fontFamily, type) {
+    const previewElement = document.getElementById('fontPreview' + type);
+    if (previewElement) {
+        previewElement.style.fontFamily = fontFamily;
+    }
+    updateLivePreview();
+}
+
+function updateFontSize(size) {
+    document.documentElement.style.setProperty('--font-size-base', size + 'px');
+    updateLivePreview();
+}
+
+// Background options toggle
+function toggleBackgroundOptions(type) {
+    const colorGroup = document.querySelector('[data-group="background-color"]');
+    const imageGroup = document.querySelector('[data-group="background-image"]');
+    const gradientGroup = document.querySelector('[data-group="background-gradient"]');
+    
+    if (colorGroup) colorGroup.style.display = type === 'color' ? 'block' : 'none';
+    if (imageGroup) imageGroup.style.display = type === 'image' ? 'block' : 'none';
+    if (gradientGroup) gradientGroup.style.display = type === 'gradient' ? 'block' : 'none';
+}
+
+// Preview functionality
+function updateLivePreview() {
+    const previewContent = document.getElementById('previewContent');
+    if (!previewContent) return;
+    
+    // Get current form values
+    const primaryColor = document.querySelector('input[name="primary_color"]')?.value || '#0A192F';
+    const accentColor = document.querySelector('input[name="accent_color"]')?.value || '#00BFA6';
+    const fontFamily = document.querySelector('select[name="font_family"]')?.value || 'Inter';
+    const headingFont = document.querySelector('select[name="heading_font_family"]')?.value || 'Inter';
+    const buttonStyle = document.querySelector('select[name="button_style"]')?.value || 'rounded';
+    
+    previewContent.innerHTML = `
+        <div class="mb-3">
+            <h6>Color Palette</h6>
+            <div class="d-flex gap-2">
+                <div style="width: 30px; height: 30px; background: ${primaryColor}; border-radius: 4px;"></div>
+                <div style="width: 30px; height: 30px; background: ${accentColor}; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <h6>Typography Preview</h6>
+            <div class="font-preview" style="font-family: '${fontFamily}', sans-serif;">
+                <div style="font-family: '${headingFont}', sans-serif; font-weight: bold; font-size: 18px;">Heading Text</div>
+                <div style="font-size: 14px; margin-top: 5px;">Body text with ${fontFamily} font</div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <h6>Button Preview</h6>
+            <div>
+                <button class="btn btn-primary btn-preview" style="border-radius: ${buttonStyle === 'pill' ? '50px' : buttonStyle === 'square' ? '0' : '8px'};">
+                    Primary Button
+                </button>
+                <button class="btn btn-secondary btn-preview" style="border-radius: ${buttonStyle === 'pill' ? '50px' : buttonStyle === 'square' ? '0' : '8px'};">
+                    Secondary Button
+                </button>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <h6>Card Preview</h6>
+            <div class="card-preview">
+                <h6>Sample Card</h6>
+                <p style="margin: 0; font-size: 14px;">This is how cards will look with your theme.</p>
+            </div>
+        </div>
+    `;
+}
+
+// Preview toggle
+function togglePreview() {
+    const panel = document.getElementById('previewPanel');
+    const button = document.querySelector('.preview-toggle');
+    
+    if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        button.innerHTML = '<i class="fas fa-eye-slash me-2"></i>Hide Preview';
+        updateLivePreview();
+    } else {
+        panel.style.display = 'none';
+        button.innerHTML = '<i class="fas fa-eye me-2"></i>Live Preview';
+    }
+}
+
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    
+    // Initialize color pickers
+    document.querySelectorAll('input[type="color"]').forEach(input => {
+        input.addEventListener('change', function() {
+            updateColorPreview(this);
+        });
+    });
+    
+    // Initialize text inputs for colors
+    document.querySelectorAll('.color-text-input').forEach(input => {
+        input.addEventListener('input', function() {
+            updateColorFromText(this);
+        });
+    });
+    
+    // Initialize background type toggle
+    const backgroundTypeSelect = document.querySelector('select[name="background_type"]');
+    if (backgroundTypeSelect) {
+        toggleBackgroundOptions(backgroundTypeSelect.value);
+    }
+});
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const requiredFields = document.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            field.classList.remove('is-invalid');
+        }
+    });
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+    }
+});
+</script>
+{% endblock %}

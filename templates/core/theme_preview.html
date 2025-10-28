@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block title %}Theme Preview - NSCPL{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-5">Theme Preview</h1>
+            
+            <!-- Color Palette -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Color Palette</h3>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="color-swatch" style="background-color: var(--primary-color); height: 100px; border-radius: 8px; margin-bottom: 15px;"></div>
+                            <h5>Primary</h5>
+                            <p class="text-muted">{{ theme.primary_color }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="color-swatch" style="background-color: var(--accent-color); height: 100px; border-radius: 8px; margin-bottom: 15px;"></div>
+                            <h5>Accent</h5>
+                            <p class="text-muted">{{ theme.accent_color }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="color-swatch" style="background-color: var(--secondary-color); height: 100px; border-radius: 8px; margin-bottom: 15px;"></div>
+                            <h5>Secondary</h5>
+                            <p class="text-muted">{{ theme.secondary_color }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="color-swatch" style="background-color: var(--highlight-color); height: 100px; border-radius: 8px; margin-bottom: 15px;"></div>
+                            <h5>Highlight</h5>
+                            <p class="text-muted">{{ theme.highlight_color }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Typography -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Typography</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Heading 1</h1>
+                            <h2>Heading 2</h2>
+                            <h3>Heading 3</h3>
+                            <h4>Heading 4</h4>
+                            <h5>Heading 5</h5>
+                            <h6>Heading 6</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>This is a paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
+                            <p class="text-primary">Primary text color</p>
+                            <p class="text-secondary">Secondary text color</p>
+                            <p class="text-muted">Muted text color</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Buttons</h3>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <button class="btn btn-primary me-2">Primary Button</button>
+                            <button class="btn btn-secondary me-2">Secondary Button</button>
+                            <button class="btn btn-outline-primary me-2">Outline Primary</button>
+                            <button class="btn btn-outline-secondary me-2">Outline Secondary</button>
+                            <button class="btn btn-primary btn-lg me-2">Large Button</button>
+                            <button class="btn btn-secondary btn-sm">Small Button</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Links -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Links</h3>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>This is a <a href="#">regular link</a> in a paragraph.</p>
+                            <p>This is a <a href="#" class="text-decoration-none">link without underline</a>.</p>
+                            <p>This is a <a href="#" class="btn btn-link">button-style link</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Cards</h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title</h5>
+                            <p class="card-text">This is a sample card with some content to demonstrate the card styling.</p>
+                            <a href="#" class="btn btn-primary">Card Button</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Another Card</h5>
+                            <p class="card-text">Another sample card to show consistency in design.</p>
+                            <a href="#" class="btn btn-secondary">Another Button</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Third Card</h5>
+                            <p class="card-text">A third card to complete the grid layout.</p>
+                            <a href="#" class="btn btn-outline-primary">Outline Button</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Preview -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3>Navigation Preview</h3>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <nav class="navbar navbar-expand-lg" style="background-color: var(--navbar-bg);">
+                                <div class="container-fluid">
+                                    <a class="navbar-brand" href="#" style="color: var(--navbar-text);">Brand</a>
+                                    <div class="navbar-nav">
+                                        <a class="nav-link" href="#" style="color: var(--navbar-text);">Home</a>
+                                        <a class="nav-link" href="#" style="color: var(--navbar-text);">About</a>
+                                        <a class="nav-link" href="#" style="color: var(--navbar-text);">Contact</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="{% url 'core:theme_customize' %}" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-edit me-2"></i>Edit Theme
+                    </a>
+                    <a href="{% url 'core:home' %}" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

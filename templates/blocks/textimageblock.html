@@ -1,0 +1,34 @@
+<section class="py-5 {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" {% if block.style_options.animate_on_scroll %}data-aos="fade-up"{% endif %}>
+  <div class="{{ block.style_options.get_container_class }}">
+    <div class="row align-items-center g-5 {% if block.alignment == 'right' %}flex-row-reverse{% endif %}">
+      <div class="col-lg-6 col-md-6" data-aos="slide-right" data-aos-delay="200">
+        {% if block.heading %}<h2 class="h1 fw-bold mb-4 text-gradient">{{ block.heading }}</h2>{% endif %}
+        <div class="content fs-5 lh-base">{{ block.text|safe }}</div>
+      </div>
+      <div class="col-lg-6 col-md-6" data-aos="slide-left" data-aos-delay="400">
+        {% if block.image %}
+          <div class="image-wrapper position-relative">
+            <img src="{{ block.image.url }}" alt="" class="img-fluid rounded-3 shadow-lg" />
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-gradient rounded-3 opacity-25"></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+    <div class="row align-items-center g-5 {% if block.alignment == 'right' %}flex-row-reverse{% endif %}">
+      <div class="col-lg-6 col-md-6" data-aos="slide-right" data-aos-delay="200">
+        {% if block.heading %}<h2 class="h1 fw-bold mb-4 text-gradient">{{ block.heading }}</h2>{% endif %}
+        <div class="content fs-5 lh-base">{{ block.text|safe }}</div>
+      </div>
+      <div class="col-lg-6 col-md-6" data-aos="slide-left" data-aos-delay="400">
+        {% if block.image %}
+          <div class="image-wrapper position-relative">
+            <img src="{{ block.image.url }}" alt="" class="img-fluid rounded-3 shadow-lg" />
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-gradient rounded-3 opacity-25"></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

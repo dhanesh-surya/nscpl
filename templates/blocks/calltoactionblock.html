@@ -1,0 +1,13 @@
+<section class="py-5 text-center {{ block.style_options.get_css_classes }}" style="{{ block.style_options.get_inline_styles }}" data-aos="fade-up">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <h2 class="display-5 fw-bold mb-4 text-shadow" data-aos="zoom-in">{{ block.heading }}</h2>
+        {% if block.text %}<p class="lead mb-4" data-aos="fade-in" data-aos-delay="200">{{ block.text }}</p>{% endif %}
+        {% if block.button_text and block.button_url %}
+          <a href="{{ block.button_url }}" class="btn btn-light btn-lg px-5 py-3 shadow-lg hover-lift" data-aos="bounce-in" data-aos-delay="400">{{ block.button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
