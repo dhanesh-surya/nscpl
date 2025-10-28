@@ -2,7 +2,10 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django_ckeditor_5.fields import CKEditor5Field
+<<<<<<< HEAD
 from django.utils import timezone
+=======
+>>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
 
 
 class NewsArticle(models.Model):
@@ -12,7 +15,11 @@ class NewsArticle(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='news_articles')
     featured_image = models.ImageField(upload_to="news/", blank=True, null=True)
     is_published = models.BooleanField(default=False)
+<<<<<<< HEAD
     published_date = models.DateTimeField(default=timezone.now, help_text="Published date for this article")
+=======
+    published_date = models.DateTimeField(auto_now_add=True)
+>>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

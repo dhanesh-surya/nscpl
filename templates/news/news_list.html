@@ -101,7 +101,11 @@
                             <small class="text-muted">{{ article.published_date|date:"M d, Y" }}</small>
                         </div>
                         <h5 class="card-title">{{ article.title }}</h5>
+<<<<<<< HEAD
                         <p class="card-text">{{ article.content|striptags|truncatewords:15 }}</p>
+=======
+                        <p class="card-text">{{ article.content|truncatewords:15 }}</p>
+>>>>>>> b390520c27d6b0fe1e9c4608402b8ef9eda788ea
                         <div class="mt-auto">
                             <a href="{% url 'news:news_detail' article.slug %}" class="btn btn-outline-primary">
                                 Read More <i class="fas fa-arrow-right ms-1"></i>
