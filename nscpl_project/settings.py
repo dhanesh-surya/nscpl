@@ -41,7 +41,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-rh+z-nh@nm(1=i35f*vhn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['13.61.9.147', 'nscplcg.in', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['13.61.9.147','www.nscplcg.in', 'nscplcg.in', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -159,10 +159,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+STATIC_ROOT = '/home/ubuntu/project2/nscpl/staticfiles/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = str(BASE_DIR / 'media')
+MEDIA_ROOT = '/home/ubuntu/project2/nscpl/media/'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
@@ -172,12 +172,12 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     },
 }
-STATICFILES_DIRS = [str(BASE_DIR / 'static')]
-STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+STATICFILES_DIRS = [(BASE_DIR / 'static')]
+STATIC_ROOT = (BASE_DIR / 'staticfiles')
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = str(BASE_DIR / 'media')
+MEDIA_ROOT = (BASE_DIR / 'media')
 
 # Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
